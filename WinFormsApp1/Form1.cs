@@ -52,22 +52,6 @@ namespace WinFormsApp1
             openParameterFilePathLabel.Text = parameterPath.Split("\\")[parameterPath.Split("\\").Length - 1];
 
 
-            //if (File.Exists(parameterPath))
-            //{
-            //    consoleLabel.Text = "已讀取參數檔 : " + "parameter1.ini" + "\n";
-            //    var data = parser.ReadFile(parameterPath);
-            //    imgBinaryWay = data["parameter"]["imgBinaryWay"];
-            //    InRangeUpperBound = int.Parse(data["parameter"]["InRangeUpperBound"]);
-            //    InRangeLowerBound = int.Parse(data["parameter"]["InRangeLowerBound"]);
-            //    DilateFlag = int.Parse(data["parameter"]["DilateFlag"]) == 1 ? true : false;
-            //    ErodeFlag = int.Parse(data["parameter"]["ErodeFlag"]) == 1 ? true : false;
-            //    Dilate_Erode_Mask_Size = int.Parse(data["parameter"]["Dilate_Erode_Mask_Size"]);
-            //    blob_maxArea = int.Parse(data["parameter"]["blob_maxArea"]);
-            //    blob_minRadius = int.Parse(data["parameter"]["blob_minRadius"]);
-            //    blob_maxRadius = int.Parse(data["parameter"]["blob_maxRadius"]);
-            //    blobAreaRatio = (double)int.Parse(data["parameter"]["blobAreaRatio"]) / 100;
-            //    findContoursWay = data["parameter"]["findContoursWay"];
-            //}
             loadParameterFile(parameterPath);
 
 
