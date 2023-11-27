@@ -22,7 +22,7 @@ namespace WinFormsApp1
         private Rectangle currentRect;
         private String rootPath = "";
         private String parameterFileName = "default_parameter.ini";
-        
+
         // 各項參數檔
         // imgToBinary function 部分
         private String imgBinaryWay = "Otsu";
@@ -515,7 +515,7 @@ namespace WinFormsApp1
             {
                 Mat elementImg = BitmapConverter.ToMat(new Bitmap(elementImgPanel.BackgroundImage));
                 Mat panel1BGImage = BitmapConverter.ToMat(new Bitmap(panel1.BackgroundImage));
-                Bitmap elementsImg = Functions.findElement(panel1BGImage, elementImg);
+                Bitmap elementsImg = Functions.findElement(panel1BGImage, elementImg, null);
                 //resizePanel(positionedImg, panel1);
                 panel1.BackgroundImage = elementsImg;
             }
@@ -656,6 +656,11 @@ namespace WinFormsApp1
             {
                 MessageBox.Show("非 .ini 參數檔案 ! 請重新選擇 !");
             }
+        }
+
+        private void rotateAngleTextBox_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

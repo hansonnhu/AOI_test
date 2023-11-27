@@ -48,6 +48,14 @@ public class Functions
         }
     }
 
+    public static Mat makeMask(Mat firstBinaImg, Mat secondBinaryImg)
+    {
+        // 以 or 運算製作 mask
+        Mat result = new Mat();
+        Cv2.BitwiseOr(firstBinaImg, secondBinaryImg, result);
+        return result;
+    }
+
     static int CountPixelsInContour(Mat image, OpenCvSharp.Point[] contour)
     {
         Mat mask = new Mat(image.Size(), MatType.CV_8UC1, Scalar.Black);
@@ -56,13 +64,14 @@ public class Functions
         mask.Dispose();
         return count;
     }
-    static bool IsCircle(OpenCvSharp.Point[] contour, double radius, int pixel_count_255, double blobAreaRatio)
-    {
-        //double perimeter = Cv2.ArcLength(contour, true);
-        //double circularity = 4 * Math.PI * pixelCount255 / Math.Pow(perimeter, 2);
-        double area_ratio = pixel_count_255 / (Math.Pow(radius, 2) * 3.14);
-        return area_ratio >= blobAreaRatio;
-    }
+    //static bool blobAreaRatioThresh(OpenCvSharp.Point[] contour, double radius, int pixel_count_255, double blobAreaRatioThresh)
+    //{
+    //    // blob 面積占比大於 blobAreaRatio
+    //    //double perimeter = Cv2.ArcLength(contour, true);
+    //    //double circularity = 4 * Math.PI * pixelCount255 / Math.Pow(perimeter, 2);
+    //    double area_ratio = pixel_count_255 / (Math.Pow(radius, 2) * 3.14);
+    //    return area_ratio >= blobAreaRatioThresh;
+    //}
 
     
     public static Bitmap rotateWithAngle(Mat src, double angle)
@@ -107,7 +116,7 @@ public class Functions
         int solderBalls_maxArea,
         int solderBalls_minRadius,
         int solderBalls_maxRadius,
-        double blobAreaRatio,
+        double blobAreaRatioThreshold,
         String findContoursWay)
     {
         // 分析blob
@@ -147,8 +156,14 @@ public class Functions
 
             int pixelCount255 = CountPixelsInContour(img_binary, cnt);
 
-            if (!IsCircle(cnt, radius, pixelCount255, blobAreaRatio))
+            //if (!IsCircle(cnt, radius, pixelCount255, blobAreaRatio))
+            //    continue;
+
+            double area_ratio = pixelCount255 / (Math.Pow(radius, 2) * 3.14);
+            // blob 面積占比大於 blobAreaRatioThreshold 才檢出
+            if (area_ratio < blobAreaRatioThreshold)
                 continue;
+
 
             var moments = Cv2.Moments(cnt);
             double x = moments.M10 / moments.M00;
@@ -166,7 +181,7 @@ public class Functions
 
     public static Bitmap findTarget(Mat img, Mat targetImg)
     {
-        // 找尋影像中的目標(晶圓)
+        // 最一開始找尋影像中的目標，用以定位及之後的 rotate 
         Console.WriteLine("This is findTarget Function");
 
         Mat result = new Mat();
@@ -198,9 +213,9 @@ public class Functions
         return tempBmp;
     }
 
-    public static Bitmap findElement(Mat img, Mat elementImg)
+    public static Bitmap findElement(Mat img, Mat elementImg, Mat mask)
     {
-        // 找尋影像中 element
+        // 以 pattern match 找尋影像中所需要的 element
         Console.WriteLine("This is findElement Function");
 
         Mat result = new Mat();
@@ -212,7 +227,7 @@ public class Functions
         Cv2.CvtColor(img, grayimg, ColorConversionCodes.BGR2GRAY);
 
         // 模板比對
-        Cv2.MatchTemplate(grayimg, grayElementImage, result, TemplateMatchModes.CCoeffNormed);
+        Cv2.MatchTemplate(grayimg, grayElementImage, result, TemplateMatchModes.CCoeffNormed, mask);
 
 
         // 取得匹配位置中的最大值和對應位置

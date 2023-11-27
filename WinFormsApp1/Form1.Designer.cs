@@ -417,6 +417,7 @@
             rotateAngleTextBox.Size = new Size(79, 23);
             rotateAngleTextBox.TabIndex = 21;
             rotateAngleTextBox.Text = "0";
+            rotateAngleTextBox.TextChanged += rotateAngleTextBox_TextChanged;
             // 
             // elementImgBtn
             // 
@@ -461,7 +462,7 @@
             imgBinaryTabCtrl.Controls.Add(tabPage4);
             imgBinaryTabCtrl.Controls.Add(tabPage3);
             imgBinaryTabCtrl.Location = new Point(15, 240);
-            imgBinaryTabCtrl.Margin = new Padding(2, 2, 2, 2);
+            imgBinaryTabCtrl.Margin = new Padding(2);
             imgBinaryTabCtrl.Name = "imgBinaryTabCtrl";
             imgBinaryTabCtrl.SelectedIndex = 0;
             imgBinaryTabCtrl.Size = new Size(377, 144);
@@ -477,9 +478,9 @@
             tabPage4.Controls.Add(InRangeLowerBoundScrollBar);
             tabPage4.Controls.Add(InRangeUpperBoundScrollBar);
             tabPage4.Location = new Point(4, 24);
-            tabPage4.Margin = new Padding(2, 2, 2, 2);
+            tabPage4.Margin = new Padding(2);
             tabPage4.Name = "tabPage4";
-            tabPage4.Padding = new Padding(2, 2, 2, 2);
+            tabPage4.Padding = new Padding(2);
             tabPage4.Size = new Size(369, 116);
             tabPage4.TabIndex = 1;
             tabPage4.Text = "InRange";
@@ -546,9 +547,9 @@
             // tabPage3
             // 
             tabPage3.Location = new Point(4, 24);
-            tabPage3.Margin = new Padding(2, 2, 2, 2);
+            tabPage3.Margin = new Padding(2);
             tabPage3.Name = "tabPage3";
-            tabPage3.Padding = new Padding(2, 2, 2, 2);
+            tabPage3.Padding = new Padding(2);
             tabPage3.Size = new Size(369, 116);
             tabPage3.TabIndex = 0;
             tabPage3.Text = "Otsu";
@@ -567,7 +568,7 @@
             // 
             TabGroup.Controls.Add(tabPage2);
             TabGroup.Location = new Point(13, 456);
-            TabGroup.Margin = new Padding(2, 2, 2, 2);
+            TabGroup.Margin = new Padding(2);
             TabGroup.Name = "TabGroup";
             TabGroup.SelectedIndex = 0;
             TabGroup.Size = new Size(451, 291);
@@ -591,9 +592,9 @@
             tabPage2.Controls.Add(blob_maxAreaBar);
             tabPage2.Controls.Add(blobDetectButton);
             tabPage2.Location = new Point(4, 24);
-            tabPage2.Margin = new Padding(2, 2, 2, 2);
+            tabPage2.Margin = new Padding(2);
             tabPage2.Name = "tabPage2";
-            tabPage2.Padding = new Padding(2, 2, 2, 2);
+            tabPage2.Padding = new Padding(2);
             tabPage2.Size = new Size(443, 263);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "blob偵測";
@@ -749,9 +750,9 @@
             saveGroup.Controls.Add(label1);
             saveGroup.Controls.Add(saveImgBtn);
             saveGroup.Location = new Point(13, 783);
-            saveGroup.Margin = new Padding(2, 2, 2, 2);
+            saveGroup.Margin = new Padding(2);
             saveGroup.Name = "saveGroup";
-            saveGroup.Padding = new Padding(2, 2, 2, 2);
+            saveGroup.Padding = new Padding(2);
             saveGroup.Size = new Size(454, 77);
             saveGroup.TabIndex = 15;
             saveGroup.TabStop = false;
