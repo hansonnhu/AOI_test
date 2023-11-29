@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "GdA542VI1vz770b7AJSkePu2pI/qhWJLUf7WIcvK0ZXTPGPpc9YpNz2fxif8uJGRUivLUz1iFAeXI8Si7E1akQ==",
+  "dgSpecHash": "V6s3eW1ppCjxh7n6l4k60cjH5yapOtIQQrXPef7ihm0BQdht9KVsqT+B/1GB9k4eoIdth2uKjJ6m1rLIJ8z/aQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\hu\\Desktop\\AOI_test\\AOI_test\\WinFormsApp1\\WinFormsApp1.csproj",
+  "projectFilePath": "C:\\Users\\hu\\Desktop\\AOI_test\\WinFormsApp1\\WinFormsApp1.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\hu\\.nuget\\packages\\diskordia.undomanager\\1.0.17\\diskordia.undomanager.1.0.17.nupkg.sha512",
     "C:\\Users\\hu\\.nuget\\packages\\ini-parser\\2.5.2\\ini-parser.2.5.2.nupkg.sha512",
