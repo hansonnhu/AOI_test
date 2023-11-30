@@ -55,33 +55,9 @@ namespace WinFormsApp1
             loadParameterFile(parameterPath);
 
 
-
             // 每個物件的 margin 設定，與物件初始值設定
             int marginSize = 50;
-            InRangeUpperBoundScrollBar.Value = InRangeUpperBound;
-            InRangeUpperBoundLabel.Text = InRangeUpperBound.ToString();
 
-            InRangeLowerBoundScrollBar.Value = InRangeLowerBound;
-            InRangeLowerBoundLabel.Text = InRangeLowerBound.ToString();
-
-            blob_maxAreaBar.Value = blob_maxArea;
-            blob_maxAreaLabel.Text = blob_maxArea.ToString();
-
-            blob_minRadiusBar.Value = blob_minRadius;
-            blob_minRadiusLabel.Text = blob_minRadius.ToString();
-
-            blob_maxRadiusBar.Value = blob_maxRadius;
-            blob_maxRadiusLabel.Text = blob_maxRadius.ToString();
-
-            blobAreaRatioBar.Value = Convert.ToInt32(blobAreaRatio * 100);
-            blob_AreaRatioLabel.Text = Convert.ToInt32(blobAreaRatio * 100).ToString();
-
-            FindContoursWayComboBox.SelectedItem = FindContoursWayComboBox.Items.Cast<dynamic>().FirstOrDefault(x => x == findContoursWay);
-
-
-            DilateFlagCheckBox.Checked = DilateFlag;
-            ErodeFlagCheckBox.Checked = ErodeFlag;
-            Dilate_Erode_Mask_Size_NumericUpDown.Value = Dilate_Erode_Mask_Size;
 
 
             // 讓視窗全螢幕
@@ -102,10 +78,14 @@ namespace WinFormsApp1
             functionBtnGroup.Size = new System.Drawing.Size(Screen.PrimaryScreen.Bounds.Width / 2 - 3 * marginSize, Screen.PrimaryScreen.Bounds.Height - 2 * marginSize);
         }
 
+
+
         public void loadParameterFile(String iniFilePath)
         {
+            // 讀取參數檔，並且將數值更新於介面
             if (File.Exists(iniFilePath))
             {
+                // 讀取參數檔
                 var parser = new FileIniDataParser();
                 consoleLabel.Text = "已讀取參數檔 : " + "parameter1.ini" + "\n";
                 var data = parser.ReadFile(iniFilePath);
@@ -120,6 +100,32 @@ namespace WinFormsApp1
                 blob_maxRadius = int.Parse(data["parameter"]["blob_maxRadius"]);
                 blobAreaRatio = (double)int.Parse(data["parameter"]["blobAreaRatio"]) / 100;
                 findContoursWay = data["parameter"]["findContoursWay"];
+
+
+                // 將數值更新於介面
+                InRangeUpperBoundScrollBar.Value = InRangeUpperBound;
+                InRangeUpperBoundLabel.Text = InRangeUpperBound.ToString();
+
+                InRangeLowerBoundScrollBar.Value = InRangeLowerBound;
+                InRangeLowerBoundLabel.Text = InRangeLowerBound.ToString();
+
+                blob_maxAreaBar.Value = blob_maxArea;
+                blob_maxAreaLabel.Text = blob_maxArea.ToString();
+
+                blob_minRadiusBar.Value = blob_minRadius;
+                blob_minRadiusLabel.Text = blob_minRadius.ToString();
+
+                blob_maxRadiusBar.Value = blob_maxRadius;
+                blob_maxRadiusLabel.Text = blob_maxRadius.ToString();
+
+                blobAreaRatioBar.Value = Convert.ToInt32(blobAreaRatio * 100);
+                blob_AreaRatioLabel.Text = Convert.ToInt32(blobAreaRatio * 100).ToString();
+
+                FindContoursWayComboBox.SelectedItem = FindContoursWayComboBox.Items.Cast<dynamic>().FirstOrDefault(x => x == findContoursWay);
+
+                DilateFlagCheckBox.Checked = DilateFlag;
+                ErodeFlagCheckBox.Checked = ErodeFlag;
+                Dilate_Erode_Mask_Size_NumericUpDown.Value = Dilate_Erode_Mask_Size;
             }
         }
 
@@ -648,8 +654,9 @@ namespace WinFormsApp1
             if (openFileDialog1.ShowDialog() == DialogResult.OK && openFileDialog1.FileName.Contains(".ini"))
             {
                 String iniFilePath = openFileDialog1.FileName;
-                openParameterFilePathLabel.Text = iniFilePath;
+                //openParameterFilePathLabel.Text = iniFilePath;
                 openParameterFilePathLabel.Text = iniFilePath.Split("\\")[iniFilePath.Split("\\").Length - 1];
+                loadParameterFile(iniFilePath);
 
             }
             else
