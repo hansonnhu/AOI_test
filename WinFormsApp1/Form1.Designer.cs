@@ -59,22 +59,19 @@
             elementImgPanel = new Panel();
             TabGroup = new TabControl();
             tabPage1 = new TabPage();
-            rotateBtn = new Button();
-            numericUpDown1 = new NumericUpDown();
-            checkBox1 = new CheckBox();
-            checkBox2 = new CheckBox();
+            rotateImg_Dilate_Erode_Mask_Size_NumericUpDown = new NumericUpDown();
+            rotateImg_ErodeFlagCheckBox = new CheckBox();
+            rotateImg_DilateFlagCheckBox = new CheckBox();
             label14 = new Label();
             label15 = new Label();
-            button1 = new Button();
-            tabControl1 = new TabControl();
-            tabPage5 = new TabPage();
             label16 = new Label();
+            rotateBtn = new Button();
             label17 = new Label();
-            label18 = new Label();
-            label19 = new Label();
-            hScrollBar1 = new HScrollBar();
-            hScrollBar2 = new HScrollBar();
-            tabPage6 = new TabPage();
+            rotateImg_InRangeLowerBoundLabel = new Label();
+            rotateImg_InRangeUpperBoundLabel = new Label();
+            rotateImg_InRangeLowerBoundScrollBar = new HScrollBar();
+            rotateImg_InRangeUpperBoundScrollBar = new HScrollBar();
+            CannyBtn = new Button();
             label20 = new Label();
             tabPage2 = new TabPage();
             FindContoursWayComboBox = new ComboBox();
@@ -122,9 +119,7 @@
             ConsoleGroupBox.SuspendLayout();
             TabGroup.SuspendLayout();
             tabPage1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
-            tabControl1.SuspendLayout();
-            tabPage5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)rotateImg_Dilate_Erode_Mask_Size_NumericUpDown).BeginInit();
             tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)blobDetect_Dilate_Erode_Mask_Size_NumericUpDown).BeginInit();
             blobDetect_imgBinaryTabCtrl.SuspendLayout();
@@ -422,14 +417,19 @@
             // 
             // tabPage1
             // 
-            tabPage1.Controls.Add(rotateBtn);
-            tabPage1.Controls.Add(numericUpDown1);
-            tabPage1.Controls.Add(checkBox1);
-            tabPage1.Controls.Add(checkBox2);
+            tabPage1.Controls.Add(rotateImg_Dilate_Erode_Mask_Size_NumericUpDown);
+            tabPage1.Controls.Add(rotateImg_ErodeFlagCheckBox);
+            tabPage1.Controls.Add(rotateImg_DilateFlagCheckBox);
             tabPage1.Controls.Add(label14);
             tabPage1.Controls.Add(label15);
-            tabPage1.Controls.Add(button1);
-            tabPage1.Controls.Add(tabControl1);
+            tabPage1.Controls.Add(label16);
+            tabPage1.Controls.Add(rotateBtn);
+            tabPage1.Controls.Add(label17);
+            tabPage1.Controls.Add(rotateImg_InRangeLowerBoundLabel);
+            tabPage1.Controls.Add(rotateImg_InRangeUpperBoundLabel);
+            tabPage1.Controls.Add(rotateImg_InRangeLowerBoundScrollBar);
+            tabPage1.Controls.Add(rotateImg_InRangeUpperBoundScrollBar);
+            tabPage1.Controls.Add(CannyBtn);
             tabPage1.Controls.Add(label20);
             tabPage1.Location = new Point(4, 24);
             tabPage1.Name = "tabPage1";
@@ -439,6 +439,67 @@
             tabPage1.Text = "轉正";
             tabPage1.UseVisualStyleBackColor = true;
             // 
+            // rotateImg_Dilate_Erode_Mask_Size_NumericUpDown
+            // 
+            rotateImg_Dilate_Erode_Mask_Size_NumericUpDown.Increment = new decimal(new int[] { 2, 0, 0, 0 });
+            rotateImg_Dilate_Erode_Mask_Size_NumericUpDown.Location = new Point(203, 179);
+            rotateImg_Dilate_Erode_Mask_Size_NumericUpDown.Maximum = new decimal(new int[] { 17, 0, 0, 0 });
+            rotateImg_Dilate_Erode_Mask_Size_NumericUpDown.Minimum = new decimal(new int[] { 3, 0, 0, 0 });
+            rotateImg_Dilate_Erode_Mask_Size_NumericUpDown.Name = "rotateImg_Dilate_Erode_Mask_Size_NumericUpDown";
+            rotateImg_Dilate_Erode_Mask_Size_NumericUpDown.Size = new Size(74, 23);
+            rotateImg_Dilate_Erode_Mask_Size_NumericUpDown.TabIndex = 39;
+            rotateImg_Dilate_Erode_Mask_Size_NumericUpDown.Value = new decimal(new int[] { 3, 0, 0, 0 });
+            rotateImg_Dilate_Erode_Mask_Size_NumericUpDown.ValueChanged += rotateImg_Dilate_Erode_Mask_Size_NumericUpDown_ValueChanged;
+            // 
+            // rotateImg_ErodeFlagCheckBox
+            // 
+            rotateImg_ErodeFlagCheckBox.AutoSize = true;
+            rotateImg_ErodeFlagCheckBox.Location = new Point(68, 183);
+            rotateImg_ErodeFlagCheckBox.Name = "rotateImg_ErodeFlagCheckBox";
+            rotateImg_ErodeFlagCheckBox.Size = new Size(50, 19);
+            rotateImg_ErodeFlagCheckBox.TabIndex = 38;
+            rotateImg_ErodeFlagCheckBox.Text = "侵蝕";
+            rotateImg_ErodeFlagCheckBox.UseVisualStyleBackColor = true;
+            rotateImg_ErodeFlagCheckBox.CheckedChanged += rotateImg_ErodeFlagCheckBox_CheckedChanged;
+            // 
+            // rotateImg_DilateFlagCheckBox
+            // 
+            rotateImg_DilateFlagCheckBox.AutoSize = true;
+            rotateImg_DilateFlagCheckBox.Location = new Point(12, 183);
+            rotateImg_DilateFlagCheckBox.Name = "rotateImg_DilateFlagCheckBox";
+            rotateImg_DilateFlagCheckBox.Size = new Size(50, 19);
+            rotateImg_DilateFlagCheckBox.TabIndex = 37;
+            rotateImg_DilateFlagCheckBox.Text = "膨脹";
+            rotateImg_DilateFlagCheckBox.UseVisualStyleBackColor = true;
+            rotateImg_DilateFlagCheckBox.CheckedChanged += rotateImg_DilateFlagCheckBox_CheckedChanged;
+            // 
+            // label14
+            // 
+            label14.AutoSize = true;
+            label14.Location = new Point(134, 184);
+            label14.Name = "label14";
+            label14.Size = new Size(63, 15);
+            label14.TabIndex = 36;
+            label14.Text = "mask 大小";
+            // 
+            // label15
+            // 
+            label15.AutoSize = true;
+            label15.Location = new Point(8, 162);
+            label15.Name = "label15";
+            label15.Size = new Size(103, 15);
+            label15.TabIndex = 35;
+            label15.Text = "二值化膨脹與侵蝕";
+            // 
+            // label16
+            // 
+            label16.AutoSize = true;
+            label16.Location = new Point(8, 90);
+            label16.Name = "label16";
+            label16.Size = new Size(79, 15);
+            label16.TabIndex = 20;
+            label16.Text = "lower bound";
+            // 
             // rotateBtn
             // 
             rotateBtn.Location = new Point(344, 459);
@@ -447,169 +508,78 @@
             rotateBtn.TabIndex = 34;
             rotateBtn.Text = "轉正";
             rotateBtn.UseVisualStyleBackColor = true;
-            rotateBtn.Click += rotateBtn_Click;
-            // 
-            // numericUpDown1
-            // 
-            numericUpDown1.Increment = new decimal(new int[] { 2, 0, 0, 0 });
-            numericUpDown1.Location = new Point(201, 183);
-            numericUpDown1.Maximum = new decimal(new int[] { 17, 0, 0, 0 });
-            numericUpDown1.Minimum = new decimal(new int[] { 3, 0, 0, 0 });
-            numericUpDown1.Name = "numericUpDown1";
-            numericUpDown1.Size = new Size(74, 23);
-            numericUpDown1.TabIndex = 33;
-            numericUpDown1.Value = new decimal(new int[] { 3, 0, 0, 0 });
-            // 
-            // checkBox1
-            // 
-            checkBox1.AutoSize = true;
-            checkBox1.Location = new Point(66, 187);
-            checkBox1.Name = "checkBox1";
-            checkBox1.Size = new Size(50, 19);
-            checkBox1.TabIndex = 32;
-            checkBox1.Text = "侵蝕";
-            checkBox1.UseVisualStyleBackColor = true;
-            // 
-            // checkBox2
-            // 
-            checkBox2.AutoSize = true;
-            checkBox2.Location = new Point(10, 187);
-            checkBox2.Name = "checkBox2";
-            checkBox2.Size = new Size(50, 19);
-            checkBox2.TabIndex = 31;
-            checkBox2.Text = "膨脹";
-            checkBox2.UseVisualStyleBackColor = true;
-            // 
-            // label14
-            // 
-            label14.AutoSize = true;
-            label14.Location = new Point(132, 188);
-            label14.Name = "label14";
-            label14.Size = new Size(63, 15);
-            label14.TabIndex = 30;
-            label14.Text = "mask 大小";
-            // 
-            // label15
-            // 
-            label15.AutoSize = true;
-            label15.Location = new Point(6, 166);
-            label15.Name = "label15";
-            label15.Size = new Size(103, 15);
-            label15.TabIndex = 29;
-            label15.Text = "二值化膨脹與侵蝕";
-            // 
-            // button1
-            // 
-            button1.Location = new Point(344, 178);
-            button1.Name = "button1";
-            button1.Size = new Size(88, 28);
-            button1.TabIndex = 26;
-            button1.Text = "二值化測試";
-            button1.UseVisualStyleBackColor = true;
-            // 
-            // tabControl1
-            // 
-            tabControl1.Controls.Add(tabPage5);
-            tabControl1.Controls.Add(tabPage6);
-            tabControl1.Location = new Point(6, 20);
-            tabControl1.Margin = new Padding(2);
-            tabControl1.Name = "tabControl1";
-            tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(377, 144);
-            tabControl1.TabIndex = 28;
-            // 
-            // tabPage5
-            // 
-            tabPage5.Controls.Add(label16);
-            tabPage5.Controls.Add(label17);
-            tabPage5.Controls.Add(label18);
-            tabPage5.Controls.Add(label19);
-            tabPage5.Controls.Add(hScrollBar1);
-            tabPage5.Controls.Add(hScrollBar2);
-            tabPage5.Location = new Point(4, 24);
-            tabPage5.Margin = new Padding(2);
-            tabPage5.Name = "tabPage5";
-            tabPage5.Padding = new Padding(2);
-            tabPage5.Size = new Size(369, 116);
-            tabPage5.TabIndex = 1;
-            tabPage5.Text = "InRange";
-            tabPage5.UseVisualStyleBackColor = true;
-            // 
-            // label16
-            // 
-            label16.AutoSize = true;
-            label16.Location = new Point(13, 65);
-            label16.Name = "label16";
-            label16.Size = new Size(79, 15);
-            label16.TabIndex = 20;
-            label16.Text = "lower bound";
+            rotateBtn.Click += rotateImgBtn_Click;
             // 
             // label17
             // 
             label17.AutoSize = true;
-            label17.Location = new Point(13, 7);
+            label17.Location = new Point(8, 32);
             label17.Name = "label17";
             label17.Size = new Size(82, 15);
             label17.TabIndex = 19;
             label17.Text = "upper bound";
             // 
-            // label18
+            // rotateImg_InRangeLowerBoundLabel
             // 
-            label18.AutoSize = true;
-            label18.Location = new Point(319, 87);
-            label18.Margin = new Padding(2, 0, 2, 0);
-            label18.Name = "label18";
-            label18.Size = new Size(21, 15);
-            label18.TabIndex = 4;
-            label18.Text = "50";
+            rotateImg_InRangeLowerBoundLabel.AutoSize = true;
+            rotateImg_InRangeLowerBoundLabel.Location = new Point(314, 112);
+            rotateImg_InRangeLowerBoundLabel.Margin = new Padding(2, 0, 2, 0);
+            rotateImg_InRangeLowerBoundLabel.Name = "rotateImg_InRangeLowerBoundLabel";
+            rotateImg_InRangeLowerBoundLabel.Size = new Size(21, 15);
+            rotateImg_InRangeLowerBoundLabel.TabIndex = 4;
+            rotateImg_InRangeLowerBoundLabel.Text = "50";
             // 
-            // label19
+            // rotateImg_InRangeUpperBoundLabel
             // 
-            label19.AutoSize = true;
-            label19.Location = new Point(319, 29);
-            label19.Margin = new Padding(2, 0, 2, 0);
-            label19.Name = "label19";
-            label19.Size = new Size(28, 15);
-            label19.TabIndex = 3;
-            label19.Text = "200";
+            rotateImg_InRangeUpperBoundLabel.AutoSize = true;
+            rotateImg_InRangeUpperBoundLabel.Location = new Point(314, 54);
+            rotateImg_InRangeUpperBoundLabel.Margin = new Padding(2, 0, 2, 0);
+            rotateImg_InRangeUpperBoundLabel.Name = "rotateImg_InRangeUpperBoundLabel";
+            rotateImg_InRangeUpperBoundLabel.Size = new Size(28, 15);
+            rotateImg_InRangeUpperBoundLabel.TabIndex = 3;
+            rotateImg_InRangeUpperBoundLabel.Text = "200";
             // 
-            // hScrollBar1
+            // rotateImg_InRangeLowerBoundScrollBar
             // 
-            hScrollBar1.LargeChange = 1;
-            hScrollBar1.Location = new Point(11, 78);
-            hScrollBar1.Maximum = 255;
-            hScrollBar1.Name = "hScrollBar1";
-            hScrollBar1.Size = new Size(298, 31);
-            hScrollBar1.TabIndex = 2;
+            rotateImg_InRangeLowerBoundScrollBar.LargeChange = 1;
+            rotateImg_InRangeLowerBoundScrollBar.Location = new Point(6, 103);
+            rotateImg_InRangeLowerBoundScrollBar.Maximum = 200;
+            rotateImg_InRangeLowerBoundScrollBar.Name = "rotateImg_InRangeLowerBoundScrollBar";
+            rotateImg_InRangeLowerBoundScrollBar.Size = new Size(298, 31);
+            rotateImg_InRangeLowerBoundScrollBar.TabIndex = 2;
+            rotateImg_InRangeLowerBoundScrollBar.Scroll += rotateImg_InRangeLowerBoundScrollBar_Scroll;
             // 
-            // hScrollBar2
+            // rotateImg_InRangeUpperBoundScrollBar
             // 
-            hScrollBar2.LargeChange = 1;
-            hScrollBar2.Location = new Point(11, 20);
-            hScrollBar2.Maximum = 255;
-            hScrollBar2.Name = "hScrollBar2";
-            hScrollBar2.Size = new Size(298, 30);
-            hScrollBar2.TabIndex = 1;
+            rotateImg_InRangeUpperBoundScrollBar.LargeChange = 1;
+            rotateImg_InRangeUpperBoundScrollBar.Location = new Point(6, 45);
+            rotateImg_InRangeUpperBoundScrollBar.Maximum = 400;
+            rotateImg_InRangeUpperBoundScrollBar.Minimum = 100;
+            rotateImg_InRangeUpperBoundScrollBar.Name = "rotateImg_InRangeUpperBoundScrollBar";
+            rotateImg_InRangeUpperBoundScrollBar.Size = new Size(298, 30);
+            rotateImg_InRangeUpperBoundScrollBar.TabIndex = 1;
+            rotateImg_InRangeUpperBoundScrollBar.Value = 100;
+            rotateImg_InRangeUpperBoundScrollBar.Scroll += rotateImg_InRangeUpperBoundScrollBar_Scroll;
             // 
-            // tabPage6
+            // CannyBtn
             // 
-            tabPage6.Location = new Point(4, 24);
-            tabPage6.Margin = new Padding(2);
-            tabPage6.Name = "tabPage6";
-            tabPage6.Padding = new Padding(2);
-            tabPage6.Size = new Size(369, 116);
-            tabPage6.TabIndex = 0;
-            tabPage6.Text = "Otsu";
-            tabPage6.UseVisualStyleBackColor = true;
+            CannyBtn.Location = new Point(328, 178);
+            CannyBtn.Name = "CannyBtn";
+            CannyBtn.Size = new Size(104, 28);
+            CannyBtn.TabIndex = 26;
+            CannyBtn.Text = "邊緣二值化測試";
+            CannyBtn.UseVisualStyleBackColor = true;
+            CannyBtn.Click += CannyBtn_Click;
             // 
             // label20
             // 
             label20.AutoSize = true;
-            label20.Location = new Point(6, 3);
+            label20.ForeColor = SystemColors.ControlText;
+            label20.Location = new Point(6, 12);
             label20.Name = "label20";
-            label20.Size = new Size(79, 15);
+            label20.Size = new Size(129, 15);
             label20.TabIndex = 27;
-            label20.Text = "二值化演算法";
+            label20.Text = "Canny 邊緣偵測二值化";
             // 
             // tabPage2
             // 
@@ -1056,10 +1026,7 @@
             TabGroup.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
             tabPage1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
-            tabControl1.ResumeLayout(false);
-            tabPage5.ResumeLayout(false);
-            tabPage5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)rotateImg_Dilate_Erode_Mask_Size_NumericUpDown).EndInit();
             tabPage2.ResumeLayout(false);
             tabPage2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)blobDetect_Dilate_Erode_Mask_Size_NumericUpDown).EndInit();
@@ -1143,22 +1110,19 @@
         private Button openParameterFileBtn;
         private TextBox openParameterFilePathLabel;
         private TabPage tabPage1;
-        private NumericUpDown numericUpDown1;
-        private CheckBox checkBox1;
-        private CheckBox checkBox2;
-        private Label label14;
-        private Label label15;
-        private Button button1;
-        private TabControl tabControl1;
-        private TabPage tabPage5;
+        private Button CannyBtn;
         private Label label16;
         private Label label17;
-        private Label label18;
-        private Label label19;
-        private HScrollBar hScrollBar1;
-        private HScrollBar hScrollBar2;
-        private TabPage tabPage6;
+        private Label rotateImg_InRangeLowerBoundLabel;
+        private Label rotateImg_InRangeUpperBoundLabel;
+        private HScrollBar rotateImg_InRangeLowerBoundScrollBar;
+        private HScrollBar rotateImg_InRangeUpperBoundScrollBar;
         private Label label20;
         private Button rotateBtn;
+        private NumericUpDown rotateImg_Dilate_Erode_Mask_Size_NumericUpDown;
+        private CheckBox rotateImg_ErodeFlagCheckBox;
+        private CheckBox rotateImg_DilateFlagCheckBox;
+        private Label label14;
+        private Label label15;
     }
 }

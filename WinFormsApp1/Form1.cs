@@ -725,17 +725,105 @@ namespace WinFormsApp1
 
         }
 
-        private void rotateBtn_Click(object sender, EventArgs e)
+        private void rotateImgBtn_Click(object sender, EventArgs e)
         {
             Bitmap resultImg = Functions.imgRotate(
                 BitmapConverter.ToMat(positionedImg),
                 BitmapConverter.ToMat(targetImg),
-                blobDetectPara.imgBinaryWay,
-                blobDetectPara.InRangeUpperBound,
-                blobDetectPara.InRangeLowerBound,
-                blobDetectPara.DilateFlag,
-                blobDetectPara.ErodeFlag,
-                blobDetectPara.Dilate_Erode_Mask_Size);
+                rotateImg_InRangeUpperBoundScrollBar.Value,
+                rotateImg_InRangeLowerBoundScrollBar.Value,
+                rotateImg_DilateFlagCheckBox.Checked,
+                rotateImg_ErodeFlagCheckBox.Checked,
+                Convert.ToInt32(rotateImg_Dilate_Erode_Mask_Size_NumericUpDown.Value));
+
+            panel1.BackgroundImage = resultImg;
+        }
+
+        private void rotateImg_InRangeUpperBoundScrollBar_Scroll(object sender, ScrollEventArgs e)
+        {
+            rotateImg_InRangeUpperBoundLabel.Text = rotateImg_InRangeUpperBoundScrollBar.Value.ToString();
+
+
+            Bitmap resultImg = Functions.imgCanny(
+                BitmapConverter.ToMat(positionedImg),
+                rotateImg_InRangeUpperBoundScrollBar.Value,
+                rotateImg_InRangeLowerBoundScrollBar.Value,
+                rotateImg_DilateFlagCheckBox.Checked,
+                rotateImg_ErodeFlagCheckBox.Checked,
+                Convert.ToInt32(rotateImg_Dilate_Erode_Mask_Size_NumericUpDown.Value));
+
+            panel1.BackgroundImage = resultImg;
+        }
+
+        private void rotateImg_InRangeLowerBoundScrollBar_Scroll(object sender, ScrollEventArgs e)
+        {
+            rotateImg_InRangeLowerBoundLabel.Text = rotateImg_InRangeLowerBoundScrollBar.Value.ToString();
+
+
+            Bitmap resultImg = Functions.imgCanny(
+                BitmapConverter.ToMat(positionedImg),
+                rotateImg_InRangeUpperBoundScrollBar.Value,
+                rotateImg_InRangeLowerBoundScrollBar.Value,
+                rotateImg_DilateFlagCheckBox.Checked,
+                rotateImg_ErodeFlagCheckBox.Checked,
+                Convert.ToInt32(rotateImg_Dilate_Erode_Mask_Size_NumericUpDown.Value));
+
+            panel1.BackgroundImage = resultImg;
+        }
+
+        private void CannyBtn_Click(object sender, EventArgs e)
+        {
+            Bitmap resultImg = Functions.imgCanny(
+                BitmapConverter.ToMat(positionedImg),
+                rotateImg_InRangeUpperBoundScrollBar.Value,
+                rotateImg_InRangeLowerBoundScrollBar.Value,
+                rotateImg_DilateFlagCheckBox.Checked,
+                rotateImg_ErodeFlagCheckBox.Checked,
+                Convert.ToInt32(rotateImg_Dilate_Erode_Mask_Size_NumericUpDown.Value));
+
+            panel1.BackgroundImage = resultImg;
+        }
+
+        private void rotateImg_DilateFlagCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+
+            Bitmap resultImg = Functions.imgCanny(
+                BitmapConverter.ToMat(positionedImg),
+                rotateImg_InRangeUpperBoundScrollBar.Value,
+                rotateImg_InRangeLowerBoundScrollBar.Value,
+                rotateImg_DilateFlagCheckBox.Checked,
+                rotateImg_ErodeFlagCheckBox.Checked,
+                Convert.ToInt32(rotateImg_Dilate_Erode_Mask_Size_NumericUpDown.Value));
+
+            panel1.BackgroundImage = resultImg;
+        }
+
+        private void rotateImg_ErodeFlagCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+
+            Bitmap resultImg = Functions.imgCanny(
+                BitmapConverter.ToMat(positionedImg),
+                rotateImg_InRangeUpperBoundScrollBar.Value,
+                rotateImg_InRangeLowerBoundScrollBar.Value,
+                rotateImg_DilateFlagCheckBox.Checked,
+                rotateImg_ErodeFlagCheckBox.Checked,
+                Convert.ToInt32(rotateImg_Dilate_Erode_Mask_Size_NumericUpDown.Value));
+
+            panel1.BackgroundImage = resultImg;
+
+        }
+
+        private void rotateImg_Dilate_Erode_Mask_Size_NumericUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            //blobDetectPara.Dilate_Erode_Mask_Size = Convert.ToInt32(blobDetect_Dilate_Erode_Mask_Size_NumericUpDown.Value);
+
+            Bitmap resultImg = Functions.imgCanny(
+                BitmapConverter.ToMat(positionedImg),
+                rotateImg_InRangeUpperBoundScrollBar.Value,
+                rotateImg_InRangeLowerBoundScrollBar.Value,
+                rotateImg_DilateFlagCheckBox.Checked,
+                rotateImg_ErodeFlagCheckBox.Checked,
+                Convert.ToInt32(rotateImg_Dilate_Erode_Mask_Size_NumericUpDown.Value));
 
             panel1.BackgroundImage = resultImg;
         }

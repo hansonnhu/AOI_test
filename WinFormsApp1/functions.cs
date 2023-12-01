@@ -5,6 +5,8 @@ using System.Diagnostics;
 using System;
 using System.Net.NetworkInformation;
 using System.Numerics;
+using System.Windows.Forms.VisualStyles;
+using System.Xml.Linq;
 
 
 public class Functions
@@ -65,10 +67,11 @@ public class Functions
         mask.Dispose();
         return count;
     }
-    public static Bitmap imgRotate(Mat img, Mat targetImg, 
-        String binaryWay,
-        int InRangeUpperBound,
-        int InRangeLowerBound,
+    public static Bitmap imgRotate(
+        Mat img, 
+        Mat targetImg, 
+        int CannyUpperBound,
+        int CannyLowerBound,
         bool DilateFlag,
         bool ErodeFlag,
         int Dilate_Erode_Mask_Size)
@@ -77,11 +80,11 @@ public class Functions
         // 先大約找出目標物(模板比對)
         Mat TImg= BitmapConverter.ToMat(findTarget(img, targetImg));
         Mat TImgBinary;
-        // 二值化
-        TImgBinary = BitmapConverter.ToMat(imgToBinary(TImg,
-            binaryWay,
-            InRangeUpperBound,
-            InRangeLowerBound,
+        // Canny 邊緣二值化
+        TImgBinary = BitmapConverter.ToMat(imgCanny(
+            TImg, 
+            CannyUpperBound, 
+            CannyLowerBound,
             DilateFlag,
             ErodeFlag,
             Dilate_Erode_Mask_Size));
@@ -93,6 +96,7 @@ public class Functions
         int bottomPoint_x = -1;
         for (int i = 0; i < TImgBinary.Width; i++)
         {
+            Debug.WriteLine(TImgBinary.Get<byte>(topPoint_y, i));
             if (topPoint_x != -1 && bottomPoint_x != -1)
                 break;
             if (TImgBinary.Get<byte>(topPoint_y, i) == 255 && topPoint_x == -1) // (y, x)
@@ -114,7 +118,9 @@ public class Functions
 
         alsntDegrees += 90;// 讓起始點回歸到第一象限(原本在第四象限)
 
-        
+        Debug.WriteLine(topPoint);
+        Debug.WriteLine(bottomPoint);
+        Debug.WriteLine(alsntDegrees);
         return rotateWithAngle(TImg, alsntDegrees);
 
 
@@ -293,6 +299,7 @@ public class Functions
         return img.ToBitmap();
     }
 
+    // 二值化影像
     public static Bitmap imgToBinary(Mat img, 
         String binaryWay, 
         int InRangeUpperBound, 
@@ -334,5 +341,53 @@ public class Functions
 
         return BitmapConverter.ToBitmap(img_binary);
     }
+
+
+    // Canny 邊緣偵測二值化
+    public static Bitmap imgCanny(
+        Mat img,
+        int CannyUpperBound,
+        int CannyLowerBound,
+        bool DilateFlag,
+        bool ErodeFlag,
+        int Dilate_Erode_Mask_Size)
+    {
+        Mat img_binary = new Mat();
+
+
+        // 高斯模糊
+        OpenCvSharp.Size kernelSize = new OpenCvSharp.Size(5, 5);  // 设置高斯核的大小
+        double sigmaX = 0;  // 标准差，如果为0，OpenCV会自动计算
+        Cv2.GaussianBlur(img, img, kernelSize, sigmaX);
+        // 定义锐化卷积核
+        //InputArray kernel = InputArray.Create<float>(new float[3, 3] {
+        //    { 0, -1, 0 },
+        //    { -1, 3, -1 },
+        //    { 0, -1, 0 } });
+
+        //// 应用卷积核
+        //Cv2.Filter2D(img, img, MatType.CV_8U, kernel);
+
+        Cv2.Canny(
+            img, 
+            img_binary, 
+            CannyLowerBound, 
+            CannyUpperBound,
+            5);
+
+        // Dilate 或 Erode 使用
+        if (DilateFlag || ErodeFlag)
+        {
+            Mat element = Cv2.GetStructuringElement(MorphShapes.Rect, new OpenCvSharp.Size(Dilate_Erode_Mask_Size, Dilate_Erode_Mask_Size));
+            if (DilateFlag)
+                Cv2.Dilate(img_binary, img_binary, element);
+            if (ErodeFlag)
+                Cv2.Erode(img_binary, img_binary, element);
+        }
+
+
+        return BitmapConverter.ToBitmap(img_binary);
+    }
+
     // Add other functions as needed
 }
