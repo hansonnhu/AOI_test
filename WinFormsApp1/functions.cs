@@ -105,26 +105,19 @@ public class Functions
         Point2f bottomPoint = new Point2f(bottomPoint_x, bottomPoint_y);
 
         // 計算兩點之間之項向量
-        Vec2f vector = new Vec2f(bottomPoint.X - topPoint.X, bottomPoint.Y - topPoint.Y);
+        Vec2f vector = new Vec2f(topPoint.X - bottomPoint.X, topPoint.Y - bottomPoint.Y);
         double angleInRadians = Math.Atan2(vector.Item1, vector.Item0);
+        
 
         // 將弧度轉換為角度，此為傾斜角度
         double alsntDegrees = angleInRadians * (180.0 / Math.PI);
-        Debug.WriteLine(topPoint);
-        Debug.WriteLine(bottomPoint);
-        Debug.WriteLine(alsntDegrees);
-        if (alsntDegrees > 90)
-        {
-            return rotateWithAngle(TImg, alsntDegrees - 90);
-        }
-        if (alsntDegrees < 90)
-        {
-            return rotateWithAngle(TImg, 90 - alsntDegrees);
-        }
-        else
-        {
-            return BitmapConverter.ToBitmap(TImg);
-        }
+
+        alsntDegrees += 90;// 讓起始點回歸到第一象限(原本在第四象限)
+
+        
+        return rotateWithAngle(TImg, alsntDegrees);
+
+
     }
 
 
