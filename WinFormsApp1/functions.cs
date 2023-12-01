@@ -4,25 +4,26 @@ using OpenCvSharp.Extensions;
 using System.Diagnostics;
 using System;
 using System.Net.NetworkInformation;
+using System.Numerics;
 
 
 public class Functions
 {
     public int marginSize = 50;
-    public static byte[] ImageToByte(Image img)
-    {
-        // bmp to byte function
-        ImageConverter converter = new ImageConverter();
-        return (byte[])converter.ConvertTo(img, typeof(byte[]));
-    }
-    public static Bitmap ConvertByteArrayToBitmap(byte[] byteArray)
-    {
-        // byte to bmp function
-        using (var ms = new MemoryStream(byteArray))
-        {
-            return new Bitmap(ms);
-        }
-    }
+    //public static byte[] ImageToByte(Image img)
+    //{
+    //    // bmp to byte function
+    //    ImageConverter converter = new ImageConverter();
+    //    return (byte[])converter.ConvertTo(img, typeof(byte[]));
+    //}
+    //public static Bitmap ConvertByteArrayToBitmap(byte[] byteArray)
+    //{
+    //    // byte to bmp function
+    //    using (var ms = new MemoryStream(byteArray))
+    //    {
+    //        return new Bitmap(ms);
+    //    }
+    //}
     //旋轉圖像
     
     public static Bitmap CropBitmap(Bitmap source, Rectangle cropArea)
@@ -64,16 +65,69 @@ public class Functions
         mask.Dispose();
         return count;
     }
-    //static bool blobAreaRatioThresh(OpenCvSharp.Point[] contour, double radius, int pixel_count_255, double blobAreaRatioThresh)
-    //{
-    //    // blob 面積占比大於 blobAreaRatio
-    //    //double perimeter = Cv2.ArcLength(contour, true);
-    //    //double circularity = 4 * Math.PI * pixelCount255 / Math.Pow(perimeter, 2);
-    //    double area_ratio = pixel_count_255 / (Math.Pow(radius, 2) * 3.14);
-    //    return area_ratio >= blobAreaRatioThresh;
-    //}
+    public static Bitmap imgRotate(Mat img, Mat targetImg, 
+        String binaryWay,
+        int InRangeUpperBound,
+        int InRangeLowerBound,
+        bool DilateFlag,
+        bool ErodeFlag,
+        int Dilate_Erode_Mask_Size)
+    {
+        // 圖像自動轉正(方框)
+        // 先大約找出目標物(模板比對)
+        Mat TImg= BitmapConverter.ToMat(findTarget(img, targetImg));
+        Mat TImgBinary;
+        // 二值化
+        TImgBinary = BitmapConverter.ToMat(imgToBinary(TImg,
+            binaryWay,
+            InRangeUpperBound,
+            InRangeLowerBound,
+            DilateFlag,
+            ErodeFlag,
+            Dilate_Erode_Mask_Size));
 
-    
+        // 取得方框左邊的兩個點，並且求得斜率
+        int topPoint_y = Convert.ToInt32((double)TImgBinary.Height * 2 / 5);
+        int bottomPoint_y = Convert.ToInt32((double)TImgBinary.Height * 3 / 5);
+        int topPoint_x = -1;
+        int bottomPoint_x = -1;
+        for (int i = 0; i < TImgBinary.Width; i++)
+        {
+            if (topPoint_x != -1 && bottomPoint_x != -1)
+                break;
+            if (TImgBinary.Get<byte>(topPoint_y, i) == 255 && topPoint_x == -1) // (y, x)
+                topPoint_x = i;
+            if (TImgBinary.Get<byte>(bottomPoint_y, i) == 255 && bottomPoint_x == -1) // (y, x)
+                bottomPoint_x = i;
+        }
+
+        Point2f topPoint = new Point2f(topPoint_x, topPoint_y);
+        Point2f bottomPoint = new Point2f(bottomPoint_x, bottomPoint_y);
+
+        // 計算兩點之間之項向量
+        Vec2f vector = new Vec2f(bottomPoint.X - topPoint.X, bottomPoint.Y - topPoint.Y);
+        double angleInRadians = Math.Atan2(vector.Item1, vector.Item0);
+
+        // 將弧度轉換為角度，此為傾斜角度
+        double alsntDegrees = angleInRadians * (180.0 / Math.PI);
+        Debug.WriteLine(topPoint);
+        Debug.WriteLine(bottomPoint);
+        Debug.WriteLine(alsntDegrees);
+        if (alsntDegrees > 90)
+        {
+            return rotateWithAngle(TImg, alsntDegrees - 90);
+        }
+        if (alsntDegrees < 90)
+        {
+            return rotateWithAngle(TImg, 90 - alsntDegrees);
+        }
+        else
+        {
+            return BitmapConverter.ToBitmap(TImg);
+        }
+    }
+
+
     public static Bitmap rotateWithAngle(Mat src, double angle)
     {
         // 依角度旋轉圖片

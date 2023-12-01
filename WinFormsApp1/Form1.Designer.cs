@@ -49,46 +49,64 @@
             saveParameterLabel = new TextBox();
             saveParameterBtn = new Button();
             label13 = new Label();
-            Dilate_Erode_Mask_Size_NumericUpDown = new NumericUpDown();
-            ErodeFlagCheckBox = new CheckBox();
             ConsoleGroupBox = new GroupBox();
             consoleLabel = new Label();
-            DilateFlagCheckBox = new CheckBox();
-            rotateBtn = new Button();
-            label11 = new Label();
+            rotateBtn_test = new Button();
             label6 = new Label();
-            label7 = new Label();
             rotateAngleTextBox = new TextBox();
             elementImgBtn = new Button();
             findElementBtn = new Button();
             elementImgPanel = new Panel();
-            binaryImg = new Button();
-            imgBinaryTabCtrl = new TabControl();
-            tabPage4 = new TabPage();
-            label4 = new Label();
-            label2 = new Label();
-            InRangeLowerBoundLabel = new Label();
-            InRangeUpperBoundLabel = new Label();
-            InRangeLowerBoundScrollBar = new HScrollBar();
-            InRangeUpperBoundScrollBar = new HScrollBar();
-            tabPage3 = new TabPage();
-            label3 = new Label();
             TabGroup = new TabControl();
+            tabPage1 = new TabPage();
+            rotateBtn = new Button();
+            numericUpDown1 = new NumericUpDown();
+            checkBox1 = new CheckBox();
+            checkBox2 = new CheckBox();
+            label14 = new Label();
+            label15 = new Label();
+            button1 = new Button();
+            tabControl1 = new TabControl();
+            tabPage5 = new TabPage();
+            label16 = new Label();
+            label17 = new Label();
+            label18 = new Label();
+            label19 = new Label();
+            hScrollBar1 = new HScrollBar();
+            hScrollBar2 = new HScrollBar();
+            tabPage6 = new TabPage();
+            label20 = new Label();
             tabPage2 = new TabPage();
             FindContoursWayComboBox = new ComboBox();
+            blobDetect_Dilate_Erode_Mask_Size_NumericUpDown = new NumericUpDown();
             label12 = new Label();
+            blobDetect_ErodeFlagCheckBox = new CheckBox();
             blob_AreaRatioLabel = new Label();
             label9 = new Label();
+            blobDetect_DilateFlagCheckBox = new CheckBox();
             blobAreaRatioBar = new HScrollBar();
             blob_maxRadiusLabel = new Label();
+            label11 = new Label();
             label10 = new Label();
             blob_maxRadiusBar = new HScrollBar();
+            label7 = new Label();
             blob_minRadiusLabel = new Label();
             label8 = new Label();
             blob_minRadiusBar = new HScrollBar();
             blob_maxAreaLabel = new Label();
             label5 = new Label();
+            blobDetect_binaryImg = new Button();
+            blobDetect_imgBinaryTabCtrl = new TabControl();
+            tabPage4 = new TabPage();
+            label4 = new Label();
+            label2 = new Label();
+            blobDetect_InRangeLowerBoundLabel = new Label();
+            blobDetect_InRangeUpperBoundLabel = new Label();
+            blobDetect_InRangeLowerBoundScrollBar = new HScrollBar();
+            blobDetect_InRangeUpperBoundScrollBar = new HScrollBar();
+            tabPage3 = new TabPage();
             blob_maxAreaBar = new HScrollBar();
+            label3 = new Label();
             blobDetectButton = new Button();
             saveGroup = new GroupBox();
             label1 = new Label();
@@ -101,12 +119,16 @@
             pixelInfoGroup.SuspendLayout();
             functionBtnGroup.SuspendLayout();
             parameterFileGroup.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)Dilate_Erode_Mask_Size_NumericUpDown).BeginInit();
             ConsoleGroupBox.SuspendLayout();
-            imgBinaryTabCtrl.SuspendLayout();
-            tabPage4.SuspendLayout();
             TabGroup.SuspendLayout();
+            tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
+            tabControl1.SuspendLayout();
+            tabPage5.SuspendLayout();
             tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)blobDetect_Dilate_Erode_Mask_Size_NumericUpDown).BeginInit();
+            blobDetect_imgBinaryTabCtrl.SuspendLayout();
+            tabPage4.SuspendLayout();
             saveGroup.SuspendLayout();
             SuspendLayout();
             // 
@@ -229,21 +251,13 @@
             // functionBtnGroup
             // 
             functionBtnGroup.Controls.Add(parameterFileGroup);
-            functionBtnGroup.Controls.Add(Dilate_Erode_Mask_Size_NumericUpDown);
-            functionBtnGroup.Controls.Add(ErodeFlagCheckBox);
             functionBtnGroup.Controls.Add(ConsoleGroupBox);
-            functionBtnGroup.Controls.Add(DilateFlagCheckBox);
-            functionBtnGroup.Controls.Add(rotateBtn);
-            functionBtnGroup.Controls.Add(label11);
+            functionBtnGroup.Controls.Add(rotateBtn_test);
             functionBtnGroup.Controls.Add(label6);
-            functionBtnGroup.Controls.Add(label7);
             functionBtnGroup.Controls.Add(rotateAngleTextBox);
             functionBtnGroup.Controls.Add(elementImgBtn);
             functionBtnGroup.Controls.Add(findElementBtn);
             functionBtnGroup.Controls.Add(elementImgPanel);
-            functionBtnGroup.Controls.Add(binaryImg);
-            functionBtnGroup.Controls.Add(imgBinaryTabCtrl);
-            functionBtnGroup.Controls.Add(label3);
             functionBtnGroup.Controls.Add(TabGroup);
             functionBtnGroup.Controls.Add(saveGroup);
             functionBtnGroup.Controls.Add(targetImgPanel);
@@ -320,29 +334,6 @@
             label13.TabIndex = 7;
             label13.Text = ".ini";
             // 
-            // Dilate_Erode_Mask_Size_NumericUpDown
-            // 
-            Dilate_Erode_Mask_Size_NumericUpDown.Increment = new decimal(new int[] { 2, 0, 0, 0 });
-            Dilate_Erode_Mask_Size_NumericUpDown.Location = new Point(210, 403);
-            Dilate_Erode_Mask_Size_NumericUpDown.Maximum = new decimal(new int[] { 17, 0, 0, 0 });
-            Dilate_Erode_Mask_Size_NumericUpDown.Minimum = new decimal(new int[] { 3, 0, 0, 0 });
-            Dilate_Erode_Mask_Size_NumericUpDown.Name = "Dilate_Erode_Mask_Size_NumericUpDown";
-            Dilate_Erode_Mask_Size_NumericUpDown.Size = new Size(74, 23);
-            Dilate_Erode_Mask_Size_NumericUpDown.TabIndex = 25;
-            Dilate_Erode_Mask_Size_NumericUpDown.Value = new decimal(new int[] { 3, 0, 0, 0 });
-            Dilate_Erode_Mask_Size_NumericUpDown.ValueChanged += Dilate_Erode_Mask_Size_NumericUpDown_ValueChanged;
-            // 
-            // ErodeFlagCheckBox
-            // 
-            ErodeFlagCheckBox.AutoSize = true;
-            ErodeFlagCheckBox.Location = new Point(75, 407);
-            ErodeFlagCheckBox.Name = "ErodeFlagCheckBox";
-            ErodeFlagCheckBox.Size = new Size(50, 19);
-            ErodeFlagCheckBox.TabIndex = 24;
-            ErodeFlagCheckBox.Text = "侵蝕";
-            ErodeFlagCheckBox.UseVisualStyleBackColor = true;
-            ErodeFlagCheckBox.CheckedChanged += ErodeFlagCheckBox_CheckedChanged;
-            // 
             // ConsoleGroupBox
             // 
             ConsoleGroupBox.Controls.Add(consoleLabel);
@@ -362,35 +353,15 @@
             consoleLabel.TabIndex = 32;
             consoleLabel.Text = "null";
             // 
-            // DilateFlagCheckBox
+            // rotateBtn_test
             // 
-            DilateFlagCheckBox.AutoSize = true;
-            DilateFlagCheckBox.Location = new Point(19, 407);
-            DilateFlagCheckBox.Name = "DilateFlagCheckBox";
-            DilateFlagCheckBox.Size = new Size(50, 19);
-            DilateFlagCheckBox.TabIndex = 23;
-            DilateFlagCheckBox.Text = "膨脹";
-            DilateFlagCheckBox.UseVisualStyleBackColor = true;
-            DilateFlagCheckBox.CheckedChanged += DilateFlagCheckBox_CheckedChanged;
-            // 
-            // rotateBtn
-            // 
-            rotateBtn.Location = new Point(100, 172);
-            rotateBtn.Name = "rotateBtn";
-            rotateBtn.Size = new Size(42, 23);
-            rotateBtn.TabIndex = 23;
-            rotateBtn.Text = "旋轉";
-            rotateBtn.UseVisualStyleBackColor = true;
-            rotateBtn.Click += rotateBtn_Click;
-            // 
-            // label11
-            // 
-            label11.AutoSize = true;
-            label11.Location = new Point(141, 408);
-            label11.Name = "label11";
-            label11.Size = new Size(63, 15);
-            label11.TabIndex = 22;
-            label11.Text = "mask 大小";
+            rotateBtn_test.Location = new Point(100, 172);
+            rotateBtn_test.Name = "rotateBtn_test";
+            rotateBtn_test.Size = new Size(42, 23);
+            rotateBtn_test.TabIndex = 23;
+            rotateBtn_test.Text = "旋轉";
+            rotateBtn_test.UseVisualStyleBackColor = true;
+            rotateBtn_test.Click += rotateBtn_test_Click;
             // 
             // label6
             // 
@@ -400,15 +371,6 @@
             label6.Size = new Size(55, 15);
             label6.TabIndex = 22;
             label6.Text = "旋轉角度";
-            // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.Location = new Point(15, 386);
-            label7.Name = "label7";
-            label7.Size = new Size(103, 15);
-            label7.TabIndex = 21;
-            label7.Text = "二值化膨脹與侵蝕";
             // 
             // rotateAngleTextBox
             // 
@@ -447,36 +409,447 @@
             elementImgPanel.Size = new Size(206, 185);
             elementImgPanel.TabIndex = 15;
             // 
-            // binaryImg
+            // TabGroup
             // 
-            binaryImg.Location = new Point(322, 399);
-            binaryImg.Name = "binaryImg";
-            binaryImg.Size = new Size(70, 28);
-            binaryImg.TabIndex = 10;
-            binaryImg.Text = "二值化";
-            binaryImg.UseVisualStyleBackColor = true;
-            binaryImg.Click += binaryImg_Click;
+            TabGroup.Controls.Add(tabPage1);
+            TabGroup.Controls.Add(tabPage2);
+            TabGroup.Location = new Point(13, 226);
+            TabGroup.Margin = new Padding(2);
+            TabGroup.Name = "TabGroup";
+            TabGroup.SelectedIndex = 0;
+            TabGroup.Size = new Size(451, 521);
+            TabGroup.TabIndex = 16;
             // 
-            // imgBinaryTabCtrl
+            // tabPage1
             // 
-            imgBinaryTabCtrl.Controls.Add(tabPage4);
-            imgBinaryTabCtrl.Controls.Add(tabPage3);
-            imgBinaryTabCtrl.Location = new Point(15, 240);
-            imgBinaryTabCtrl.Margin = new Padding(2);
-            imgBinaryTabCtrl.Name = "imgBinaryTabCtrl";
-            imgBinaryTabCtrl.SelectedIndex = 0;
-            imgBinaryTabCtrl.Size = new Size(377, 144);
-            imgBinaryTabCtrl.TabIndex = 18;
-            imgBinaryTabCtrl.SelectedIndexChanged += imgBinaryTabCtrl_SelectedIndexChanged;
+            tabPage1.Controls.Add(rotateBtn);
+            tabPage1.Controls.Add(numericUpDown1);
+            tabPage1.Controls.Add(checkBox1);
+            tabPage1.Controls.Add(checkBox2);
+            tabPage1.Controls.Add(label14);
+            tabPage1.Controls.Add(label15);
+            tabPage1.Controls.Add(button1);
+            tabPage1.Controls.Add(tabControl1);
+            tabPage1.Controls.Add(label20);
+            tabPage1.Location = new Point(4, 24);
+            tabPage1.Name = "tabPage1";
+            tabPage1.Padding = new Padding(3);
+            tabPage1.Size = new Size(443, 493);
+            tabPage1.TabIndex = 2;
+            tabPage1.Text = "轉正";
+            tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // rotateBtn
+            // 
+            rotateBtn.Location = new Point(344, 459);
+            rotateBtn.Name = "rotateBtn";
+            rotateBtn.Size = new Size(88, 28);
+            rotateBtn.TabIndex = 34;
+            rotateBtn.Text = "轉正";
+            rotateBtn.UseVisualStyleBackColor = true;
+            rotateBtn.Click += rotateBtn_Click;
+            // 
+            // numericUpDown1
+            // 
+            numericUpDown1.Increment = new decimal(new int[] { 2, 0, 0, 0 });
+            numericUpDown1.Location = new Point(201, 183);
+            numericUpDown1.Maximum = new decimal(new int[] { 17, 0, 0, 0 });
+            numericUpDown1.Minimum = new decimal(new int[] { 3, 0, 0, 0 });
+            numericUpDown1.Name = "numericUpDown1";
+            numericUpDown1.Size = new Size(74, 23);
+            numericUpDown1.TabIndex = 33;
+            numericUpDown1.Value = new decimal(new int[] { 3, 0, 0, 0 });
+            // 
+            // checkBox1
+            // 
+            checkBox1.AutoSize = true;
+            checkBox1.Location = new Point(66, 187);
+            checkBox1.Name = "checkBox1";
+            checkBox1.Size = new Size(50, 19);
+            checkBox1.TabIndex = 32;
+            checkBox1.Text = "侵蝕";
+            checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // checkBox2
+            // 
+            checkBox2.AutoSize = true;
+            checkBox2.Location = new Point(10, 187);
+            checkBox2.Name = "checkBox2";
+            checkBox2.Size = new Size(50, 19);
+            checkBox2.TabIndex = 31;
+            checkBox2.Text = "膨脹";
+            checkBox2.UseVisualStyleBackColor = true;
+            // 
+            // label14
+            // 
+            label14.AutoSize = true;
+            label14.Location = new Point(132, 188);
+            label14.Name = "label14";
+            label14.Size = new Size(63, 15);
+            label14.TabIndex = 30;
+            label14.Text = "mask 大小";
+            // 
+            // label15
+            // 
+            label15.AutoSize = true;
+            label15.Location = new Point(6, 166);
+            label15.Name = "label15";
+            label15.Size = new Size(103, 15);
+            label15.TabIndex = 29;
+            label15.Text = "二值化膨脹與侵蝕";
+            // 
+            // button1
+            // 
+            button1.Location = new Point(344, 178);
+            button1.Name = "button1";
+            button1.Size = new Size(88, 28);
+            button1.TabIndex = 26;
+            button1.Text = "二值化測試";
+            button1.UseVisualStyleBackColor = true;
+            // 
+            // tabControl1
+            // 
+            tabControl1.Controls.Add(tabPage5);
+            tabControl1.Controls.Add(tabPage6);
+            tabControl1.Location = new Point(6, 20);
+            tabControl1.Margin = new Padding(2);
+            tabControl1.Name = "tabControl1";
+            tabControl1.SelectedIndex = 0;
+            tabControl1.Size = new Size(377, 144);
+            tabControl1.TabIndex = 28;
+            // 
+            // tabPage5
+            // 
+            tabPage5.Controls.Add(label16);
+            tabPage5.Controls.Add(label17);
+            tabPage5.Controls.Add(label18);
+            tabPage5.Controls.Add(label19);
+            tabPage5.Controls.Add(hScrollBar1);
+            tabPage5.Controls.Add(hScrollBar2);
+            tabPage5.Location = new Point(4, 24);
+            tabPage5.Margin = new Padding(2);
+            tabPage5.Name = "tabPage5";
+            tabPage5.Padding = new Padding(2);
+            tabPage5.Size = new Size(369, 116);
+            tabPage5.TabIndex = 1;
+            tabPage5.Text = "InRange";
+            tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // label16
+            // 
+            label16.AutoSize = true;
+            label16.Location = new Point(13, 65);
+            label16.Name = "label16";
+            label16.Size = new Size(79, 15);
+            label16.TabIndex = 20;
+            label16.Text = "lower bound";
+            // 
+            // label17
+            // 
+            label17.AutoSize = true;
+            label17.Location = new Point(13, 7);
+            label17.Name = "label17";
+            label17.Size = new Size(82, 15);
+            label17.TabIndex = 19;
+            label17.Text = "upper bound";
+            // 
+            // label18
+            // 
+            label18.AutoSize = true;
+            label18.Location = new Point(319, 87);
+            label18.Margin = new Padding(2, 0, 2, 0);
+            label18.Name = "label18";
+            label18.Size = new Size(21, 15);
+            label18.TabIndex = 4;
+            label18.Text = "50";
+            // 
+            // label19
+            // 
+            label19.AutoSize = true;
+            label19.Location = new Point(319, 29);
+            label19.Margin = new Padding(2, 0, 2, 0);
+            label19.Name = "label19";
+            label19.Size = new Size(28, 15);
+            label19.TabIndex = 3;
+            label19.Text = "200";
+            // 
+            // hScrollBar1
+            // 
+            hScrollBar1.LargeChange = 1;
+            hScrollBar1.Location = new Point(11, 78);
+            hScrollBar1.Maximum = 255;
+            hScrollBar1.Name = "hScrollBar1";
+            hScrollBar1.Size = new Size(298, 31);
+            hScrollBar1.TabIndex = 2;
+            // 
+            // hScrollBar2
+            // 
+            hScrollBar2.LargeChange = 1;
+            hScrollBar2.Location = new Point(11, 20);
+            hScrollBar2.Maximum = 255;
+            hScrollBar2.Name = "hScrollBar2";
+            hScrollBar2.Size = new Size(298, 30);
+            hScrollBar2.TabIndex = 1;
+            // 
+            // tabPage6
+            // 
+            tabPage6.Location = new Point(4, 24);
+            tabPage6.Margin = new Padding(2);
+            tabPage6.Name = "tabPage6";
+            tabPage6.Padding = new Padding(2);
+            tabPage6.Size = new Size(369, 116);
+            tabPage6.TabIndex = 0;
+            tabPage6.Text = "Otsu";
+            tabPage6.UseVisualStyleBackColor = true;
+            // 
+            // label20
+            // 
+            label20.AutoSize = true;
+            label20.Location = new Point(6, 3);
+            label20.Name = "label20";
+            label20.Size = new Size(79, 15);
+            label20.TabIndex = 27;
+            label20.Text = "二值化演算法";
+            // 
+            // tabPage2
+            // 
+            tabPage2.Controls.Add(FindContoursWayComboBox);
+            tabPage2.Controls.Add(blobDetect_Dilate_Erode_Mask_Size_NumericUpDown);
+            tabPage2.Controls.Add(label12);
+            tabPage2.Controls.Add(blobDetect_ErodeFlagCheckBox);
+            tabPage2.Controls.Add(blob_AreaRatioLabel);
+            tabPage2.Controls.Add(label9);
+            tabPage2.Controls.Add(blobDetect_DilateFlagCheckBox);
+            tabPage2.Controls.Add(blobAreaRatioBar);
+            tabPage2.Controls.Add(blob_maxRadiusLabel);
+            tabPage2.Controls.Add(label11);
+            tabPage2.Controls.Add(label10);
+            tabPage2.Controls.Add(blob_maxRadiusBar);
+            tabPage2.Controls.Add(label7);
+            tabPage2.Controls.Add(blob_minRadiusLabel);
+            tabPage2.Controls.Add(label8);
+            tabPage2.Controls.Add(blob_minRadiusBar);
+            tabPage2.Controls.Add(blob_maxAreaLabel);
+            tabPage2.Controls.Add(label5);
+            tabPage2.Controls.Add(blobDetect_binaryImg);
+            tabPage2.Controls.Add(blobDetect_imgBinaryTabCtrl);
+            tabPage2.Controls.Add(blob_maxAreaBar);
+            tabPage2.Controls.Add(label3);
+            tabPage2.Controls.Add(blobDetectButton);
+            tabPage2.Location = new Point(4, 24);
+            tabPage2.Margin = new Padding(2);
+            tabPage2.Name = "tabPage2";
+            tabPage2.Padding = new Padding(2);
+            tabPage2.Size = new Size(443, 493);
+            tabPage2.TabIndex = 1;
+            tabPage2.Text = "blob偵測";
+            tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // FindContoursWayComboBox
+            // 
+            FindContoursWayComboBox.FormattingEnabled = true;
+            FindContoursWayComboBox.Items.AddRange(new object[] { "External", "List" });
+            FindContoursWayComboBox.Location = new Point(85, 457);
+            FindContoursWayComboBox.Name = "FindContoursWayComboBox";
+            FindContoursWayComboBox.Size = new Size(161, 23);
+            FindContoursWayComboBox.TabIndex = 33;
+            FindContoursWayComboBox.SelectedIndexChanged += FindContoursWayComboBox_SelectedIndexChanged;
+            // 
+            // blobDetect_Dilate_Erode_Mask_Size_NumericUpDown
+            // 
+            blobDetect_Dilate_Erode_Mask_Size_NumericUpDown.Increment = new decimal(new int[] { 2, 0, 0, 0 });
+            blobDetect_Dilate_Erode_Mask_Size_NumericUpDown.Location = new Point(209, 191);
+            blobDetect_Dilate_Erode_Mask_Size_NumericUpDown.Maximum = new decimal(new int[] { 17, 0, 0, 0 });
+            blobDetect_Dilate_Erode_Mask_Size_NumericUpDown.Minimum = new decimal(new int[] { 3, 0, 0, 0 });
+            blobDetect_Dilate_Erode_Mask_Size_NumericUpDown.Name = "blobDetect_Dilate_Erode_Mask_Size_NumericUpDown";
+            blobDetect_Dilate_Erode_Mask_Size_NumericUpDown.Size = new Size(74, 23);
+            blobDetect_Dilate_Erode_Mask_Size_NumericUpDown.TabIndex = 25;
+            blobDetect_Dilate_Erode_Mask_Size_NumericUpDown.Value = new decimal(new int[] { 3, 0, 0, 0 });
+            blobDetect_Dilate_Erode_Mask_Size_NumericUpDown.ValueChanged += Dilate_Erode_Mask_Size_NumericUpDown_ValueChanged;
+            // 
+            // label12
+            // 
+            label12.AutoSize = true;
+            label12.Location = new Point(15, 460);
+            label12.Name = "label12";
+            label12.Size = new Size(67, 15);
+            label12.TabIndex = 32;
+            label12.Text = "找輪廓方法";
+            // 
+            // blobDetect_ErodeFlagCheckBox
+            // 
+            blobDetect_ErodeFlagCheckBox.AutoSize = true;
+            blobDetect_ErodeFlagCheckBox.Location = new Point(74, 195);
+            blobDetect_ErodeFlagCheckBox.Name = "blobDetect_ErodeFlagCheckBox";
+            blobDetect_ErodeFlagCheckBox.Size = new Size(50, 19);
+            blobDetect_ErodeFlagCheckBox.TabIndex = 24;
+            blobDetect_ErodeFlagCheckBox.Text = "侵蝕";
+            blobDetect_ErodeFlagCheckBox.UseVisualStyleBackColor = true;
+            blobDetect_ErodeFlagCheckBox.CheckedChanged += ErodeFlagCheckBox_CheckedChanged;
+            // 
+            // blob_AreaRatioLabel
+            // 
+            blob_AreaRatioLabel.AutoSize = true;
+            blob_AreaRatioLabel.Location = new Point(321, 419);
+            blob_AreaRatioLabel.Margin = new Padding(2, 0, 2, 0);
+            blob_AreaRatioLabel.Name = "blob_AreaRatioLabel";
+            blob_AreaRatioLabel.Size = new Size(21, 15);
+            blob_AreaRatioLabel.TabIndex = 31;
+            blob_AreaRatioLabel.Text = "30";
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Location = new Point(15, 395);
+            label9.Name = "label9";
+            label9.Size = new Size(142, 15);
+            label9.TabIndex = 30;
+            label9.Text = "外接圓面積與blob面積比";
+            // 
+            // blobDetect_DilateFlagCheckBox
+            // 
+            blobDetect_DilateFlagCheckBox.AutoSize = true;
+            blobDetect_DilateFlagCheckBox.Location = new Point(18, 195);
+            blobDetect_DilateFlagCheckBox.Name = "blobDetect_DilateFlagCheckBox";
+            blobDetect_DilateFlagCheckBox.Size = new Size(50, 19);
+            blobDetect_DilateFlagCheckBox.TabIndex = 23;
+            blobDetect_DilateFlagCheckBox.Text = "膨脹";
+            blobDetect_DilateFlagCheckBox.UseVisualStyleBackColor = true;
+            blobDetect_DilateFlagCheckBox.CheckedChanged += DilateFlagCheckBox_CheckedChanged;
+            // 
+            // blobAreaRatioBar
+            // 
+            blobAreaRatioBar.LargeChange = 1;
+            blobAreaRatioBar.Location = new Point(15, 410);
+            blobAreaRatioBar.Name = "blobAreaRatioBar";
+            blobAreaRatioBar.Size = new Size(298, 24);
+            blobAreaRatioBar.TabIndex = 29;
+            blobAreaRatioBar.Scroll += blobAreaRatioBar_Scroll;
+            // 
+            // blob_maxRadiusLabel
+            // 
+            blob_maxRadiusLabel.AutoSize = true;
+            blob_maxRadiusLabel.Location = new Point(321, 366);
+            blob_maxRadiusLabel.Margin = new Padding(2, 0, 2, 0);
+            blob_maxRadiusLabel.Name = "blob_maxRadiusLabel";
+            blob_maxRadiusLabel.Size = new Size(21, 15);
+            blob_maxRadiusLabel.TabIndex = 28;
+            blob_maxRadiusLabel.Text = "30";
+            // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.Location = new Point(140, 196);
+            label11.Name = "label11";
+            label11.Size = new Size(63, 15);
+            label11.TabIndex = 22;
+            label11.Text = "mask 大小";
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Location = new Point(15, 342);
+            label10.Name = "label10";
+            label10.Size = new Size(118, 15);
+            label10.TabIndex = 27;
+            label10.Text = "blob外接圓最大半徑";
+            // 
+            // blob_maxRadiusBar
+            // 
+            blob_maxRadiusBar.LargeChange = 1;
+            blob_maxRadiusBar.Location = new Point(15, 357);
+            blob_maxRadiusBar.Maximum = 1000;
+            blob_maxRadiusBar.Name = "blob_maxRadiusBar";
+            blob_maxRadiusBar.Size = new Size(298, 24);
+            blob_maxRadiusBar.TabIndex = 26;
+            blob_maxRadiusBar.Scroll += solderBall_maxRadiusBar_Scroll;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(14, 174);
+            label7.Name = "label7";
+            label7.Size = new Size(103, 15);
+            label7.TabIndex = 21;
+            label7.Text = "二值化膨脹與侵蝕";
+            // 
+            // blob_minRadiusLabel
+            // 
+            blob_minRadiusLabel.AutoSize = true;
+            blob_minRadiusLabel.Location = new Point(321, 314);
+            blob_minRadiusLabel.Margin = new Padding(2, 0, 2, 0);
+            blob_minRadiusLabel.Name = "blob_minRadiusLabel";
+            blob_minRadiusLabel.Size = new Size(21, 15);
+            blob_minRadiusLabel.TabIndex = 25;
+            blob_minRadiusLabel.Text = "10";
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Location = new Point(15, 290);
+            label8.Name = "label8";
+            label8.Size = new Size(118, 15);
+            label8.TabIndex = 24;
+            label8.Text = "blob外接圓最小半徑";
+            // 
+            // blob_minRadiusBar
+            // 
+            blob_minRadiusBar.LargeChange = 1;
+            blob_minRadiusBar.Location = new Point(15, 305);
+            blob_minRadiusBar.Name = "blob_minRadiusBar";
+            blob_minRadiusBar.Size = new Size(298, 24);
+            blob_minRadiusBar.TabIndex = 23;
+            blob_minRadiusBar.Scroll += solderBall_minRadiusBar_Scroll;
+            // 
+            // blob_maxAreaLabel
+            // 
+            blob_maxAreaLabel.AutoSize = true;
+            blob_maxAreaLabel.Location = new Point(321, 262);
+            blob_maxAreaLabel.Margin = new Padding(2, 0, 2, 0);
+            blob_maxAreaLabel.Name = "blob_maxAreaLabel";
+            blob_maxAreaLabel.Size = new Size(28, 15);
+            blob_maxAreaLabel.TabIndex = 22;
+            blob_maxAreaLabel.Text = "900";
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(15, 238);
+            label5.Name = "label5";
+            label5.Size = new Size(231, 15);
+            label5.TabIndex = 21;
+            label5.Text = "blob最大面積 pixel 平方(體積異常為紅圈)";
+            // 
+            // blobDetect_binaryImg
+            // 
+            blobDetect_binaryImg.Location = new Point(352, 186);
+            blobDetect_binaryImg.Name = "blobDetect_binaryImg";
+            blobDetect_binaryImg.Size = new Size(88, 28);
+            blobDetect_binaryImg.TabIndex = 10;
+            blobDetect_binaryImg.Text = "二值化測試";
+            blobDetect_binaryImg.UseVisualStyleBackColor = true;
+            blobDetect_binaryImg.Click += blobDetect_binaryImg_Click;
+            // 
+            // blobDetect_imgBinaryTabCtrl
+            // 
+            blobDetect_imgBinaryTabCtrl.Controls.Add(tabPage4);
+            blobDetect_imgBinaryTabCtrl.Controls.Add(tabPage3);
+            blobDetect_imgBinaryTabCtrl.Location = new Point(14, 28);
+            blobDetect_imgBinaryTabCtrl.Margin = new Padding(2);
+            blobDetect_imgBinaryTabCtrl.Name = "blobDetect_imgBinaryTabCtrl";
+            blobDetect_imgBinaryTabCtrl.SelectedIndex = 0;
+            blobDetect_imgBinaryTabCtrl.Size = new Size(377, 144);
+            blobDetect_imgBinaryTabCtrl.TabIndex = 18;
+            blobDetect_imgBinaryTabCtrl.SelectedIndexChanged += imgBinaryTabCtrl_SelectedIndexChanged;
             // 
             // tabPage4
             // 
             tabPage4.Controls.Add(label4);
             tabPage4.Controls.Add(label2);
-            tabPage4.Controls.Add(InRangeLowerBoundLabel);
-            tabPage4.Controls.Add(InRangeUpperBoundLabel);
-            tabPage4.Controls.Add(InRangeLowerBoundScrollBar);
-            tabPage4.Controls.Add(InRangeUpperBoundScrollBar);
+            tabPage4.Controls.Add(blobDetect_InRangeLowerBoundLabel);
+            tabPage4.Controls.Add(blobDetect_InRangeUpperBoundLabel);
+            tabPage4.Controls.Add(blobDetect_InRangeLowerBoundScrollBar);
+            tabPage4.Controls.Add(blobDetect_InRangeUpperBoundScrollBar);
             tabPage4.Location = new Point(4, 24);
             tabPage4.Margin = new Padding(2);
             tabPage4.Name = "tabPage4";
@@ -504,45 +877,45 @@
             label2.TabIndex = 19;
             label2.Text = "upper bound";
             // 
-            // InRangeLowerBoundLabel
+            // blobDetect_InRangeLowerBoundLabel
             // 
-            InRangeLowerBoundLabel.AutoSize = true;
-            InRangeLowerBoundLabel.Location = new Point(317, 85);
-            InRangeLowerBoundLabel.Margin = new Padding(2, 0, 2, 0);
-            InRangeLowerBoundLabel.Name = "InRangeLowerBoundLabel";
-            InRangeLowerBoundLabel.Size = new Size(21, 15);
-            InRangeLowerBoundLabel.TabIndex = 4;
-            InRangeLowerBoundLabel.Text = "50";
+            blobDetect_InRangeLowerBoundLabel.AutoSize = true;
+            blobDetect_InRangeLowerBoundLabel.Location = new Point(317, 85);
+            blobDetect_InRangeLowerBoundLabel.Margin = new Padding(2, 0, 2, 0);
+            blobDetect_InRangeLowerBoundLabel.Name = "blobDetect_InRangeLowerBoundLabel";
+            blobDetect_InRangeLowerBoundLabel.Size = new Size(21, 15);
+            blobDetect_InRangeLowerBoundLabel.TabIndex = 4;
+            blobDetect_InRangeLowerBoundLabel.Text = "50";
             // 
-            // InRangeUpperBoundLabel
+            // blobDetect_InRangeUpperBoundLabel
             // 
-            InRangeUpperBoundLabel.AutoSize = true;
-            InRangeUpperBoundLabel.Location = new Point(317, 27);
-            InRangeUpperBoundLabel.Margin = new Padding(2, 0, 2, 0);
-            InRangeUpperBoundLabel.Name = "InRangeUpperBoundLabel";
-            InRangeUpperBoundLabel.Size = new Size(28, 15);
-            InRangeUpperBoundLabel.TabIndex = 3;
-            InRangeUpperBoundLabel.Text = "200";
+            blobDetect_InRangeUpperBoundLabel.AutoSize = true;
+            blobDetect_InRangeUpperBoundLabel.Location = new Point(317, 27);
+            blobDetect_InRangeUpperBoundLabel.Margin = new Padding(2, 0, 2, 0);
+            blobDetect_InRangeUpperBoundLabel.Name = "blobDetect_InRangeUpperBoundLabel";
+            blobDetect_InRangeUpperBoundLabel.Size = new Size(28, 15);
+            blobDetect_InRangeUpperBoundLabel.TabIndex = 3;
+            blobDetect_InRangeUpperBoundLabel.Text = "200";
             // 
-            // InRangeLowerBoundScrollBar
+            // blobDetect_InRangeLowerBoundScrollBar
             // 
-            InRangeLowerBoundScrollBar.LargeChange = 1;
-            InRangeLowerBoundScrollBar.Location = new Point(11, 78);
-            InRangeLowerBoundScrollBar.Maximum = 255;
-            InRangeLowerBoundScrollBar.Name = "InRangeLowerBoundScrollBar";
-            InRangeLowerBoundScrollBar.Size = new Size(298, 31);
-            InRangeLowerBoundScrollBar.TabIndex = 2;
-            InRangeLowerBoundScrollBar.Scroll += lowerBoundScrollBar_Scroll;
+            blobDetect_InRangeLowerBoundScrollBar.LargeChange = 1;
+            blobDetect_InRangeLowerBoundScrollBar.Location = new Point(11, 78);
+            blobDetect_InRangeLowerBoundScrollBar.Maximum = 255;
+            blobDetect_InRangeLowerBoundScrollBar.Name = "blobDetect_InRangeLowerBoundScrollBar";
+            blobDetect_InRangeLowerBoundScrollBar.Size = new Size(298, 31);
+            blobDetect_InRangeLowerBoundScrollBar.TabIndex = 2;
+            blobDetect_InRangeLowerBoundScrollBar.Scroll += lowerBoundScrollBar_Scroll;
             // 
-            // InRangeUpperBoundScrollBar
+            // blobDetect_InRangeUpperBoundScrollBar
             // 
-            InRangeUpperBoundScrollBar.LargeChange = 1;
-            InRangeUpperBoundScrollBar.Location = new Point(11, 20);
-            InRangeUpperBoundScrollBar.Maximum = 255;
-            InRangeUpperBoundScrollBar.Name = "InRangeUpperBoundScrollBar";
-            InRangeUpperBoundScrollBar.Size = new Size(298, 30);
-            InRangeUpperBoundScrollBar.TabIndex = 1;
-            InRangeUpperBoundScrollBar.Scroll += upperBoundScrollBar_Scroll;
+            blobDetect_InRangeUpperBoundScrollBar.LargeChange = 1;
+            blobDetect_InRangeUpperBoundScrollBar.Location = new Point(11, 20);
+            blobDetect_InRangeUpperBoundScrollBar.Maximum = 255;
+            blobDetect_InRangeUpperBoundScrollBar.Name = "blobDetect_InRangeUpperBoundScrollBar";
+            blobDetect_InRangeUpperBoundScrollBar.Size = new Size(298, 30);
+            blobDetect_InRangeUpperBoundScrollBar.TabIndex = 1;
+            blobDetect_InRangeUpperBoundScrollBar.Scroll += upperBoundScrollBar_Scroll;
             // 
             // tabPage3
             // 
@@ -555,187 +928,28 @@
             tabPage3.Text = "Otsu";
             tabPage3.UseVisualStyleBackColor = true;
             // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Location = new Point(15, 223);
-            label3.Name = "label3";
-            label3.Size = new Size(79, 15);
-            label3.TabIndex = 17;
-            label3.Text = "二值化演算法";
-            // 
-            // TabGroup
-            // 
-            TabGroup.Controls.Add(tabPage2);
-            TabGroup.Location = new Point(13, 456);
-            TabGroup.Margin = new Padding(2);
-            TabGroup.Name = "TabGroup";
-            TabGroup.SelectedIndex = 0;
-            TabGroup.Size = new Size(451, 291);
-            TabGroup.TabIndex = 16;
-            // 
-            // tabPage2
-            // 
-            tabPage2.Controls.Add(FindContoursWayComboBox);
-            tabPage2.Controls.Add(label12);
-            tabPage2.Controls.Add(blob_AreaRatioLabel);
-            tabPage2.Controls.Add(label9);
-            tabPage2.Controls.Add(blobAreaRatioBar);
-            tabPage2.Controls.Add(blob_maxRadiusLabel);
-            tabPage2.Controls.Add(label10);
-            tabPage2.Controls.Add(blob_maxRadiusBar);
-            tabPage2.Controls.Add(blob_minRadiusLabel);
-            tabPage2.Controls.Add(label8);
-            tabPage2.Controls.Add(blob_minRadiusBar);
-            tabPage2.Controls.Add(blob_maxAreaLabel);
-            tabPage2.Controls.Add(label5);
-            tabPage2.Controls.Add(blob_maxAreaBar);
-            tabPage2.Controls.Add(blobDetectButton);
-            tabPage2.Location = new Point(4, 24);
-            tabPage2.Margin = new Padding(2);
-            tabPage2.Name = "tabPage2";
-            tabPage2.Padding = new Padding(2);
-            tabPage2.Size = new Size(443, 263);
-            tabPage2.TabIndex = 1;
-            tabPage2.Text = "blob偵測";
-            tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // FindContoursWayComboBox
-            // 
-            FindContoursWayComboBox.FormattingEnabled = true;
-            FindContoursWayComboBox.Items.AddRange(new object[] { "External", "List" });
-            FindContoursWayComboBox.Location = new Point(83, 227);
-            FindContoursWayComboBox.Name = "FindContoursWayComboBox";
-            FindContoursWayComboBox.Size = new Size(161, 23);
-            FindContoursWayComboBox.TabIndex = 33;
-            FindContoursWayComboBox.SelectedIndexChanged += FindContoursWayComboBox_SelectedIndexChanged;
-            // 
-            // label12
-            // 
-            label12.AutoSize = true;
-            label12.Location = new Point(13, 230);
-            label12.Name = "label12";
-            label12.Size = new Size(67, 15);
-            label12.TabIndex = 32;
-            label12.Text = "找輪廓方法";
-            // 
-            // blob_AreaRatioLabel
-            // 
-            blob_AreaRatioLabel.AutoSize = true;
-            blob_AreaRatioLabel.Location = new Point(319, 189);
-            blob_AreaRatioLabel.Margin = new Padding(2, 0, 2, 0);
-            blob_AreaRatioLabel.Name = "blob_AreaRatioLabel";
-            blob_AreaRatioLabel.Size = new Size(21, 15);
-            blob_AreaRatioLabel.TabIndex = 31;
-            blob_AreaRatioLabel.Text = "30";
-            // 
-            // label9
-            // 
-            label9.AutoSize = true;
-            label9.Location = new Point(13, 165);
-            label9.Name = "label9";
-            label9.Size = new Size(142, 15);
-            label9.TabIndex = 30;
-            label9.Text = "外接圓面積與blob面積比";
-            // 
-            // blobAreaRatioBar
-            // 
-            blobAreaRatioBar.LargeChange = 1;
-            blobAreaRatioBar.Location = new Point(13, 180);
-            blobAreaRatioBar.Name = "blobAreaRatioBar";
-            blobAreaRatioBar.Size = new Size(298, 24);
-            blobAreaRatioBar.TabIndex = 29;
-            blobAreaRatioBar.Scroll += blobAreaRatioBar_Scroll;
-            // 
-            // blob_maxRadiusLabel
-            // 
-            blob_maxRadiusLabel.AutoSize = true;
-            blob_maxRadiusLabel.Location = new Point(319, 136);
-            blob_maxRadiusLabel.Margin = new Padding(2, 0, 2, 0);
-            blob_maxRadiusLabel.Name = "blob_maxRadiusLabel";
-            blob_maxRadiusLabel.Size = new Size(21, 15);
-            blob_maxRadiusLabel.TabIndex = 28;
-            blob_maxRadiusLabel.Text = "30";
-            // 
-            // label10
-            // 
-            label10.AutoSize = true;
-            label10.Location = new Point(13, 112);
-            label10.Name = "label10";
-            label10.Size = new Size(118, 15);
-            label10.TabIndex = 27;
-            label10.Text = "blob外接圓最大半徑";
-            // 
-            // blob_maxRadiusBar
-            // 
-            blob_maxRadiusBar.LargeChange = 1;
-            blob_maxRadiusBar.Location = new Point(13, 127);
-            blob_maxRadiusBar.Maximum = 1000;
-            blob_maxRadiusBar.Name = "blob_maxRadiusBar";
-            blob_maxRadiusBar.Size = new Size(298, 24);
-            blob_maxRadiusBar.TabIndex = 26;
-            blob_maxRadiusBar.Scroll += solderBall_maxRadiusBar_Scroll;
-            // 
-            // blob_minRadiusLabel
-            // 
-            blob_minRadiusLabel.AutoSize = true;
-            blob_minRadiusLabel.Location = new Point(319, 84);
-            blob_minRadiusLabel.Margin = new Padding(2, 0, 2, 0);
-            blob_minRadiusLabel.Name = "blob_minRadiusLabel";
-            blob_minRadiusLabel.Size = new Size(21, 15);
-            blob_minRadiusLabel.TabIndex = 25;
-            blob_minRadiusLabel.Text = "10";
-            // 
-            // label8
-            // 
-            label8.AutoSize = true;
-            label8.Location = new Point(13, 60);
-            label8.Name = "label8";
-            label8.Size = new Size(118, 15);
-            label8.TabIndex = 24;
-            label8.Text = "blob外接圓最小半徑";
-            // 
-            // blob_minRadiusBar
-            // 
-            blob_minRadiusBar.LargeChange = 1;
-            blob_minRadiusBar.Location = new Point(13, 75);
-            blob_minRadiusBar.Name = "blob_minRadiusBar";
-            blob_minRadiusBar.Size = new Size(298, 24);
-            blob_minRadiusBar.TabIndex = 23;
-            blob_minRadiusBar.Scroll += solderBall_minRadiusBar_Scroll;
-            // 
-            // blob_maxAreaLabel
-            // 
-            blob_maxAreaLabel.AutoSize = true;
-            blob_maxAreaLabel.Location = new Point(319, 32);
-            blob_maxAreaLabel.Margin = new Padding(2, 0, 2, 0);
-            blob_maxAreaLabel.Name = "blob_maxAreaLabel";
-            blob_maxAreaLabel.Size = new Size(28, 15);
-            blob_maxAreaLabel.TabIndex = 22;
-            blob_maxAreaLabel.Text = "900";
-            // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.Location = new Point(13, 8);
-            label5.Name = "label5";
-            label5.Size = new Size(231, 15);
-            label5.TabIndex = 21;
-            label5.Text = "blob最大面積 pixel 平方(體積異常為紅圈)";
-            // 
             // blob_maxAreaBar
             // 
             blob_maxAreaBar.LargeChange = 1;
-            blob_maxAreaBar.Location = new Point(13, 23);
+            blob_maxAreaBar.Location = new Point(15, 253);
             blob_maxAreaBar.Maximum = 5000;
             blob_maxAreaBar.Name = "blob_maxAreaBar";
             blob_maxAreaBar.Size = new Size(298, 24);
             blob_maxAreaBar.TabIndex = 20;
             blob_maxAreaBar.Scroll += solderBall_maxAreaBar_Scroll;
             // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(14, 11);
+            label3.Name = "label3";
+            label3.Size = new Size(79, 15);
+            label3.TabIndex = 17;
+            label3.Text = "二值化演算法";
+            // 
             // blobDetectButton
             // 
-            blobDetectButton.Location = new Point(350, 230);
+            blobDetectButton.Location = new Point(352, 460);
             blobDetectButton.Name = "blobDetectButton";
             blobDetectButton.Size = new Size(88, 28);
             blobDetectButton.TabIndex = 9;
@@ -837,15 +1051,21 @@
             functionBtnGroup.PerformLayout();
             parameterFileGroup.ResumeLayout(false);
             parameterFileGroup.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)Dilate_Erode_Mask_Size_NumericUpDown).EndInit();
             ConsoleGroupBox.ResumeLayout(false);
             ConsoleGroupBox.PerformLayout();
-            imgBinaryTabCtrl.ResumeLayout(false);
-            tabPage4.ResumeLayout(false);
-            tabPage4.PerformLayout();
             TabGroup.ResumeLayout(false);
+            tabPage1.ResumeLayout(false);
+            tabPage1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
+            tabControl1.ResumeLayout(false);
+            tabPage5.ResumeLayout(false);
+            tabPage5.PerformLayout();
             tabPage2.ResumeLayout(false);
             tabPage2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)blobDetect_Dilate_Erode_Mask_Size_NumericUpDown).EndInit();
+            blobDetect_imgBinaryTabCtrl.ResumeLayout(false);
+            tabPage4.ResumeLayout(false);
+            tabPage4.PerformLayout();
             saveGroup.ResumeLayout(false);
             saveGroup.PerformLayout();
             ResumeLayout(false);
@@ -871,7 +1091,7 @@
         private Button rectangleBtn;
         private ContextMenuStrip contextMenuStrip1;
         private Button blobDetectButton;
-        private Button binaryImg;
+        private Button blobDetect_binaryImg;
         private Button findTargetBtn;
         private Button cropImgBtn;
         private Button targetImgBtn;
@@ -880,13 +1100,13 @@
         private TabControl TabGroup;
         private TabPage tabPage2;
         private Label label3;
-        private TabControl imgBinaryTabCtrl;
+        private TabControl blobDetect_imgBinaryTabCtrl;
         private TabPage tabPage3;
         private TabPage tabPage4;
-        private HScrollBar InRangeUpperBoundScrollBar;
-        private Label InRangeLowerBoundLabel;
-        private Label InRangeUpperBoundLabel;
-        private HScrollBar InRangeLowerBoundScrollBar;
+        private HScrollBar blobDetect_InRangeUpperBoundScrollBar;
+        private Label blobDetect_InRangeLowerBoundLabel;
+        private Label blobDetect_InRangeUpperBoundLabel;
+        private HScrollBar blobDetect_InRangeLowerBoundScrollBar;
         private Label label2;
         private Label label4;
         private Label blob_maxAreaLabel;
@@ -903,17 +1123,17 @@
         private Panel elementImgPanel;
         private Label label6;
         private TextBox rotateAngleTextBox;
-        private Button rotateBtn;
+        private Button rotateBtn_test;
         private Label blob_AreaRatioLabel;
         private Label label9;
         private HScrollBar blobAreaRatioBar;
         private GroupBox ConsoleGroupBox;
         private Label consoleLabel;
-        private CheckBox DilateFlagCheckBox;
+        private CheckBox blobDetect_DilateFlagCheckBox;
         private Label label11;
         private Label label7;
-        private CheckBox ErodeFlagCheckBox;
-        private NumericUpDown Dilate_Erode_Mask_Size_NumericUpDown;
+        private CheckBox blobDetect_ErodeFlagCheckBox;
+        private NumericUpDown blobDetect_Dilate_Erode_Mask_Size_NumericUpDown;
         private ComboBox FindContoursWayComboBox;
         private Label label12;
         private Button saveParameterBtn;
@@ -922,5 +1142,23 @@
         private Label label13;
         private Button openParameterFileBtn;
         private TextBox openParameterFilePathLabel;
+        private TabPage tabPage1;
+        private NumericUpDown numericUpDown1;
+        private CheckBox checkBox1;
+        private CheckBox checkBox2;
+        private Label label14;
+        private Label label15;
+        private Button button1;
+        private TabControl tabControl1;
+        private TabPage tabPage5;
+        private Label label16;
+        private Label label17;
+        private Label label18;
+        private Label label19;
+        private HScrollBar hScrollBar1;
+        private HScrollBar hScrollBar2;
+        private TabPage tabPage6;
+        private Label label20;
+        private Button rotateBtn;
     }
 }
