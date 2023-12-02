@@ -735,7 +735,7 @@ namespace WinFormsApp1
                 rotateImg_DilateFlagCheckBox.Checked,
                 rotateImg_ErodeFlagCheckBox.Checked,
                 Convert.ToInt32(rotateImg_Dilate_Erode_Mask_Size_NumericUpDown.Value));
-
+            positionedImg = resultImg;
             panel1.BackgroundImage = resultImg;
         }
 
