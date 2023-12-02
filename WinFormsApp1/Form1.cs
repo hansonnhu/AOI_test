@@ -586,7 +586,8 @@ namespace WinFormsApp1
             // 輸入旋轉角度
             Mat positionedImage = BitmapConverter.ToMat(positionedImg);
             Bitmap rotatedImg = Functions.rotateWithAngle(positionedImage, Double.Parse(rotateAngleTextBox.Text));
-            resizePanel(rotatedImg, panel1);
+            positionedImg = rotatedImg;
+            //resizePanel(rotatedImg, panel1);
             panel1.BackgroundImage = rotatedImg;
         }
 
