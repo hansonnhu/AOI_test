@@ -50,6 +50,7 @@ namespace WinFormsApp1
             var parser = new FileIniDataParser();
             Dictionary<String, Object> parameter = new Dictionary<String, Object>();
             rootPath = System.Environment.CurrentDirectory.ToString().Split("\\WinFormsApp1\\bin\\")[0];// 跟目錄 path 設定
+            
             var parameterPath = rootPath + "\\parameter\\" + parameterFileName;
             openParameterFilePathLabel.Text = parameterPath.Split("\\")[parameterPath.Split("\\").Length - 1];
 
@@ -283,7 +284,7 @@ namespace WinFormsApp1
                 panel1.BackgroundImage = resultImg;
 
                 setConsoleInfo();
-
+                Functions.saveContoursToJson();
             }
         }
         private async void findTargetBtn_Click(object sender, EventArgs e)

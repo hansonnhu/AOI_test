@@ -7,27 +7,23 @@ using System.Net.NetworkInformation;
 using System.Numerics;
 using System.Windows.Forms.VisualStyles;
 using System.Xml.Linq;
+using Newtonsoft.Json;
+using System.Diagnostics.Eventing.Reader;
+
+
+public class GlobalVariables
+{
+    //public static List<int> removeCntIndex = new List<int>(); // 紀錄要刪除的輪廓
+    public static OpenCvSharp.Point[][] targetContours;
+}
 
 
 public class Functions
 {
-    public int marginSize = 50;
-    //public static byte[] ImageToByte(Image img)
-    //{
-    //    // bmp to byte function
-    //    ImageConverter converter = new ImageConverter();
-    //    return (byte[])converter.ConvertTo(img, typeof(byte[]));
-    //}
-    //public static Bitmap ConvertByteArrayToBitmap(byte[] byteArray)
-    //{
-    //    // byte to bmp function
-    //    using (var ms = new MemoryStream(byteArray))
-    //    {
-    //        return new Bitmap(ms);
-    //    }
-    //}
-    //旋轉圖像
+    public static String rootPath = System.Environment.CurrentDirectory.ToString().Split("\\WinFormsApp1\\bin\\")[0];// 跟目錄 path 設定;
     
+
+
     public static Bitmap CropBitmap(Bitmap source, Rectangle cropArea)
     {
         // 截圖
@@ -67,9 +63,46 @@ public class Functions
         mask.Dispose();
         return count;
     }
+
+    // 找尋所有輪廓中，X值最小的點，與Y值最大的點
+    public static (OpenCvSharp.Point topLeft, OpenCvSharp.Point bottomLeft) FindMinMaxPoints(OpenCvSharp.Point[] contour)
+    {
+        if (contour == null || contour.Length == 0)
+            throw new ArgumentException("Invalid contour");
+
+        // 初始化點
+        OpenCvSharp.Point topLeft = contour[0];
+        OpenCvSharp.Point topRight = contour[0];
+        OpenCvSharp.Point bottomLeft = contour[0];
+        OpenCvSharp.Point bottomRight = contour[0];
+
+        foreach (var point in contour)
+        {
+            // 找最左上的點
+            if ((point.X + point.Y) < (topLeft.X + topLeft.Y))
+                topLeft = point;
+
+            // 找最右上的點
+            if ((point.X - point.Y) > (topRight.X - topRight.Y))
+                topRight = point;
+
+            // 找最左下的點
+            if ((point.X - point.Y) < (bottomLeft.X - bottomLeft.Y))
+                bottomLeft = point;
+
+            // 找最右下的點
+            if ((point.X + point.Y) > (bottomRight.X + bottomRight.Y))
+                bottomRight = point;
+        }
+        Debug.WriteLine(topLeft);
+        Debug.WriteLine(bottomLeft);
+
+        return (topLeft, bottomLeft);
+    }
+
     public static Bitmap imgRotate(
-        Mat img, 
-        Mat targetImg, 
+        Mat img,
+        Mat targetImg,
         int CannyUpperBound,
         int CannyLowerBound,
         bool DilateFlag,
@@ -78,48 +111,62 @@ public class Functions
     {
         // 圖像自動轉正(方框)
         // 先大約找出目標物(模板比對)
-        Mat TImg= BitmapConverter.ToMat(findTarget(img, targetImg));
+        Mat TImg = BitmapConverter.ToMat(findTarget(img, targetImg));
         Mat TImgBinary;
         // Canny 邊緣二值化
-        TImgBinary = BitmapConverter.ToMat(imgCanny(
-            TImg, 
-            CannyUpperBound, 
-            CannyLowerBound,
-            DilateFlag,
-            ErodeFlag,
-            Dilate_Erode_Mask_Size));
+        //TImgBinary = BitmapConverter.ToMat(imgCanny(
+        //    TImg,
+        //    CannyUpperBound,
+        //    CannyLowerBound,
+        //    DilateFlag,
+        //    ErodeFlag,
+        //    Dilate_Erode_Mask_Size));
+        string json = File.ReadAllText(rootPath + "\\parameter\\contours.json");
+        OpenCvSharp.Point[][] Contours = JsonConvert.DeserializeObject<OpenCvSharp.Point[][]>(json);
+
+        var (topLeft, bottomLeft) = FindMinMaxPoints(Contours[0]);
+
+
+
+
+
 
         // 取得方框左邊的兩個點，並且求得斜率
-        int topPoint_y = Convert.ToInt32((double)TImgBinary.Height * 2 / 5);
-        int bottomPoint_y = Convert.ToInt32((double)TImgBinary.Height * 3 / 5);
-        int topPoint_x = -1;
-        int bottomPoint_x = -1;
-        for (int i = 0; i < TImgBinary.Width; i++)
-        {
-            Debug.WriteLine(TImgBinary.Get<byte>(topPoint_y, i));
-            if (topPoint_x != -1 && bottomPoint_x != -1)
-                break;
-            if (TImgBinary.Get<byte>(topPoint_y, i) == 255 && topPoint_x == -1) // (y, x)
-                topPoint_x = i;
-            if (TImgBinary.Get<byte>(bottomPoint_y, i) == 255 && bottomPoint_x == -1) // (y, x)
-                bottomPoint_x = i;
-        }
+        //int topPoint_y = Convert.ToInt32((double)TImgBinary.Height * 2 / 5);
+        //int bottomPoint_y = Convert.ToInt32((double)TImgBinary.Height * 3 / 5);
+        //int topPoint_x = -1;
+        //int bottomPoint_x = -1;
+        //for (int i = 0; i < TImgBinary.Width; i++)
+        //{
+        //    Debug.WriteLine(TImgBinary.Get<byte>(topPoint_y, i));
+        //    if (topPoint_x != -1 && bottomPoint_x != -1)
+        //        break;
+        //    if (TImgBinary.Get<byte>(topPoint_y, i) == 255 && topPoint_x == -1) // (y, x)
+        //        topPoint_x = i;
+        //    if (TImgBinary.Get<byte>(bottomPoint_y, i) == 255 && bottomPoint_x == -1) // (y, x)
+        //        bottomPoint_x = i;
+        //}
 
-        Point2f topPoint = new Point2f(topPoint_x, topPoint_y);
-        Point2f bottomPoint = new Point2f(bottomPoint_x, bottomPoint_y);
+        //Point2f Point1 = new Point2f(minX, minY);
+        //Point2f Point2 = new Point2f(maxX, maxY);
 
         // 計算兩點之間之項向量
-        Vec2f vector = new Vec2f(topPoint.X - bottomPoint.X, topPoint.Y - bottomPoint.Y);
+        Vec2f vector = new Vec2f(topLeft.X - bottomLeft.X, topLeft.Y - bottomLeft.Y);
         double angleInRadians = Math.Atan2(vector.Item1, vector.Item0);
-        
+
 
         // 將弧度轉換為角度，此為傾斜角度
         double alsntDegrees = angleInRadians * (180.0 / Math.PI);
+        alsntDegrees += 90;
+        Debug.WriteLine(alsntDegrees);
+        if (Math.Abs(alsntDegrees) > 45)
+        {
+            if (alsntDegrees > 0) alsntDegrees -= 90;
+            else alsntDegrees += 90;
+        }
 
-        alsntDegrees += 90;// 讓起始點回歸到第一象限(原本在第四象限)
-
-        Debug.WriteLine(topPoint);
-        Debug.WriteLine(bottomPoint);
+        Debug.WriteLine(topLeft);
+        Debug.WriteLine(bottomLeft);
         Debug.WriteLine(alsntDegrees);
         return rotateWithAngle(TImg, alsntDegrees);
 
@@ -154,12 +201,13 @@ public class Functions
         int x = (dst.Cols - targetSize.Width) / 2;
         int y = (dst.Rows - targetSize.Height) / 2;
         Rect rect = new Rect(x, y, targetSize.Width, targetSize.Height);
-         
+
         return BitmapConverter.ToBitmap(new Mat(dst, rect));
     }
 
-
-    public static Bitmap selectBlobWithAreaRatio(Mat img,
+    
+    public static Bitmap selectBlobWithAreaRatio(
+        Mat img,
         String binaryWay,
         int InRangeUpperBound,
         int InRangeLowerBound,
@@ -175,7 +223,6 @@ public class Functions
         // 分析blob
 
         Console.WriteLine("This is selectBlobWithAreaRatio Function");
-        
         Mat img_binary = new Mat();
         img_binary = BitmapConverter.ToMat(imgToBinary(img, 
             binaryWay, 
@@ -188,11 +235,14 @@ public class Functions
         // 找到輪廓
         OpenCvSharp.Point[][] contours;
         HierarchyIndex[] hierarchy;
+        GlobalVariables.targetContours = new OpenCvSharp.Point[][] { };
+
         OpenCvSharp.Point [][] Contours = {};
         if (findContoursWay == "External")
         {
             Cv2.FindContours(img_binary, out contours, out hierarchy, RetrievalModes.External, ContourApproximationModes.ApproxSimple);
             Contours = contours;
+
         }
 
         else if (findContoursWay == "List")
@@ -200,12 +250,14 @@ public class Functions
             Cv2.FindContours(img_binary, out contours, out hierarchy, RetrievalModes.List, ContourApproximationModes.ApproxSimple);
             Contours = contours;
         }
+        int counter = 0; // 全部輪廓index
 
         foreach (var cnt in Contours)
         {
             Cv2.MinEnclosingCircle(cnt, out Point2f center, out float radius);
-            if (radius < solderBalls_minRadius || radius > solderBalls_maxRadius)
+            if (radius < solderBalls_minRadius || radius > solderBalls_maxRadius) {
                 continue;
+            }
 
             int pixelCount255 = CountPixelsInContour(img_binary, cnt);
 
@@ -214,8 +266,13 @@ public class Functions
 
             double area_ratio = pixelCount255 / (Math.Pow(radius, 2) * 3.14);
             // blob 面積占比大於 blobAreaRatioThreshold 才檢出
-            if (area_ratio < blobAreaRatioThreshold)
+            if (area_ratio < blobAreaRatioThreshold) {
                 continue;
+            }
+            
+            GlobalVariables.targetContours = GlobalVariables.targetContours.Concat(new[] { cnt }).ToArray();
+            Debug.WriteLine(GlobalVariables.targetContours.Length);
+            
 
 
             var moments = Cv2.Moments(cnt);
@@ -228,8 +285,19 @@ public class Functions
                 Cv2.Circle(img, Convert.ToInt32(center.X), Convert.ToInt32(center.Y), radiusInt, new Scalar(0, 0, 255, 255), 2);
             else
                 Cv2.Circle(img, Convert.ToInt32(center.X), Convert.ToInt32(center.Y), radiusInt, new Scalar(0, 255, 0, 255), 2);
+            
+            counter++;
         }
         return BitmapConverter.ToBitmap(img);
+    }
+
+    // 儲存 Contours 物件為 Json
+    public static void saveContoursToJson()
+    {
+        // 保留需要的輪廓，並以json儲存於電腦
+        
+        string contoursJson = JsonConvert.SerializeObject(GlobalVariables.targetContours);
+        File.WriteAllText(rootPath + "\\parameter\\contours.json", contoursJson);
     }
 
     public static Bitmap findTarget(Mat img, Mat targetImg)
