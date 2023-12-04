@@ -65,7 +65,7 @@ public class Functions
     }
 
     // 找尋所有輪廓中，X值最小的點，與Y值最大的點
-    public static (OpenCvSharp.Point topLeft, OpenCvSharp.Point bottomLeft) FindMinMaxPoints(OpenCvSharp.Point[] contour)
+    public static (OpenCvSharp.Point topLeft, OpenCvSharp.Point bottomLeft, OpenCvSharp.Point topRight, OpenCvSharp.Point bottomRight) FindFourTopPoints(OpenCvSharp.Point[] contour)
     {
         if (contour == null || contour.Length == 0)
             throw new ArgumentException("Invalid contour");
@@ -97,7 +97,7 @@ public class Functions
         Debug.WriteLine(topLeft);
         Debug.WriteLine(bottomLeft);
 
-        return (topLeft, bottomLeft);
+        return (topLeft, bottomLeft, topRight, bottomRight);
     }
 
     public static Bitmap imgRotate(
@@ -113,47 +113,15 @@ public class Functions
         // 先大約找出目標物(模板比對)
         Mat TImg = BitmapConverter.ToMat(findTarget(img, targetImg));
         Mat TImgBinary;
-        // Canny 邊緣二值化
-        //TImgBinary = BitmapConverter.ToMat(imgCanny(
-        //    TImg,
-        //    CannyUpperBound,
-        //    CannyLowerBound,
-        //    DilateFlag,
-        //    ErodeFlag,
-        //    Dilate_Erode_Mask_Size));
+
         string json = File.ReadAllText(rootPath + "\\parameter\\contours.json");
         OpenCvSharp.Point[][] Contours = JsonConvert.DeserializeObject<OpenCvSharp.Point[][]>(json);
 
-        var (topLeft, bottomLeft) = FindMinMaxPoints(Contours[0]);
-
-
-
-
-
-
-        // 取得方框左邊的兩個點，並且求得斜率
-        //int topPoint_y = Convert.ToInt32((double)TImgBinary.Height * 2 / 5);
-        //int bottomPoint_y = Convert.ToInt32((double)TImgBinary.Height * 3 / 5);
-        //int topPoint_x = -1;
-        //int bottomPoint_x = -1;
-        //for (int i = 0; i < TImgBinary.Width; i++)
-        //{
-        //    Debug.WriteLine(TImgBinary.Get<byte>(topPoint_y, i));
-        //    if (topPoint_x != -1 && bottomPoint_x != -1)
-        //        break;
-        //    if (TImgBinary.Get<byte>(topPoint_y, i) == 255 && topPoint_x == -1) // (y, x)
-        //        topPoint_x = i;
-        //    if (TImgBinary.Get<byte>(bottomPoint_y, i) == 255 && bottomPoint_x == -1) // (y, x)
-        //        bottomPoint_x = i;
-        //}
-
-        //Point2f Point1 = new Point2f(minX, minY);
-        //Point2f Point2 = new Point2f(maxX, maxY);
+        var (topLeft, bottomLeft, topRight, bottomRight) = FindFourTopPoints(Contours[0]);
 
         // 計算兩點之間之項向量
         Vec2f vector = new Vec2f(topLeft.X - bottomLeft.X, topLeft.Y - bottomLeft.Y);
         double angleInRadians = Math.Atan2(vector.Item1, vector.Item0);
-
 
         // 將弧度轉換為角度，此為傾斜角度
         double alsntDegrees = angleInRadians * (180.0 / Math.PI);
@@ -169,7 +137,6 @@ public class Functions
         Debug.WriteLine(bottomLeft);
         Debug.WriteLine(alsntDegrees);
         return rotateWithAngle(TImg, alsntDegrees);
-
 
     }
 
