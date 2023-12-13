@@ -9,6 +9,7 @@ using System.Windows.Forms.VisualStyles;
 using System.Xml.Linq;
 using Newtonsoft.Json;
 using System.Diagnostics.Eventing.Reader;
+using System.Drawing;
 
 
 public class GlobalVariables
@@ -64,7 +65,7 @@ public class Functions
         return count;
     }
 
-    // 找尋所有輪廓中，X值最小的點，與Y值最大的點
+    // 找尋第一個 blob 輪廓中，X值最小的點，與Y值最大的點
     public static (OpenCvSharp.Point topLeft, OpenCvSharp.Point bottomLeft, OpenCvSharp.Point topRight, OpenCvSharp.Point bottomRight) FindFourTopPoints(OpenCvSharp.Point[] contour)
     {
         if (contour == null || contour.Length == 0)
@@ -100,9 +101,40 @@ public class Functions
         return (topLeft, bottomLeft, topRight, bottomRight);
     }
 
+    // 找尋所有 blobs 的外接圓圓心的最左上角以及最右下角圓心點
+    public static (OpenCvSharp.Point topLeft, OpenCvSharp.Point bottomLeft) FindTwoCircleCenter(OpenCvSharp.Point[][] contours)
+    {
+        if (contours == null || contours.Length == 0)
+            throw new ArgumentException("Invalid contour");
+
+        // 初始化點
+        OpenCvSharp.Point topLeftCircleCenter = contours[0][0];
+        OpenCvSharp.Point bottomLeftCircleCenter = contours[0][0];
+
+        foreach (OpenCvSharp.Point[] contour in contours)
+        {
+            Cv2.MinEnclosingCircle(contour, out Point2f center, out float radius);
+            // 找最左上的點
+            if ((center.X + center.Y) < (topLeftCircleCenter.X + topLeftCircleCenter.Y))
+            {
+                topLeftCircleCenter.X = Convert.ToInt32(center.X);
+                topLeftCircleCenter.Y = Convert.ToInt32(center.Y);
+            }
+            // 找最左下的點
+            if ((center.X - center.Y) < (bottomLeftCircleCenter.X - bottomLeftCircleCenter.Y))
+            {
+                bottomLeftCircleCenter.X = Convert.ToInt32(center.X);
+                bottomLeftCircleCenter.Y = Convert.ToInt32(center.Y);
+            }
+        }
+        return (topLeftCircleCenter, bottomLeftCircleCenter);
+
+    }
+
     public static Bitmap imgRotate(
         Mat img,
         Mat targetImg,
+        string rotateWay,
         int CannyUpperBound,
         int CannyLowerBound,
         bool DilateFlag,
@@ -114,13 +146,30 @@ public class Functions
         Mat TImg = BitmapConverter.ToMat(findTarget(img, targetImg));
         Mat TImgBinary;
 
+        // 讀取 blob 抓取的物件
         string json = File.ReadAllText(rootPath + "\\parameter\\contours.json");
         OpenCvSharp.Point[][] Contours = JsonConvert.DeserializeObject<OpenCvSharp.Point[][]>(json);
 
-        var (topLeft, bottomLeft, topRight, bottomRight) = FindFourTopPoints(Contours[0]);
+        OpenCvSharp.Point point1 = new OpenCvSharp.Point();
+        OpenCvSharp.Point point2 = new OpenCvSharp.Point();
+        if (rotateWay == "oneBlob")
+        {
+            var (topLeft, bottomLeft, topRight, bottomRight) = FindFourTopPoints(Contours[0]);
+            point1 = topLeft;
+            point2 = bottomLeft;
+        }
+        else if (rotateWay == "multiBlob")
+        {
+            var (topLeftCircleCenter, bottomLeftCircleCenter) = FindTwoCircleCenter(Contours);
+            point1 = topLeftCircleCenter; 
+            point2 = bottomLeftCircleCenter;
+        }
+
+        
+        //var (topLeft, bottomLeft, topRight, bottomRight) = FindFourTopPoints(Contours[0]);
 
         // 計算兩點之間之項向量
-        Vec2f vector = new Vec2f(topLeft.X - bottomLeft.X, topLeft.Y - bottomLeft.Y);
+        Vec2f vector = new Vec2f(point1.X - point2.X, point1.Y - point2.Y);
         double angleInRadians = Math.Atan2(vector.Item1, vector.Item0);
 
         // 將弧度轉換為角度，此為傾斜角度
@@ -133,8 +182,8 @@ public class Functions
             else alsntDegrees += 90;
         }
 
-        Debug.WriteLine(topLeft);
-        Debug.WriteLine(bottomLeft);
+        Debug.WriteLine(point1);
+        Debug.WriteLine(point2);
         Debug.WriteLine(alsntDegrees);
         return rotateWithAngle(TImg, alsntDegrees);
 

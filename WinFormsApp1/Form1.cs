@@ -50,7 +50,7 @@ namespace WinFormsApp1
             var parser = new FileIniDataParser();
             Dictionary<String, Object> parameter = new Dictionary<String, Object>();
             rootPath = System.Environment.CurrentDirectory.ToString().Split("\\WinFormsApp1\\bin\\")[0];// 跟目錄 path 設定
-            
+
             var parameterPath = rootPath + "\\parameter\\" + parameterFileName;
             openParameterFilePathLabel.Text = parameterPath.Split("\\")[parameterPath.Split("\\").Length - 1];
 
@@ -729,16 +729,25 @@ namespace WinFormsApp1
 
         private void rotateImgBtn_Click(object sender, EventArgs e)
         {
-            Bitmap resultImg = Functions.imgRotate(
+            if (rotateWayComboBox.SelectedIndex != -1)
+            {
+                Bitmap resultImg = Functions.imgRotate(
                 BitmapConverter.ToMat(positionedImg),
                 BitmapConverter.ToMat(targetImg),
+                rotateWayComboBox.Items[rotateWayComboBox.SelectedIndex].ToString(),
                 rotateImg_InRangeUpperBoundScrollBar.Value,
                 rotateImg_InRangeLowerBoundScrollBar.Value,
                 rotateImg_DilateFlagCheckBox.Checked,
                 rotateImg_ErodeFlagCheckBox.Checked,
                 Convert.ToInt32(rotateImg_Dilate_Erode_Mask_Size_NumericUpDown.Value));
-            positionedImg = resultImg;
-            panel1.BackgroundImage = resultImg;
+                positionedImg = resultImg;
+                panel1.BackgroundImage = resultImg;
+            }
+            else
+            {
+                MessageBox.Show("請選擇轉正方法");
+            }
+            
         }
 
         private void rotateImg_InRangeUpperBoundScrollBar_Scroll(object sender, ScrollEventArgs e)
@@ -828,6 +837,10 @@ namespace WinFormsApp1
                 Convert.ToInt32(rotateImg_Dilate_Erode_Mask_Size_NumericUpDown.Value));
 
             panel1.BackgroundImage = resultImg;
+        }
+
+        private void rotateWayComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
         }
     }
 }
