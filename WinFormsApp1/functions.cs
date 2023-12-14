@@ -421,7 +421,10 @@ public class Functions
             if (ErodeFlag)
                 Cv2.Erode(img_binary, img_binary, element);
         }
-        
+
+        // 將二值化的影像中的 0 轉換為 255，並將 255 轉換為 0
+        //Cv2.BitwiseNot(img_binary, img_binary);
+
 
         return BitmapConverter.ToBitmap(img_binary);
     }
