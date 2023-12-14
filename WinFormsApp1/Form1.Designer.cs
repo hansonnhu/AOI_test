@@ -896,9 +896,9 @@
             label18.AutoSize = true;
             label18.Location = new Point(10, 21);
             label18.Name = "label18";
-            label18.Size = new Size(343, 90);
+            label18.Size = new Size(355, 105);
             label18.TabIndex = 35;
-            label18.Text = "請先至 blob偵測頁籤找尋想要轉正的目標物件\r\n如 晶片內較為方正的物件\r\n或 整個晶片較清楚之外輪廓\r\n當左方畫面中已圈出目標物件，則可再回到此頁籤按下轉正按鈕\r\n\r\n備註：blob偵測時，請調整參數將圈出的物件數量控制在1個\r\n";
+            label18.Text = "請先至 blob偵測頁籤找尋想要轉正的目標物件\r\n如 晶片內較為方正的物件\r\n或 整個晶片較清楚之外輪廓\r\n當左方畫面中已圈出目標物件，則可再回到此頁籤按下轉正按鈕\r\n\r\noneBlob 轉正：取晶片內某一個較為方正的 blob\r\nmultiBlob 轉正：取晶片內所有 blob 中最左上角與左下角的 blob\r\n";
             // 
             // rotateBtn
             // 

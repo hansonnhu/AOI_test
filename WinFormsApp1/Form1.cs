@@ -747,7 +747,7 @@ namespace WinFormsApp1
             {
                 MessageBox.Show("請選擇轉正方法");
             }
-            
+
         }
 
         private void rotateImg_InRangeUpperBoundScrollBar_Scroll(object sender, ScrollEventArgs e)
