@@ -141,6 +141,10 @@ public class Functions
         bool ErodeFlag,
         int Dilate_Erode_Mask_Size)
     {
+        ///////////////// 待改動
+        ///////////////// 可以改由 Cv2.MinAreaRect(contours) 實作，可以回傳最小矩陣轉正後的角度。
+
+
         // 圖像自動轉正(方框)
         // 先大約找出目標物(模板比對)
         Mat TImg = BitmapConverter.ToMat(findTarget(img, targetImg));
