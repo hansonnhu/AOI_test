@@ -734,18 +734,21 @@ namespace WinFormsApp1
                 Bitmap resultImg = Functions.imgRotate(
                 BitmapConverter.ToMat(positionedImg),
                 BitmapConverter.ToMat(targetImg),
-                rotateWayComboBox.Items[rotateWayComboBox.SelectedIndex].ToString(),
-                rotateImg_InRangeUpperBoundScrollBar.Value,
-                rotateImg_InRangeLowerBoundScrollBar.Value,
-                rotateImg_DilateFlagCheckBox.Checked,
-                rotateImg_ErodeFlagCheckBox.Checked,
-                Convert.ToInt32(rotateImg_Dilate_Erode_Mask_Size_NumericUpDown.Value));
+                rotateWayComboBox.Items[rotateWayComboBox.SelectedIndex].ToString()
+                );
                 positionedImg = resultImg;
                 panel1.BackgroundImage = resultImg;
             }
             else
             {
-                MessageBox.Show("請選擇轉正方法");
+                Bitmap resultImg = Functions.imgRotate(
+                BitmapConverter.ToMat(positionedImg),
+                BitmapConverter.ToMat(targetImg),
+                "oneBlob"
+                );
+                positionedImg = resultImg;
+                panel1.BackgroundImage = resultImg;
+                //MessageBox.Show("請選擇轉正方法");
             }
 
         }

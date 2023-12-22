@@ -875,11 +875,13 @@
             // label19
             // 
             label19.AutoSize = true;
+            label19.Enabled = false;
             label19.Location = new Point(218, 442);
             label19.Name = "label19";
             label19.Size = new Size(79, 15);
             label19.TabIndex = 38;
             label19.Text = "選擇轉正方法";
+            label19.Visible = false;
             // 
             // rotateWayComboBox
             // 
@@ -889,16 +891,18 @@
             rotateWayComboBox.Name = "rotateWayComboBox";
             rotateWayComboBox.Size = new Size(121, 23);
             rotateWayComboBox.TabIndex = 37;
+            rotateWayComboBox.Visible = false;
             rotateWayComboBox.SelectedIndexChanged += rotateWayComboBox_SelectedIndexChanged;
             // 
             // label18
             // 
             label18.AutoSize = true;
-            label18.Location = new Point(10, 21);
+            label18.Font = new Font("Microsoft JhengHei UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            label18.Location = new Point(21, 19);
             label18.Name = "label18";
-            label18.Size = new Size(355, 105);
+            label18.Size = new Size(317, 72);
             label18.TabIndex = 35;
-            label18.Text = "請先至 blob偵測頁籤找尋想要轉正的目標物件\r\n如 晶片內較為方正的物件\r\n或 整個晶片較清楚之外輪廓\r\n當左方畫面中已圈出目標物件，則可再回到此頁籤按下轉正按鈕\r\n\r\noneBlob 轉正：取晶片內某一個較為方正的 blob\r\nmultiBlob 轉正：取晶片內所有 blob 中最左上角與左下角的 blob\r\n";
+            label18.Text = "請先至 blob偵測頁籤找尋想要轉正的目標物件(群)\r\n(記得要按下 blob 偵測按鈕)\r\n轉正方法會先找出物件(群)的最小外接矩形\r\n再藉由此矩形進行角度旋轉\r\n";
             // 
             // rotateBtn
             // 

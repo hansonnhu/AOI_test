@@ -10,6 +10,7 @@ using System.Xml.Linq;
 using Newtonsoft.Json;
 using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
+using static System.Net.Mime.MediaTypeNames;
 
 
 public class GlobalVariables
@@ -134,18 +135,14 @@ public class Functions
     public static Bitmap imgRotate(
         Mat img,
         Mat targetImg,
-        string rotateWay,
-        int CannyUpperBound,
-        int CannyLowerBound,
-        bool DilateFlag,
-        bool ErodeFlag,
-        int Dilate_Erode_Mask_Size)
+        string rotateWay
+        )
     {
         ///////////////// 待改動
         ///////////////// 可以改由 Cv2.MinAreaRect(contours) 實作，可以回傳最小矩陣轉正後的角度。
 
 
-        // 圖像自動轉正(方框)
+        // 圖像自動轉正(類似方框)
         // 先大約找出目標物(模板比對)
         Mat TImg = BitmapConverter.ToMat(findTarget(img, targetImg));
         Mat TImgBinary;
@@ -154,41 +151,61 @@ public class Functions
         string json = File.ReadAllText(rootPath + "\\parameter\\contours.json");
         OpenCvSharp.Point[][] Contours = JsonConvert.DeserializeObject<OpenCvSharp.Point[][]>(json);
 
-        OpenCvSharp.Point point1 = new OpenCvSharp.Point();
-        OpenCvSharp.Point point2 = new OpenCvSharp.Point();
-        if (rotateWay == "oneBlob")
-        {
-            var (topLeft, bottomLeft, topRight, bottomRight) = FindFourTopPoints(Contours[0]);
-            point1 = topLeft;
-            point2 = bottomLeft;
-        }
-        else if (rotateWay == "multiBlob")
-        {
-            var (topLeftCircleCenter, bottomLeftCircleCenter) = FindTwoCircleCenter(Contours);
-            point1 = topLeftCircleCenter; 
-            point2 = bottomLeftCircleCenter;
-        }
+        #region 找兩點斜率
+        // 單純找兩點斜率方法
+        //OpenCvSharp.Point point1 = new OpenCvSharp.Point();
+        //OpenCvSharp.Point point2 = new OpenCvSharp.Point();
+        //if (rotateWay == "oneBlob")
+        //{
+        //    var (topLeft, bottomLeft, topRight, bottomRight) = FindFourTopPoints(Contours[0]);
+        //    point1 = topLeft;
+        //    point2 = bottomLeft;
+        //}
+        //else if (rotateWay == "multiBlob")
+        //{
+        //    var (topLeftCircleCenter, bottomLeftCircleCenter) = FindTwoCircleCenter(Contours);
+        //    point1 = topLeftCircleCenter; 
+        //    point2 = bottomLeftCircleCenter;
+        //}
 
-        
-        //var (topLeft, bottomLeft, topRight, bottomRight) = FindFourTopPoints(Contours[0]);
+        //// 計算兩點之間之項向量
+        //Vec2f vector = new Vec2f(point1.X - point2.X, point1.Y - point2.Y);
+        //double angleInRadians = Math.Atan2(vector.Item1, vector.Item0);
 
-        // 計算兩點之間之項向量
-        Vec2f vector = new Vec2f(point1.X - point2.X, point1.Y - point2.Y);
-        double angleInRadians = Math.Atan2(vector.Item1, vector.Item0);
+        //// 將弧度轉換為角度，此為傾斜角度
+        //double alsntDegrees = angleInRadians * (180.0 / Math.PI);
+        //alsntDegrees += 90;
+        //Debug.WriteLine(alsntDegrees);
+        //if (Math.Abs(alsntDegrees) > 45)
+        //{
+        //    if (alsntDegrees > 0) alsntDegrees -= 90;
+        //    else alsntDegrees += 90;
+        //}
 
-        // 將弧度轉換為角度，此為傾斜角度
-        double alsntDegrees = angleInRadians * (180.0 / Math.PI);
-        alsntDegrees += 90;
+        //Debug.WriteLine(point1);
+        //Debug.WriteLine(point2);
+        //Debug.WriteLine(alsntDegrees);
+        #endregion
+
+        #region Cv2.MinAreaRect(contours) 實作
+        double alsntDegrees = 0;
+        //if (rotateWay == "oneBlob")
+        //    alsntDegrees = Cv2.MinAreaRect(Contours[0]).Angle;
+        //else
+        //{
+        //    IEnumerable<OpenCvSharp.Point> tempPoints = new List<OpenCvSharp.Point>();
+
+        //}
+        IEnumerable<OpenCvSharp.Point> tempPoints = Contours.SelectMany(contour => contour);
+        alsntDegrees = Cv2.MinAreaRect(tempPoints).Angle;
+
+        if(alsntDegrees > 45) {
+            {
+                alsntDegrees =  alsntDegrees - 90;
+            } }
         Debug.WriteLine(alsntDegrees);
-        if (Math.Abs(alsntDegrees) > 45)
-        {
-            if (alsntDegrees > 0) alsntDegrees -= 90;
-            else alsntDegrees += 90;
-        }
+        #endregion
 
-        Debug.WriteLine(point1);
-        Debug.WriteLine(point2);
-        Debug.WriteLine(alsntDegrees);
         return rotateWithAngle(TImg, alsntDegrees);
 
     }
@@ -291,7 +308,7 @@ public class Functions
             }
             
             GlobalVariables.targetContours = GlobalVariables.targetContours.Concat(new[] { cnt }).ToArray();
-            Debug.WriteLine(GlobalVariables.targetContours.Length);
+            //Debug.WriteLine(GlobalVariables.targetContours.Length);
             
 
 
