@@ -23,7 +23,7 @@ public class GlobalVariables
 public class Functions
 {
     public static String rootPath = System.Environment.CurrentDirectory.ToString().Split("\\WinFormsApp1\\bin\\")[0];// 跟目錄 path 設定;
-    
+
 
 
     public static Bitmap CropBitmap(Bitmap source, Rectangle cropArea)
@@ -199,10 +199,12 @@ public class Functions
         IEnumerable<OpenCvSharp.Point> tempPoints = Contours.SelectMany(contour => contour);
         alsntDegrees = Cv2.MinAreaRect(tempPoints).Angle;
 
-        if(alsntDegrees > 45) {
+        if (alsntDegrees > 45)
+        {
             {
-                alsntDegrees =  alsntDegrees - 90;
-            } }
+                alsntDegrees = alsntDegrees - 90;
+            }
+        }
         Debug.WriteLine(alsntDegrees);
         #endregion
 
@@ -242,7 +244,7 @@ public class Functions
         return BitmapConverter.ToBitmap(new Mat(dst, rect));
     }
 
-    
+
     public static Bitmap selectBlobWithAreaRatio(
         Mat img,
         String binaryWay,
@@ -261,9 +263,9 @@ public class Functions
 
         Console.WriteLine("This is selectBlobWithAreaRatio Function");
         Mat img_binary = new Mat();
-        img_binary = BitmapConverter.ToMat(imgToBinary(img, 
-            binaryWay, 
-            InRangeUpperBound, 
+        img_binary = BitmapConverter.ToMat(imgToBinary(img,
+            binaryWay,
+            InRangeUpperBound,
             InRangeLowerBound,
             DilateFlag,
             ErodeFlag,
@@ -274,7 +276,7 @@ public class Functions
         HierarchyIndex[] hierarchy;
         GlobalVariables.targetContours = new OpenCvSharp.Point[][] { };
 
-        OpenCvSharp.Point [][] Contours = {};
+        OpenCvSharp.Point[][] Contours = { };
         if (findContoursWay == "External")
         {
             Cv2.FindContours(img_binary, out contours, out hierarchy, RetrievalModes.External, ContourApproximationModes.ApproxSimple);
@@ -287,12 +289,12 @@ public class Functions
             Cv2.FindContours(img_binary, out contours, out hierarchy, RetrievalModes.List, ContourApproximationModes.ApproxSimple);
             Contours = contours;
         }
-        int counter = 0; // 全部輪廓index
 
         foreach (var cnt in Contours)
         {
             Cv2.MinEnclosingCircle(cnt, out Point2f center, out float radius);
-            if (radius < solderBalls_minRadius || radius > solderBalls_maxRadius) {
+            if (radius < solderBalls_minRadius || radius > solderBalls_maxRadius)
+            {
                 continue;
             }
 
@@ -301,30 +303,28 @@ public class Functions
             //if (!IsCircle(cnt, radius, pixelCount255, blobAreaRatio))
             //    continue;
 
-            double area_ratio = pixelCount255 / (Math.Pow(radius, 2) * 3.14);
+            double area_ratio = pixelCount255 / (Math.Pow(radius, 2) * 3.14159);
             // blob 面積占比大於 blobAreaRatioThreshold 才檢出
-            if (area_ratio < blobAreaRatioThreshold) {
+            if (area_ratio < blobAreaRatioThreshold)
+            {
                 continue;
             }
-            
+
+            // 將篩選出來的 Blob 參數儲存
             GlobalVariables.targetContours = GlobalVariables.targetContours.Concat(new[] { cnt }).ToArray();
-            //Debug.WriteLine(GlobalVariables.targetContours.Length);
-            
 
-
-            var moments = Cv2.Moments(cnt);
-            double x = moments.M10 / moments.M00;
-            double y = moments.M01 / moments.M00;
+            // 繪製輪廓
+            var oneContour = cnt;
+            Cv2.DrawContours(img, new[] { oneContour }, -1, new Scalar(76, 153, 0, 255), 2);
 
             int radiusInt = (int)radius;
-
             if (pixelCount255 > solderBalls_maxArea)
                 Cv2.Circle(img, Convert.ToInt32(center.X), Convert.ToInt32(center.Y), radiusInt, new Scalar(0, 0, 255, 255), 2);
             else
                 Cv2.Circle(img, Convert.ToInt32(center.X), Convert.ToInt32(center.Y), radiusInt, new Scalar(0, 255, 0, 255), 2);
-            
-            counter++;
+
         }
+
         return BitmapConverter.ToBitmap(img);
     }
 
@@ -332,7 +332,7 @@ public class Functions
     public static void saveContoursToJson()
     {
         // 保留需要的輪廓，並以json儲存於電腦
-        
+
         string contoursJson = JsonConvert.SerializeObject(GlobalVariables.targetContours);
         File.WriteAllText(rootPath + "\\parameter\\contours.json", contoursJson);
     }
@@ -343,7 +343,7 @@ public class Functions
         Console.WriteLine("This is findTarget Function");
 
         Mat result = new Mat();
-        
+
         Mat grayTemplateImage = new Mat();
         Cv2.CvtColor(targetImg, grayTemplateImage, ColorConversionCodes.BGR2GRAY);
         Mat grayimg = new Mat();
@@ -356,17 +356,17 @@ public class Functions
 
         // 取得匹配位置中的最大值和對應位置
         double minValue, maxValue;
-        
+
         double threshold = 0.7;
 
         OpenCvSharp.Point minLocation, maxLocation;
         Cv2.MinMaxLoc(result, out minValue, out maxValue, out minLocation, out maxLocation);
 
 
-        
+
         Bitmap tempBmp;
         tempBmp = CropBitmap(BitmapConverter.ToBitmap(img), new Rectangle(maxLocation.X, maxLocation.Y, targetImg.Width, targetImg.Height));
-        
+
         //tempBmp = rotateWithAngle(BitmapConverter.ToMat(tempBmp), 3.5);
         return tempBmp;
     }
@@ -405,9 +405,9 @@ public class Functions
     }
 
     // 二值化影像
-    public static Bitmap imgToBinary(Mat img, 
-        String binaryWay, 
-        int InRangeUpperBound, 
+    public static Bitmap imgToBinary(Mat img,
+        String binaryWay,
+        int InRangeUpperBound,
         int InRangeLowerBound,
         bool DilateFlag,
         bool ErodeFlag,
@@ -428,7 +428,7 @@ public class Functions
         {
             double otsuThreshold = Cv2.Threshold(img_gray, img_binary, 0, 255, ThresholdTypes.Otsu);
         }
-        else if(binaryWay == "InRange")
+        else if (binaryWay == "InRange")
         {
             Cv2.InRange(img_gray, InRangeLowerBound, InRangeUpperBound, img_binary);
         }
@@ -477,9 +477,9 @@ public class Functions
         //Cv2.Filter2D(img, img, MatType.CV_8U, kernel);
 
         Cv2.Canny(
-            img, 
-            img_binary, 
-            CannyLowerBound, 
+            img,
+            img_binary,
+            CannyLowerBound,
             CannyUpperBound,
             5);
 
