@@ -132,70 +132,15 @@ public class Functions
 
     }
 
-    public static Bitmap imgRotate(
-        Mat img,
-        Mat targetImg,
-        string rotateWay
-        )
+    public static Bitmap imgRotateWithSelectedBlob(Mat img)
     {
-        ///////////////// 待改動
-        ///////////////// 可以改由 Cv2.MinAreaRect(contours) 實作，可以回傳最小矩陣轉正後的角度。
-
-
-        // 圖像自動轉正(類似方框)
-        // 先大約找出目標物(模板比對)
-        Mat TImg = BitmapConverter.ToMat(findTarget(img, targetImg));
-        Mat TImgBinary;
-
         // 讀取 blob 抓取的物件
         string json = File.ReadAllText(rootPath + "\\parameter\\contours.json");
         OpenCvSharp.Point[][] Contours = JsonConvert.DeserializeObject<OpenCvSharp.Point[][]>(json);
 
-        #region 找兩點斜率
-        // 單純找兩點斜率方法
-        //OpenCvSharp.Point point1 = new OpenCvSharp.Point();
-        //OpenCvSharp.Point point2 = new OpenCvSharp.Point();
-        //if (rotateWay == "oneBlob")
-        //{
-        //    var (topLeft, bottomLeft, topRight, bottomRight) = FindFourTopPoints(Contours[0]);
-        //    point1 = topLeft;
-        //    point2 = bottomLeft;
-        //}
-        //else if (rotateWay == "multiBlob")
-        //{
-        //    var (topLeftCircleCenter, bottomLeftCircleCenter) = FindTwoCircleCenter(Contours);
-        //    point1 = topLeftCircleCenter; 
-        //    point2 = bottomLeftCircleCenter;
-        //}
-
-        //// 計算兩點之間之項向量
-        //Vec2f vector = new Vec2f(point1.X - point2.X, point1.Y - point2.Y);
-        //double angleInRadians = Math.Atan2(vector.Item1, vector.Item0);
-
-        //// 將弧度轉換為角度，此為傾斜角度
-        //double alsntDegrees = angleInRadians * (180.0 / Math.PI);
-        //alsntDegrees += 90;
-        //Debug.WriteLine(alsntDegrees);
-        //if (Math.Abs(alsntDegrees) > 45)
-        //{
-        //    if (alsntDegrees > 0) alsntDegrees -= 90;
-        //    else alsntDegrees += 90;
-        //}
-
-        //Debug.WriteLine(point1);
-        //Debug.WriteLine(point2);
-        //Debug.WriteLine(alsntDegrees);
-        #endregion
-
         #region Cv2.MinAreaRect(contours) 實作
         double alsntDegrees = 0;
-        //if (rotateWay == "oneBlob")
-        //    alsntDegrees = Cv2.MinAreaRect(Contours[0]).Angle;
-        //else
-        //{
-        //    IEnumerable<OpenCvSharp.Point> tempPoints = new List<OpenCvSharp.Point>();
 
-        //}
         IEnumerable<OpenCvSharp.Point> tempPoints = Contours.SelectMany(contour => contour);
         alsntDegrees = Cv2.MinAreaRect(tempPoints).Angle;
 
@@ -208,7 +153,7 @@ public class Functions
         Debug.WriteLine(alsntDegrees);
         #endregion
 
-        return rotateWithAngle(TImg, alsntDegrees);
+        return rotateWithAngle(img, alsntDegrees);
 
     }
 
@@ -300,10 +245,8 @@ public class Functions
 
             int pixelCount255 = CountPixelsInContour(img_binary, cnt);
 
-            //if (!IsCircle(cnt, radius, pixelCount255, blobAreaRatio))
-            //    continue;
-
             double area_ratio = pixelCount255 / (Math.Pow(radius, 2) * 3.14159);
+            
             // blob 面積占比大於 blobAreaRatioThreshold 才檢出
             if (area_ratio < blobAreaRatioThreshold)
             {
@@ -314,6 +257,19 @@ public class Functions
             GlobalVariables.targetContours = GlobalVariables.targetContours.Concat(new[] { cnt }).ToArray();
 
             // 繪製輪廓
+            // 創建一個空的四通道影像
+            Mat colorImg = new Mat(img.Rows, img.Cols, MatType.CV_8UC4);
+            // 將灰度影像轉換為四通道影像
+            try
+            {
+                // 將灰階轉為彩色
+                Cv2.CvtColor(img, img, ColorConversionCodes.GRAY2RGBA);
+            }
+            catch
+            {
+                // 本來就是彩色
+            }
+
             var oneContour = cnt;
             Cv2.DrawContours(img, new[] { oneContour }, -1, new Scalar(76, 153, 0, 255), 2);
 
@@ -322,9 +278,7 @@ public class Functions
                 Cv2.Circle(img, Convert.ToInt32(center.X), Convert.ToInt32(center.Y), radiusInt, new Scalar(0, 0, 255, 255), 2);
             else
                 Cv2.Circle(img, Convert.ToInt32(center.X), Convert.ToInt32(center.Y), radiusInt, new Scalar(0, 255, 0, 255), 2);
-
         }
-
         return BitmapConverter.ToBitmap(img);
     }
 

@@ -729,27 +729,10 @@ namespace WinFormsApp1
 
         private void rotateImgBtn_Click(object sender, EventArgs e)
         {
-            if (rotateWayComboBox.SelectedIndex != -1)
-            {
-                Bitmap resultImg = Functions.imgRotate(
-                BitmapConverter.ToMat(positionedImg),
-                BitmapConverter.ToMat(targetImg),
-                rotateWayComboBox.Items[rotateWayComboBox.SelectedIndex].ToString()
-                );
-                positionedImg = resultImg;
-                panel1.BackgroundImage = resultImg;
-            }
-            else
-            {
-                Bitmap resultImg = Functions.imgRotate(
-                BitmapConverter.ToMat(positionedImg),
-                BitmapConverter.ToMat(targetImg),
-                "oneBlob"
-                );
-                positionedImg = resultImg;
-                panel1.BackgroundImage = resultImg;
-                //MessageBox.Show("請選擇轉正方法");
-            }
+
+            Bitmap resultImg = Functions.imgRotateWithSelectedBlob(BitmapConverter.ToMat(positionedImg));
+            positionedImg = resultImg;
+            panel1.BackgroundImage = resultImg;
 
         }
 
