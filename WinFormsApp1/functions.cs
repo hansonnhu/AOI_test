@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using static System.Net.Mime.MediaTypeNames;
+using System.Security.Cryptography;
 
 
 public class GlobalVariables
@@ -395,6 +396,9 @@ public class Functions
             if (ErodeFlag)
                 Cv2.Erode(img_binary, img_binary, element);
         }
+
+        //Mat element = Cv2.GetStructuringElement(MorphShapes.Rect, new OpenCvSharp.Size(Dilate_Erode_Mask_Size, Dilate_Erode_Mask_Size));
+        //Cv2.MorphologyEx(img_binary, img_binary, MorphTypes.Close, element);
 
         // 將二值化的影像中的 0 轉換為 255，並將 255 轉換為 0
         //Cv2.BitwiseNot(img_binary, img_binary);
