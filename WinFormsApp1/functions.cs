@@ -243,10 +243,10 @@ public class Functions
                 continue;
             }
 
-            int pixelCount255 = CountPixelsInContour(img_binary, cnt);
+            //int blobArea = CountPixelsInContour(img_binary, cnt);
+            double blobArea = Cv2.ContourArea(cnt);
+            double area_ratio = blobArea / (Math.Pow(radius, 2) * 3.14159);
 
-            double area_ratio = pixelCount255 / (Math.Pow(radius, 2) * 3.14159);
-            
             // blob 面積占比大於 blobAreaRatioThreshold 才檢出
             if (area_ratio < blobAreaRatioThreshold)
             {
@@ -271,10 +271,10 @@ public class Functions
             }
 
             var oneContour = cnt;
-            Cv2.DrawContours(img, new[] { oneContour }, -1, new Scalar(76, 153, 0, 255), 2);
+            //Cv2.DrawContours(img, new[] { oneContour }, -1, new Scalar(76, 153, 0, 255), 2);
 
             int radiusInt = (int)radius;
-            if (pixelCount255 > solderBalls_maxArea)
+            if (blobArea > solderBalls_maxArea)
                 Cv2.Circle(img, Convert.ToInt32(center.X), Convert.ToInt32(center.Y), radiusInt, new Scalar(0, 0, 255, 255), 2);
             else
                 Cv2.Circle(img, Convert.ToInt32(center.X), Convert.ToInt32(center.Y), radiusInt, new Scalar(0, 255, 0, 255), 2);
