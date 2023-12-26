@@ -1054,6 +1054,7 @@
             Controls.Add(panel1);
             Name = "Form1";
             Text = "Form1";
+            Load += Form1_Load;
             pixelInfoGroup.ResumeLayout(false);
             pixelInfoGroup.PerformLayout();
             functionBtnGroup.ResumeLayout(false);

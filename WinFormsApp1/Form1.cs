@@ -183,6 +183,10 @@ namespace WinFormsApp1
                 blob_minRadiusBar.Value = blobDetectPara.blob_minRadius;
                 blob_minRadiusLabel.Text = blobDetectPara.blob_minRadius.ToString();
 
+                blobDetect_DilateFlagCheckBox.Checked = blobDetectPara.DilateFlag;
+                blobDetect_ErodeFlagCheckBox.Checked = blobDetectPara.ErodeFlag;
+                blobDetect_Dilate_Erode_Mask_Size_NumericUpDown.Value = blobDetectPara.Dilate_Erode_Mask_Size;
+
                 blob_maxRadiusBar.Value = blobDetectPara.blob_maxRadius;
                 blob_maxRadiusLabel.Text = blobDetectPara.blob_maxRadius.ToString();
 
@@ -190,10 +194,6 @@ namespace WinFormsApp1
                 blob_AreaRatioLabel.Text = blobDetectPara.blobAreaRatio.ToString();
 
                 FindContoursWayComboBox.SelectedItem = FindContoursWayComboBox.Items.Cast<dynamic>().FirstOrDefault(x => x == blobDetectPara.findContoursWay);
-
-                blobDetect_DilateFlagCheckBox.Checked = blobDetectPara.ErodeFlag;
-                blobDetect_ErodeFlagCheckBox.Checked = blobDetectPara.ErodeFlag;
-                blobDetect_Dilate_Erode_Mask_Size_NumericUpDown.Value = blobDetectPara.Dilate_Erode_Mask_Size;
 
                 setConsoleInfo();
             }
@@ -827,6 +827,11 @@ namespace WinFormsApp1
 
         private void rotateWayComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
