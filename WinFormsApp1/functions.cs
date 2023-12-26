@@ -226,7 +226,6 @@ public class Functions
         {
             Cv2.FindContours(img_binary, out contours, out hierarchy, RetrievalModes.External, ContourApproximationModes.ApproxSimple);
             Contours = contours;
-
         }
 
         else if (findContoursWay == "List")
