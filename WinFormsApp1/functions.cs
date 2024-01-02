@@ -390,7 +390,8 @@ public class Functions
         // Dilate 或 Erode 使用
         if (DilateFlag || ErodeFlag)
         {
-            Mat element = Cv2.GetStructuringElement(MorphShapes.Rect, new OpenCvSharp.Size(Dilate_Erode_Mask_Size, Dilate_Erode_Mask_Size));
+            //Mat element = Cv2.GetStructuringElement(MorphShapes.Rect, new OpenCvSharp.Size(Dilate_Erode_Mask_Size, Dilate_Erode_Mask_Size));// XY方向
+            Mat element = Cv2.GetStructuringElement(MorphShapes.Rect, new OpenCvSharp.Size(Dilate_Erode_Mask_Size, 1));// X方向
             if (DilateFlag)
                 Cv2.Dilate(img_binary, img_binary, element);
             if (ErodeFlag)
