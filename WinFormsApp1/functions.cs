@@ -203,7 +203,8 @@ public class Functions
         int solderBalls_minRadius,
         int solderBalls_maxRadius,
         double blobAreaRatioThreshold,
-        String findContoursWay)
+        String findContoursWay,
+        String Dilate_Erode_Direction)
     {
         // 分析blob
 
@@ -215,7 +216,8 @@ public class Functions
             InRangeLowerBound,
             DilateFlag,
             ErodeFlag,
-            Dilate_Erode_Mask_Size));
+            Dilate_Erode_Mask_Size,
+            Dilate_Erode_Direction));
 
         // 找到輪廓
         OpenCvSharp.Point[][] contours;
@@ -271,7 +273,7 @@ public class Functions
             }
 
             var oneContour = cnt;
-            //Cv2.DrawContours(img, new[] { oneContour }, -1, new Scalar(76, 153, 0, 255), 2);
+            Cv2.DrawContours(img, new[] { oneContour }, -1, new Scalar(76, 153, 0, 255), 2);
 
             int radiusInt = (int)radius;
             if (blobArea > solderBalls_maxArea)
@@ -365,7 +367,8 @@ public class Functions
         int InRangeLowerBound,
         bool DilateFlag,
         bool ErodeFlag,
-        int Dilate_Erode_Mask_Size)
+        int Dilate_Erode_Mask_Size,
+        String Dilate_Erode_Direction)
     {
         Mat img_gray = new Mat();
         Mat img_binary = new Mat();
@@ -390,8 +393,11 @@ public class Functions
         // Dilate 或 Erode 使用
         if (DilateFlag || ErodeFlag)
         {
-            //Mat element = Cv2.GetStructuringElement(MorphShapes.Rect, new OpenCvSharp.Size(Dilate_Erode_Mask_Size, Dilate_Erode_Mask_Size));// XY方向
-            Mat element = Cv2.GetStructuringElement(MorphShapes.Rect, new OpenCvSharp.Size(Dilate_Erode_Mask_Size, 1));// X方向
+            Mat element = Cv2.GetStructuringElement(MorphShapes.Rect, new OpenCvSharp.Size(Dilate_Erode_Mask_Size, Dilate_Erode_Mask_Size));// XY方向
+            if (Dilate_Erode_Direction == "X")
+                element = Cv2.GetStructuringElement(MorphShapes.Rect, new OpenCvSharp.Size(Dilate_Erode_Mask_Size, 1));// X方向
+            else if(Dilate_Erode_Direction == "Y")
+                element = Cv2.GetStructuringElement(MorphShapes.Rect, new OpenCvSharp.Size(1, Dilate_Erode_Mask_Size));// Y方向
             if (DilateFlag)
                 Cv2.Dilate(img_binary, img_binary, element);
             if (ErodeFlag)

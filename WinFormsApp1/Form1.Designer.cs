@@ -67,6 +67,8 @@
             rotateImg_InRangeLowerBoundLabel = new Label();
             TabGroup = new TabControl();
             tabPage2 = new TabPage();
+            Dilate_Erode_Direction_ComboBox = new ComboBox();
+            label21 = new Label();
             FindContoursWayComboBox = new ComboBox();
             blobDetect_Dilate_Erode_Mask_Size_NumericUpDown = new NumericUpDown();
             label12 = new Label();
@@ -373,7 +375,7 @@
             ConsoleGroupBox.Controls.Add(consoleLabel);
             ConsoleGroupBox.Location = new Point(482, 480);
             ConsoleGroupBox.Name = "ConsoleGroupBox";
-            ConsoleGroupBox.Size = new Size(288, 267);
+            ConsoleGroupBox.Size = new Size(288, 295);
             ConsoleGroupBox.TabIndex = 24;
             ConsoleGroupBox.TabStop = false;
             ConsoleGroupBox.Text = "Console";
@@ -508,11 +510,13 @@
             TabGroup.Margin = new Padding(2);
             TabGroup.Name = "TabGroup";
             TabGroup.SelectedIndex = 0;
-            TabGroup.Size = new Size(451, 521);
+            TabGroup.Size = new Size(451, 553);
             TabGroup.TabIndex = 16;
             // 
             // tabPage2
             // 
+            tabPage2.Controls.Add(Dilate_Erode_Direction_ComboBox);
+            tabPage2.Controls.Add(label21);
             tabPage2.Controls.Add(FindContoursWayComboBox);
             tabPage2.Controls.Add(blobDetect_Dilate_Erode_Mask_Size_NumericUpDown);
             tabPage2.Controls.Add(label12);
@@ -540,16 +544,36 @@
             tabPage2.Margin = new Padding(2);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(2);
-            tabPage2.Size = new Size(443, 493);
+            tabPage2.Size = new Size(443, 525);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "blob偵測";
             tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // Dilate_Erode_Direction_ComboBox
+            // 
+            Dilate_Erode_Direction_ComboBox.FormattingEnabled = true;
+            Dilate_Erode_Direction_ComboBox.Items.AddRange(new object[] { "X", "Y", "XY" });
+            Dilate_Erode_Direction_ComboBox.Location = new Point(209, 217);
+            Dilate_Erode_Direction_ComboBox.Name = "Dilate_Erode_Direction_ComboBox";
+            Dilate_Erode_Direction_ComboBox.Size = new Size(74, 23);
+            Dilate_Erode_Direction_ComboBox.TabIndex = 35;
+            Dilate_Erode_Direction_ComboBox.SelectedIndexChanged += Dilate_Erode_Direction_ComboBox_SelectedIndexChanged;
+            // 
+            // label21
+            // 
+            label21.AutoSize = true;
+            label21.Location = new Point(15, 220);
+            label21.Name = "label21";
+            label21.Size = new Size(84, 15);
+            label21.TabIndex = 34;
+            label21.Text = "膨脹/侵蝕方向";
+            label21.Click += label21_Click;
             // 
             // FindContoursWayComboBox
             // 
             FindContoursWayComboBox.FormattingEnabled = true;
             FindContoursWayComboBox.Items.AddRange(new object[] { "External", "List" });
-            FindContoursWayComboBox.Location = new Point(85, 457);
+            FindContoursWayComboBox.Location = new Point(85, 485);
             FindContoursWayComboBox.Name = "FindContoursWayComboBox";
             FindContoursWayComboBox.Size = new Size(161, 23);
             FindContoursWayComboBox.TabIndex = 33;
@@ -558,7 +582,7 @@
             // blobDetect_Dilate_Erode_Mask_Size_NumericUpDown
             // 
             blobDetect_Dilate_Erode_Mask_Size_NumericUpDown.Increment = new decimal(new int[] { 2, 0, 0, 0 });
-            blobDetect_Dilate_Erode_Mask_Size_NumericUpDown.Location = new Point(209, 191);
+            blobDetect_Dilate_Erode_Mask_Size_NumericUpDown.Location = new Point(209, 187);
             blobDetect_Dilate_Erode_Mask_Size_NumericUpDown.Maximum = new decimal(new int[] { 17, 0, 0, 0 });
             blobDetect_Dilate_Erode_Mask_Size_NumericUpDown.Minimum = new decimal(new int[] { 3, 0, 0, 0 });
             blobDetect_Dilate_Erode_Mask_Size_NumericUpDown.Name = "blobDetect_Dilate_Erode_Mask_Size_NumericUpDown";
@@ -570,7 +594,7 @@
             // label12
             // 
             label12.AutoSize = true;
-            label12.Location = new Point(15, 460);
+            label12.Location = new Point(15, 488);
             label12.Name = "label12";
             label12.Size = new Size(67, 15);
             label12.TabIndex = 32;
@@ -579,7 +603,7 @@
             // blobDetect_ErodeFlagCheckBox
             // 
             blobDetect_ErodeFlagCheckBox.AutoSize = true;
-            blobDetect_ErodeFlagCheckBox.Location = new Point(74, 195);
+            blobDetect_ErodeFlagCheckBox.Location = new Point(74, 191);
             blobDetect_ErodeFlagCheckBox.Name = "blobDetect_ErodeFlagCheckBox";
             blobDetect_ErodeFlagCheckBox.Size = new Size(50, 19);
             blobDetect_ErodeFlagCheckBox.TabIndex = 24;
@@ -590,7 +614,7 @@
             // blob_AreaRatioLabel
             // 
             blob_AreaRatioLabel.AutoSize = true;
-            blob_AreaRatioLabel.Location = new Point(321, 419);
+            blob_AreaRatioLabel.Location = new Point(321, 447);
             blob_AreaRatioLabel.Margin = new Padding(2, 0, 2, 0);
             blob_AreaRatioLabel.Name = "blob_AreaRatioLabel";
             blob_AreaRatioLabel.Size = new Size(21, 15);
@@ -600,7 +624,7 @@
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(15, 395);
+            label9.Location = new Point(15, 423);
             label9.Name = "label9";
             label9.Size = new Size(142, 15);
             label9.TabIndex = 30;
@@ -609,7 +633,7 @@
             // blobDetect_DilateFlagCheckBox
             // 
             blobDetect_DilateFlagCheckBox.AutoSize = true;
-            blobDetect_DilateFlagCheckBox.Location = new Point(18, 195);
+            blobDetect_DilateFlagCheckBox.Location = new Point(18, 191);
             blobDetect_DilateFlagCheckBox.Name = "blobDetect_DilateFlagCheckBox";
             blobDetect_DilateFlagCheckBox.Size = new Size(50, 19);
             blobDetect_DilateFlagCheckBox.TabIndex = 23;
@@ -620,7 +644,7 @@
             // blobAreaRatioBar
             // 
             blobAreaRatioBar.LargeChange = 1;
-            blobAreaRatioBar.Location = new Point(15, 410);
+            blobAreaRatioBar.Location = new Point(15, 438);
             blobAreaRatioBar.Name = "blobAreaRatioBar";
             blobAreaRatioBar.Size = new Size(298, 24);
             blobAreaRatioBar.TabIndex = 29;
@@ -629,7 +653,7 @@
             // blob_maxRadiusLabel
             // 
             blob_maxRadiusLabel.AutoSize = true;
-            blob_maxRadiusLabel.Location = new Point(321, 366);
+            blob_maxRadiusLabel.Location = new Point(321, 394);
             blob_maxRadiusLabel.Margin = new Padding(2, 0, 2, 0);
             blob_maxRadiusLabel.Name = "blob_maxRadiusLabel";
             blob_maxRadiusLabel.Size = new Size(21, 15);
@@ -639,7 +663,7 @@
             // label11
             // 
             label11.AutoSize = true;
-            label11.Location = new Point(140, 196);
+            label11.Location = new Point(140, 192);
             label11.Name = "label11";
             label11.Size = new Size(63, 15);
             label11.TabIndex = 22;
@@ -648,7 +672,7 @@
             // label10
             // 
             label10.AutoSize = true;
-            label10.Location = new Point(15, 342);
+            label10.Location = new Point(15, 370);
             label10.Name = "label10";
             label10.Size = new Size(118, 15);
             label10.TabIndex = 27;
@@ -657,7 +681,7 @@
             // blob_maxRadiusBar
             // 
             blob_maxRadiusBar.LargeChange = 1;
-            blob_maxRadiusBar.Location = new Point(15, 357);
+            blob_maxRadiusBar.Location = new Point(15, 385);
             blob_maxRadiusBar.Maximum = 1000;
             blob_maxRadiusBar.Name = "blob_maxRadiusBar";
             blob_maxRadiusBar.Size = new Size(298, 24);
@@ -676,7 +700,7 @@
             // blob_minRadiusLabel
             // 
             blob_minRadiusLabel.AutoSize = true;
-            blob_minRadiusLabel.Location = new Point(321, 314);
+            blob_minRadiusLabel.Location = new Point(321, 342);
             blob_minRadiusLabel.Margin = new Padding(2, 0, 2, 0);
             blob_minRadiusLabel.Name = "blob_minRadiusLabel";
             blob_minRadiusLabel.Size = new Size(21, 15);
@@ -686,7 +710,7 @@
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(15, 290);
+            label8.Location = new Point(15, 318);
             label8.Name = "label8";
             label8.Size = new Size(118, 15);
             label8.TabIndex = 24;
@@ -695,7 +719,7 @@
             // blob_minRadiusBar
             // 
             blob_minRadiusBar.LargeChange = 1;
-            blob_minRadiusBar.Location = new Point(15, 305);
+            blob_minRadiusBar.Location = new Point(15, 333);
             blob_minRadiusBar.Maximum = 1000;
             blob_minRadiusBar.Name = "blob_minRadiusBar";
             blob_minRadiusBar.Size = new Size(298, 24);
@@ -705,7 +729,7 @@
             // blob_maxAreaLabel
             // 
             blob_maxAreaLabel.AutoSize = true;
-            blob_maxAreaLabel.Location = new Point(321, 262);
+            blob_maxAreaLabel.Location = new Point(321, 290);
             blob_maxAreaLabel.Margin = new Padding(2, 0, 2, 0);
             blob_maxAreaLabel.Name = "blob_maxAreaLabel";
             blob_maxAreaLabel.Size = new Size(28, 15);
@@ -715,7 +739,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(15, 238);
+            label5.Location = new Point(15, 266);
             label5.Name = "label5";
             label5.Size = new Size(231, 15);
             label5.TabIndex = 21;
@@ -832,7 +856,7 @@
             // blob_maxAreaBar
             // 
             blob_maxAreaBar.LargeChange = 1;
-            blob_maxAreaBar.Location = new Point(15, 253);
+            blob_maxAreaBar.Location = new Point(15, 281);
             blob_maxAreaBar.Maximum = 5000;
             blob_maxAreaBar.Name = "blob_maxAreaBar";
             blob_maxAreaBar.Size = new Size(298, 24);
@@ -850,7 +874,7 @@
             // 
             // blobDetectButton
             // 
-            blobDetectButton.Location = new Point(352, 460);
+            blobDetectButton.Location = new Point(352, 488);
             blobDetectButton.Name = "blobDetectButton";
             blobDetectButton.Size = new Size(88, 28);
             blobDetectButton.TabIndex = 9;
@@ -867,7 +891,7 @@
             tabPage1.Location = new Point(4, 24);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(443, 493);
+            tabPage1.Size = new Size(443, 525);
             tabPage1.TabIndex = 2;
             tabPage1.Text = "轉正";
             tabPage1.UseVisualStyleBackColor = true;
@@ -1167,5 +1191,7 @@
         private Label label18;
         private ComboBox rotateWayComboBox;
         private Label label19;
+        private Label label21;
+        private ComboBox Dilate_Erode_Direction_ComboBox;
     }
 }

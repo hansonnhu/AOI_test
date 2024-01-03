@@ -63,6 +63,7 @@ namespace WinFormsApp1
 
 
 
+
             // 讓視窗全螢幕
             this.FormBorderStyle = FormBorderStyle.None;
             this.WindowState = FormWindowState.Maximized;
@@ -94,6 +95,7 @@ namespace WinFormsApp1
             consoleLabel.Text += "DilateFlag : " + blobDetectPara.DilateFlag + "\n";
             consoleLabel.Text += "ErodeFlag : " + blobDetectPara.ErodeFlag + "\n";
             consoleLabel.Text += "Dilate_Erode_Mask_Size : " + blobDetectPara.Dilate_Erode_Mask_Size + "\n";
+            consoleLabel.Text += "Dilate_Erode_Direction : " + blobDetectPara.Dilate_Erode_Direction + "\n";
             consoleLabel.Text += "blob_maxArea : " + blobDetectPara.blob_maxArea + "\n";
             consoleLabel.Text += "blob_minRadius : " + blobDetectPara.blob_minRadius + "\n";
             consoleLabel.Text += "blob_maxRadius : " + blobDetectPara.blob_maxRadius + "\n";
@@ -109,16 +111,17 @@ namespace WinFormsApp1
             public bool DilateFlag;
             public bool ErodeFlag;
             public int Dilate_Erode_Mask_Size;
+            public string Dilate_Erode_Direction;
 
-            public ImgToBinaryParameter()
-            {
-                imgBinaryWay = "";
-                InRangeUpperBound = 0;
-                InRangeLowerBound = 0;
-                DilateFlag = true;
-                ErodeFlag = true;
-                Dilate_Erode_Mask_Size = 0;
-            }
+            //public ImgToBinaryParameter()
+            //{
+            //    imgBinaryWay = "";
+            //    InRangeUpperBound = 0;
+            //    InRangeLowerBound = 0;
+            //    DilateFlag = true;
+            //    ErodeFlag = true;
+            //    Dilate_Erode_Mask_Size = 0;
+            //}
         }
 
         public class blobDetectParameter : ImgToBinaryParameter
@@ -144,6 +147,7 @@ namespace WinFormsApp1
                 DilateFlag = true;
                 ErodeFlag = true;
                 Dilate_Erode_Mask_Size = 0;
+                Dilate_Erode_Direction = "";
             }
         }
 
@@ -168,6 +172,7 @@ namespace WinFormsApp1
                 blobDetectPara.blob_maxRadius = int.Parse(data["blobDetect"]["blob_maxRadius"]);
                 blobDetectPara.blobAreaRatio = (double)int.Parse(data["blobDetect"]["blobAreaRatio"]) / 100;
                 blobDetectPara.findContoursWay = data["blobDetect"]["findContoursWay"];
+                blobDetectPara.Dilate_Erode_Direction = (data["blobDetect"]["Dilate_Erode_Direction"]);
 
 
                 // 將 blobDetect 數值更新於介面
@@ -194,6 +199,7 @@ namespace WinFormsApp1
                 blob_AreaRatioLabel.Text = blobDetectPara.blobAreaRatio.ToString();
 
                 FindContoursWayComboBox.SelectedItem = FindContoursWayComboBox.Items.Cast<dynamic>().FirstOrDefault(x => x == blobDetectPara.findContoursWay);
+                Dilate_Erode_Direction_ComboBox.SelectedItem = Dilate_Erode_Direction_ComboBox.Items.Cast<dynamic>().FirstOrDefault(x => x == blobDetectPara.Dilate_Erode_Direction);
 
                 setConsoleInfo();
             }
@@ -280,7 +286,8 @@ namespace WinFormsApp1
                     blobDetectPara.blob_minRadius,
                     blobDetectPara.blob_maxRadius,
                     blobDetectPara.blobAreaRatio,
-                    blobDetectPara.findContoursWay);
+                    blobDetectPara.findContoursWay,
+                    blobDetectPara.Dilate_Erode_Direction);
                 panel1.BackgroundImage = resultImg;
 
                 setConsoleInfo();
@@ -310,7 +317,8 @@ namespace WinFormsApp1
                     blobDetectPara.InRangeLowerBound,
                     blobDetectPara.DilateFlag,
                     blobDetectPara.ErodeFlag,
-                    blobDetectPara.Dilate_Erode_Mask_Size);
+                    blobDetectPara.Dilate_Erode_Mask_Size,
+                    blobDetectPara.Dilate_Erode_Direction);
                 panel1.BackgroundImage = resultImg;
             }
         }
@@ -449,7 +457,8 @@ namespace WinFormsApp1
                     blobDetectPara.InRangeLowerBound,
                     blobDetectPara.DilateFlag,
                     blobDetectPara.ErodeFlag,
-                    blobDetectPara.Dilate_Erode_Mask_Size);
+                    blobDetectPara.Dilate_Erode_Mask_Size,
+                    blobDetectPara.Dilate_Erode_Direction);
                 panel1.BackgroundImage = resultImg;
             }
         }
@@ -468,7 +477,7 @@ namespace WinFormsApp1
                     blobDetectPara.InRangeLowerBound,
                     blobDetectPara.DilateFlag,
                     blobDetectPara.ErodeFlag,
-                    blobDetectPara.Dilate_Erode_Mask_Size);
+                    blobDetectPara.Dilate_Erode_Mask_Size, blobDetectPara.Dilate_Erode_Direction);
                 panel1.BackgroundImage = resultImg;
             }
 
@@ -492,7 +501,7 @@ namespace WinFormsApp1
                     blobDetectPara.blob_minRadius,
                     blobDetectPara.blob_maxRadius,
                     blobDetectPara.blobAreaRatio,
-                    blobDetectPara.findContoursWay);
+                    blobDetectPara.findContoursWay, blobDetectPara.Dilate_Erode_Direction);
                 panel1.BackgroundImage = resultImg;
             }
 
@@ -516,7 +525,7 @@ namespace WinFormsApp1
                     blobDetectPara.blob_minRadius,
                     blobDetectPara.blob_maxRadius,
                     blobDetectPara.blobAreaRatio,
-                    blobDetectPara.findContoursWay);
+                    blobDetectPara.findContoursWay, blobDetectPara.Dilate_Erode_Direction);
                 panel1.BackgroundImage = resultImg;
             }
         }
@@ -539,7 +548,7 @@ namespace WinFormsApp1
                     blobDetectPara.blob_minRadius,
                     blobDetectPara.blob_maxRadius,
                     blobDetectPara.blobAreaRatio,
-                    blobDetectPara.findContoursWay);
+                    blobDetectPara.findContoursWay, blobDetectPara.Dilate_Erode_Direction);
                 panel1.BackgroundImage = resultImg;
             }
         }
@@ -610,7 +619,7 @@ namespace WinFormsApp1
                     blobDetectPara.blob_minRadius,
                     blobDetectPara.blob_maxRadius,
                     blobDetectPara.blobAreaRatio,
-                    blobDetectPara.findContoursWay);
+                    blobDetectPara.findContoursWay, blobDetectPara.Dilate_Erode_Direction);
                 panel1.BackgroundImage = resultImg;
             }
         }
@@ -627,7 +636,7 @@ namespace WinFormsApp1
                     blobDetectPara.InRangeLowerBound,
                     blobDetectPara.DilateFlag,
                     blobDetectPara.ErodeFlag,
-                    blobDetectPara.Dilate_Erode_Mask_Size);
+                    blobDetectPara.Dilate_Erode_Mask_Size, blobDetectPara.Dilate_Erode_Direction);
                 panel1.BackgroundImage = resultImg;
             }
         }
@@ -644,7 +653,7 @@ namespace WinFormsApp1
                     blobDetectPara.InRangeLowerBound,
                     blobDetectPara.DilateFlag,
                     blobDetectPara.ErodeFlag,
-                    blobDetectPara.Dilate_Erode_Mask_Size);
+                    blobDetectPara.Dilate_Erode_Mask_Size, blobDetectPara.Dilate_Erode_Direction);
                 panel1.BackgroundImage = resultImg;
             }
         }
@@ -661,7 +670,7 @@ namespace WinFormsApp1
                     blobDetectPara.InRangeLowerBound,
                     blobDetectPara.DilateFlag,
                     blobDetectPara.ErodeFlag,
-                    blobDetectPara.Dilate_Erode_Mask_Size);
+                    blobDetectPara.Dilate_Erode_Mask_Size, blobDetectPara.Dilate_Erode_Direction);
                 panel1.BackgroundImage = resultImg;
             }
         }
@@ -686,6 +695,7 @@ namespace WinFormsApp1
             data["blobDetect"]["blob_maxRadius"] = blobDetectPara.blob_maxRadius.ToString();
             data["blobDetect"]["blobAreaRatio"] = ((int)(blobDetectPara.blobAreaRatio * 100)).ToString();
             data["blobDetect"]["findContoursWay"] = blobDetectPara.findContoursWay;
+            data["blobDetect"]["Dilate_Erode_Direction"] = blobDetectPara.Dilate_Erode_Direction;
 
             try
             {
@@ -832,6 +842,28 @@ namespace WinFormsApp1
         private void Form1_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void label21_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Dilate_Erode_Direction_ComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            blobDetectPara.Dilate_Erode_Direction = Dilate_Erode_Direction_ComboBox.SelectedItem.ToString();
+            if (positionedImg != null)
+            {
+                Mat positionedImage = BitmapConverter.ToMat(positionedImg);
+                Bitmap resultImg = Functions.imgToBinary(positionedImage,
+                    blobDetectPara.imgBinaryWay,
+                    blobDetectPara.InRangeUpperBound,
+                    blobDetectPara.InRangeLowerBound,
+                    blobDetectPara.DilateFlag,
+                    blobDetectPara.ErodeFlag,
+                    blobDetectPara.Dilate_Erode_Mask_Size, blobDetectPara.Dilate_Erode_Direction);
+                panel1.BackgroundImage = resultImg;
+            }
         }
     }
 }
