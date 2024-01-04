@@ -196,6 +196,7 @@ public class Functions
         String binaryWay,
         int InRangeUpperBound,
         int InRangeLowerBound,
+        bool invertBinaryFlag,
         bool DilateFlag,
         bool ErodeFlag,
         int Dilate_Erode_Mask_Size,
@@ -214,6 +215,7 @@ public class Functions
             binaryWay,
             InRangeUpperBound,
             InRangeLowerBound,
+            invertBinaryFlag,
             DilateFlag,
             ErodeFlag,
             Dilate_Erode_Mask_Size,
@@ -365,6 +367,7 @@ public class Functions
         String binaryWay,
         int InRangeUpperBound,
         int InRangeLowerBound,
+        bool invertBinaryFlag,
         bool DilateFlag,
         bool ErodeFlag,
         int Dilate_Erode_Mask_Size,
@@ -408,8 +411,8 @@ public class Functions
         //Cv2.MorphologyEx(img_binary, img_binary, MorphTypes.Close, element);
 
         // 將二值化的影像中的 0 轉換為 255，並將 255 轉換為 0
-        //Cv2.BitwiseNot(img_binary, img_binary);
-
+        if (invertBinaryFlag)
+            Cv2.BitwiseNot(img_binary, img_binary);
 
         return BitmapConverter.ToBitmap(img_binary);
     }

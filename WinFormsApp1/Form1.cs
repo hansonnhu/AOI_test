@@ -5,8 +5,7 @@ using IniParser;
 using IniParser.Model;
 using Newtonsoft.Json;
 using System.IO;
-//using functions;
-//using https;
+
 namespace WinFormsApp1
 {
 
@@ -25,20 +24,6 @@ namespace WinFormsApp1
 
         // 各項 function 參數檔
         blobDetectParameter blobDetectPara = new blobDetectParameter();
-
-        // imgToBinary function 部分
-        //private String imgBinaryWay = "Otsu";
-        //private int InRangeUpperBound;
-        //private int InRangeLowerBound;
-        //private bool DilateFlag = false;
-        //private bool ErodeFlag = false;
-        //private int Dilate_Erode_Mask_Size = 1;
-        //// selectBlobWithAreaRatio function 部分
-        //private int blob_maxArea;
-        //private int blob_minRadius;
-        //private int blob_maxRadius;
-        //private double blobAreaRatio;
-        //private String findContoursWay;
 
 
         public Form1()
@@ -92,6 +77,7 @@ namespace WinFormsApp1
             consoleLabel.Text += "imgBinaryWay : " + blobDetectPara.imgBinaryWay + "\n";
             consoleLabel.Text += "InRangeUpperBound : " + blobDetectPara.InRangeUpperBound + "\n";
             consoleLabel.Text += "InRangeLowerBound : " + blobDetectPara.InRangeLowerBound + "\n";
+            consoleLabel.Text += "invertBinaryFlag : " + blobDetectPara.invertBinaryFlag + "\n";
             consoleLabel.Text += "DilateFlag : " + blobDetectPara.DilateFlag + "\n";
             consoleLabel.Text += "ErodeFlag : " + blobDetectPara.ErodeFlag + "\n";
             consoleLabel.Text += "Dilate_Erode_Mask_Size : " + blobDetectPara.Dilate_Erode_Mask_Size + "\n";
@@ -112,6 +98,7 @@ namespace WinFormsApp1
             public bool ErodeFlag;
             public int Dilate_Erode_Mask_Size;
             public string Dilate_Erode_Direction;
+            public bool invertBinaryFlag;
 
             //public ImgToBinaryParameter()
             //{
@@ -148,6 +135,7 @@ namespace WinFormsApp1
                 ErodeFlag = true;
                 Dilate_Erode_Mask_Size = 0;
                 Dilate_Erode_Direction = "";
+                invertBinaryFlag = false;
             }
         }
 
@@ -173,6 +161,7 @@ namespace WinFormsApp1
                 blobDetectPara.blobAreaRatio = (double)int.Parse(data["blobDetect"]["blobAreaRatio"]) / 100;
                 blobDetectPara.findContoursWay = data["blobDetect"]["findContoursWay"];
                 blobDetectPara.Dilate_Erode_Direction = (data["blobDetect"]["Dilate_Erode_Direction"]);
+                blobDetectPara.invertBinaryFlag = int.Parse(data["blobDetect"]["invertBinaryFlag"]) == 1 ? true : false;
 
 
                 // 將 blobDetect 數值更新於介面
@@ -181,6 +170,8 @@ namespace WinFormsApp1
 
                 blobDetect_InRangeLowerBoundScrollBar.Value = blobDetectPara.InRangeLowerBound;
                 blobDetect_InRangeLowerBoundLabel.Text = blobDetectPara.InRangeLowerBound.ToString();
+
+                blobDetect_invertBinaryFlagCheckBox.Checked = blobDetectPara.invertBinaryFlag;
 
                 blob_maxAreaBar.Value = blobDetectPara.blob_maxArea;
                 blob_maxAreaLabel.Text = blobDetectPara.blob_maxArea.ToString();
@@ -203,6 +194,36 @@ namespace WinFormsApp1
 
                 setConsoleInfo();
             }
+        }
+
+        private void saveParameterBtn_Click(object sender, EventArgs e)
+        {
+            var parser = new FileIniDataParser();
+            var data = new IniData();
+            data["blobDetect"]["imgBinaryWay"] = blobDetectPara.imgBinaryWay;
+            data["blobDetect"]["InRangeUpperBound"] = blobDetectPara.InRangeUpperBound.ToString();
+            data["blobDetect"]["InRangeLowerBound"] = blobDetectPara.InRangeLowerBound.ToString();
+            data["blobDetect"]["DilateFlag"] = blobDetectPara.DilateFlag ? "1" : "0";
+            data["blobDetect"]["ErodeFlag"] = blobDetectPara.ErodeFlag ? "1" : "0";
+            data["blobDetect"]["Dilate_Erode_Mask_Size"] = blobDetectPara.Dilate_Erode_Mask_Size.ToString();
+            data["blobDetect"]["blob_maxArea"] = blobDetectPara.blob_maxArea.ToString();
+            data["blobDetect"]["blob_minRadius"] = blobDetectPara.blob_minRadius.ToString();
+            data["blobDetect"]["blob_maxRadius"] = blobDetectPara.blob_maxRadius.ToString();
+            data["blobDetect"]["blobAreaRatio"] = ((int)(blobDetectPara.blobAreaRatio * 100)).ToString();
+            data["blobDetect"]["findContoursWay"] = blobDetectPara.findContoursWay;
+            data["blobDetect"]["Dilate_Erode_Direction"] = blobDetectPara.Dilate_Erode_Direction;
+            data["blobDetect"]["invertBinaryFlag"] = blobDetectPara.invertBinaryFlag ? "1" : "0";
+
+            try
+            {
+                parser.WriteFile(rootPath + "\\parameter\\" + saveParameterLabel.Text + ".ini", data);
+                MessageBox.Show("儲存參數成功 !");
+            }
+            catch
+            {
+                MessageBox.Show("儲存失敗");
+            }
+
         }
 
         public void resizePanel(Bitmap img, Panel panel1)
@@ -279,6 +300,7 @@ namespace WinFormsApp1
                     blobDetectPara.imgBinaryWay,
                     blobDetectPara.InRangeUpperBound,
                     blobDetectPara.InRangeLowerBound,
+                    blobDetectPara.invertBinaryFlag,
                     blobDetectPara.DilateFlag,
                     blobDetectPara.ErodeFlag,
                     blobDetectPara.Dilate_Erode_Mask_Size,
@@ -315,6 +337,7 @@ namespace WinFormsApp1
                     blobDetectPara.imgBinaryWay,
                     blobDetectPara.InRangeUpperBound,
                     blobDetectPara.InRangeLowerBound,
+                    blobDetectPara.invertBinaryFlag,
                     blobDetectPara.DilateFlag,
                     blobDetectPara.ErodeFlag,
                     blobDetectPara.Dilate_Erode_Mask_Size,
@@ -368,8 +391,6 @@ namespace WinFormsApp1
                 MessageBox.Show("非 .bmp 檔案 ! 請重新選擇 !");
             }
         }
-
-
 
 
 
@@ -455,6 +476,7 @@ namespace WinFormsApp1
                     blobDetectPara.imgBinaryWay,
                     blobDetectPara.InRangeUpperBound,
                     blobDetectPara.InRangeLowerBound,
+                    blobDetectPara.invertBinaryFlag,
                     blobDetectPara.DilateFlag,
                     blobDetectPara.ErodeFlag,
                     blobDetectPara.Dilate_Erode_Mask_Size,
@@ -475,6 +497,7 @@ namespace WinFormsApp1
                     blobDetectPara.imgBinaryWay,
                     blobDetectPara.InRangeUpperBound,
                     blobDetectPara.InRangeLowerBound,
+                    blobDetectPara.invertBinaryFlag,
                     blobDetectPara.DilateFlag,
                     blobDetectPara.ErodeFlag,
                     blobDetectPara.Dilate_Erode_Mask_Size, blobDetectPara.Dilate_Erode_Direction);
@@ -494,6 +517,7 @@ namespace WinFormsApp1
                     blobDetectPara.imgBinaryWay,
                     blobDetectPara.InRangeUpperBound,
                     blobDetectPara.InRangeLowerBound,
+                    blobDetectPara.invertBinaryFlag,
                     blobDetectPara.DilateFlag,
                     blobDetectPara.ErodeFlag,
                     blobDetectPara.Dilate_Erode_Mask_Size,
@@ -518,6 +542,7 @@ namespace WinFormsApp1
                     blobDetectPara.imgBinaryWay,
                     blobDetectPara.InRangeUpperBound,
                     blobDetectPara.InRangeLowerBound,
+                    blobDetectPara.invertBinaryFlag,
                     blobDetectPara.DilateFlag,
                     blobDetectPara.ErodeFlag,
                     blobDetectPara.Dilate_Erode_Mask_Size,
@@ -541,6 +566,7 @@ namespace WinFormsApp1
                     blobDetectPara.imgBinaryWay,
                     blobDetectPara.InRangeUpperBound,
                     blobDetectPara.InRangeLowerBound,
+                    blobDetectPara.invertBinaryFlag,
                     blobDetectPara.DilateFlag,
                     blobDetectPara.ErodeFlag,
                     blobDetectPara.Dilate_Erode_Mask_Size,
@@ -612,6 +638,7 @@ namespace WinFormsApp1
                     blobDetectPara.imgBinaryWay,
                     blobDetectPara.InRangeUpperBound,
                     blobDetectPara.InRangeLowerBound,
+                    blobDetectPara.invertBinaryFlag,
                     blobDetectPara.DilateFlag,
                     blobDetectPara.ErodeFlag,
                     blobDetectPara.Dilate_Erode_Mask_Size,
@@ -634,6 +661,7 @@ namespace WinFormsApp1
                     blobDetectPara.imgBinaryWay,
                     blobDetectPara.InRangeUpperBound,
                     blobDetectPara.InRangeLowerBound,
+                    blobDetectPara.invertBinaryFlag,
                     blobDetectPara.DilateFlag,
                     blobDetectPara.ErodeFlag,
                     blobDetectPara.Dilate_Erode_Mask_Size, blobDetectPara.Dilate_Erode_Direction);
@@ -651,6 +679,7 @@ namespace WinFormsApp1
                     blobDetectPara.imgBinaryWay,
                     blobDetectPara.InRangeUpperBound,
                     blobDetectPara.InRangeLowerBound,
+                    blobDetectPara.invertBinaryFlag,
                     blobDetectPara.DilateFlag,
                     blobDetectPara.ErodeFlag,
                     blobDetectPara.Dilate_Erode_Mask_Size, blobDetectPara.Dilate_Erode_Direction);
@@ -668,6 +697,7 @@ namespace WinFormsApp1
                     blobDetectPara.imgBinaryWay,
                     blobDetectPara.InRangeUpperBound,
                     blobDetectPara.InRangeLowerBound,
+                    blobDetectPara.invertBinaryFlag,
                     blobDetectPara.DilateFlag,
                     blobDetectPara.ErodeFlag,
                     blobDetectPara.Dilate_Erode_Mask_Size, blobDetectPara.Dilate_Erode_Direction);
@@ -680,34 +710,7 @@ namespace WinFormsApp1
             blobDetectPara.findContoursWay = FindContoursWayComboBox.SelectedItem.ToString();
         }
 
-        private void saveParameterBtn_Click(object sender, EventArgs e)
-        {
-            var parser = new FileIniDataParser();
-            var data = new IniData();
-            data["blobDetect"]["imgBinaryWay"] = blobDetectPara.imgBinaryWay;
-            data["blobDetect"]["InRangeUpperBound"] = blobDetectPara.InRangeUpperBound.ToString();
-            data["blobDetect"]["InRangeLowerBound"] = blobDetectPara.InRangeLowerBound.ToString();
-            data["blobDetect"]["DilateFlag"] = blobDetectPara.DilateFlag ? "1" : "0";
-            data["blobDetect"]["ErodeFlag"] = blobDetectPara.ErodeFlag ? "1" : "0";
-            data["blobDetect"]["Dilate_Erode_Mask_Size"] = blobDetectPara.Dilate_Erode_Mask_Size.ToString();
-            data["blobDetect"]["blob_maxArea"] = blobDetectPara.blob_maxArea.ToString();
-            data["blobDetect"]["blob_minRadius"] = blobDetectPara.blob_minRadius.ToString();
-            data["blobDetect"]["blob_maxRadius"] = blobDetectPara.blob_maxRadius.ToString();
-            data["blobDetect"]["blobAreaRatio"] = ((int)(blobDetectPara.blobAreaRatio * 100)).ToString();
-            data["blobDetect"]["findContoursWay"] = blobDetectPara.findContoursWay;
-            data["blobDetect"]["Dilate_Erode_Direction"] = blobDetectPara.Dilate_Erode_Direction;
-
-            try
-            {
-                parser.WriteFile(rootPath + "\\parameter\\" + saveParameterLabel.Text + ".ini", data);
-                MessageBox.Show("儲存參數成功 !");
-            }
-            catch
-            {
-                MessageBox.Show("儲存失敗");
-            }
-
-        }
+        
 
         private void openParameterFileBtn_Click(object sender, EventArgs e)
         {
@@ -859,6 +862,25 @@ namespace WinFormsApp1
                     blobDetectPara.imgBinaryWay,
                     blobDetectPara.InRangeUpperBound,
                     blobDetectPara.InRangeLowerBound,
+                    blobDetectPara.invertBinaryFlag,
+                    blobDetectPara.DilateFlag,
+                    blobDetectPara.ErodeFlag,
+                    blobDetectPara.Dilate_Erode_Mask_Size, blobDetectPara.Dilate_Erode_Direction);
+                panel1.BackgroundImage = resultImg;
+            }
+        }
+
+        private void blobDetect_invertBinaryFlagCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            blobDetectPara.invertBinaryFlag = blobDetect_invertBinaryFlagCheckBox.Checked;
+            if (positionedImg != null)
+            {
+                Mat positionedImage = BitmapConverter.ToMat(positionedImg);
+                Bitmap resultImg = Functions.imgToBinary(positionedImage,
+                    blobDetectPara.imgBinaryWay,
+                    blobDetectPara.InRangeUpperBound,
+                    blobDetectPara.InRangeLowerBound,
+                    blobDetectPara.invertBinaryFlag,
                     blobDetectPara.DilateFlag,
                     blobDetectPara.ErodeFlag,
                     blobDetectPara.Dilate_Erode_Mask_Size, blobDetectPara.Dilate_Erode_Direction);

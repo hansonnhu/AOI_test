@@ -67,6 +67,7 @@
             rotateImg_InRangeLowerBoundLabel = new Label();
             TabGroup = new TabControl();
             tabPage2 = new TabPage();
+            blobDetect_invertBinaryFlagCheckBox = new CheckBox();
             Dilate_Erode_Direction_ComboBox = new ComboBox();
             label21 = new Label();
             FindContoursWayComboBox = new ComboBox();
@@ -515,6 +516,7 @@
             // 
             // tabPage2
             // 
+            tabPage2.Controls.Add(blobDetect_invertBinaryFlagCheckBox);
             tabPage2.Controls.Add(Dilate_Erode_Direction_ComboBox);
             tabPage2.Controls.Add(label21);
             tabPage2.Controls.Add(FindContoursWayComboBox);
@@ -549,20 +551,31 @@
             tabPage2.Text = "blob偵測";
             tabPage2.UseVisualStyleBackColor = true;
             // 
+            // blobDetect_invertBinaryFlagCheckBox
+            // 
+            blobDetect_invertBinaryFlagCheckBox.AutoSize = true;
+            blobDetect_invertBinaryFlagCheckBox.Location = new Point(354, 138);
+            blobDetect_invertBinaryFlagCheckBox.Name = "blobDetect_invertBinaryFlagCheckBox";
+            blobDetect_invertBinaryFlagCheckBox.Size = new Size(86, 19);
+            blobDetect_invertBinaryFlagCheckBox.TabIndex = 37;
+            blobDetect_invertBinaryFlagCheckBox.Text = "二值化反轉";
+            blobDetect_invertBinaryFlagCheckBox.UseVisualStyleBackColor = true;
+            blobDetect_invertBinaryFlagCheckBox.CheckedChanged += blobDetect_invertBinaryFlagCheckBox_CheckedChanged;
+            // 
             // Dilate_Erode_Direction_ComboBox
             // 
             Dilate_Erode_Direction_ComboBox.FormattingEnabled = true;
             Dilate_Erode_Direction_ComboBox.Items.AddRange(new object[] { "X", "Y", "XY" });
-            Dilate_Erode_Direction_ComboBox.Location = new Point(209, 217);
+            Dilate_Erode_Direction_ComboBox.Location = new Point(352, 198);
             Dilate_Erode_Direction_ComboBox.Name = "Dilate_Erode_Direction_ComboBox";
-            Dilate_Erode_Direction_ComboBox.Size = new Size(74, 23);
+            Dilate_Erode_Direction_ComboBox.Size = new Size(85, 23);
             Dilate_Erode_Direction_ComboBox.TabIndex = 35;
             Dilate_Erode_Direction_ComboBox.SelectedIndexChanged += Dilate_Erode_Direction_ComboBox_SelectedIndexChanged;
             // 
             // label21
             // 
             label21.AutoSize = true;
-            label21.Location = new Point(15, 220);
+            label21.Location = new Point(269, 201);
             label21.Name = "label21";
             label21.Size = new Size(84, 15);
             label21.TabIndex = 34;
@@ -582,11 +595,11 @@
             // blobDetect_Dilate_Erode_Mask_Size_NumericUpDown
             // 
             blobDetect_Dilate_Erode_Mask_Size_NumericUpDown.Increment = new decimal(new int[] { 2, 0, 0, 0 });
-            blobDetect_Dilate_Erode_Mask_Size_NumericUpDown.Location = new Point(209, 187);
+            blobDetect_Dilate_Erode_Mask_Size_NumericUpDown.Location = new Point(200, 197);
             blobDetect_Dilate_Erode_Mask_Size_NumericUpDown.Maximum = new decimal(new int[] { 17, 0, 0, 0 });
             blobDetect_Dilate_Erode_Mask_Size_NumericUpDown.Minimum = new decimal(new int[] { 3, 0, 0, 0 });
             blobDetect_Dilate_Erode_Mask_Size_NumericUpDown.Name = "blobDetect_Dilate_Erode_Mask_Size_NumericUpDown";
-            blobDetect_Dilate_Erode_Mask_Size_NumericUpDown.Size = new Size(74, 23);
+            blobDetect_Dilate_Erode_Mask_Size_NumericUpDown.Size = new Size(44, 23);
             blobDetect_Dilate_Erode_Mask_Size_NumericUpDown.TabIndex = 25;
             blobDetect_Dilate_Erode_Mask_Size_NumericUpDown.Value = new decimal(new int[] { 3, 0, 0, 0 });
             blobDetect_Dilate_Erode_Mask_Size_NumericUpDown.ValueChanged += Dilate_Erode_Mask_Size_NumericUpDown_ValueChanged;
@@ -603,7 +616,7 @@
             // blobDetect_ErodeFlagCheckBox
             // 
             blobDetect_ErodeFlagCheckBox.AutoSize = true;
-            blobDetect_ErodeFlagCheckBox.Location = new Point(74, 191);
+            blobDetect_ErodeFlagCheckBox.Location = new Point(71, 201);
             blobDetect_ErodeFlagCheckBox.Name = "blobDetect_ErodeFlagCheckBox";
             blobDetect_ErodeFlagCheckBox.Size = new Size(50, 19);
             blobDetect_ErodeFlagCheckBox.TabIndex = 24;
@@ -633,7 +646,7 @@
             // blobDetect_DilateFlagCheckBox
             // 
             blobDetect_DilateFlagCheckBox.AutoSize = true;
-            blobDetect_DilateFlagCheckBox.Location = new Point(18, 191);
+            blobDetect_DilateFlagCheckBox.Location = new Point(18, 201);
             blobDetect_DilateFlagCheckBox.Name = "blobDetect_DilateFlagCheckBox";
             blobDetect_DilateFlagCheckBox.Size = new Size(50, 19);
             blobDetect_DilateFlagCheckBox.TabIndex = 23;
@@ -663,7 +676,7 @@
             // label11
             // 
             label11.AutoSize = true;
-            label11.Location = new Point(140, 192);
+            label11.Location = new Point(137, 202);
             label11.Name = "label11";
             label11.Size = new Size(63, 15);
             label11.TabIndex = 22;
@@ -691,7 +704,7 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(14, 174);
+            label7.Location = new Point(14, 184);
             label7.Name = "label7";
             label7.Size = new Size(103, 15);
             label7.TabIndex = 21;
@@ -747,7 +760,7 @@
             // 
             // blobDetect_binaryImg
             // 
-            blobDetect_binaryImg.Location = new Point(352, 186);
+            blobDetect_binaryImg.Location = new Point(352, 230);
             blobDetect_binaryImg.Name = "blobDetect_binaryImg";
             blobDetect_binaryImg.Size = new Size(88, 28);
             blobDetect_binaryImg.TabIndex = 10;
@@ -763,7 +776,7 @@
             blobDetect_imgBinaryTabCtrl.Margin = new Padding(2);
             blobDetect_imgBinaryTabCtrl.Name = "blobDetect_imgBinaryTabCtrl";
             blobDetect_imgBinaryTabCtrl.SelectedIndex = 0;
-            blobDetect_imgBinaryTabCtrl.Size = new Size(377, 144);
+            blobDetect_imgBinaryTabCtrl.Size = new Size(339, 133);
             blobDetect_imgBinaryTabCtrl.TabIndex = 18;
             blobDetect_imgBinaryTabCtrl.SelectedIndexChanged += imgBinaryTabCtrl_SelectedIndexChanged;
             // 
@@ -779,7 +792,7 @@
             tabPage4.Margin = new Padding(2);
             tabPage4.Name = "tabPage4";
             tabPage4.Padding = new Padding(2);
-            tabPage4.Size = new Size(369, 116);
+            tabPage4.Size = new Size(331, 105);
             tabPage4.TabIndex = 1;
             tabPage4.Text = "InRange";
             tabPage4.UseVisualStyleBackColor = true;
@@ -787,7 +800,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(11, 63);
+            label4.Location = new Point(11, 55);
             label4.Name = "label4";
             label4.Size = new Size(79, 15);
             label4.TabIndex = 20;
@@ -805,7 +818,7 @@
             // blobDetect_InRangeLowerBoundLabel
             // 
             blobDetect_InRangeLowerBoundLabel.AutoSize = true;
-            blobDetect_InRangeLowerBoundLabel.Location = new Point(317, 85);
+            blobDetect_InRangeLowerBoundLabel.Location = new Point(298, 77);
             blobDetect_InRangeLowerBoundLabel.Margin = new Padding(2, 0, 2, 0);
             blobDetect_InRangeLowerBoundLabel.Name = "blobDetect_InRangeLowerBoundLabel";
             blobDetect_InRangeLowerBoundLabel.Size = new Size(21, 15);
@@ -815,7 +828,7 @@
             // blobDetect_InRangeUpperBoundLabel
             // 
             blobDetect_InRangeUpperBoundLabel.AutoSize = true;
-            blobDetect_InRangeUpperBoundLabel.Location = new Point(317, 27);
+            blobDetect_InRangeUpperBoundLabel.Location = new Point(295, 27);
             blobDetect_InRangeUpperBoundLabel.Margin = new Padding(2, 0, 2, 0);
             blobDetect_InRangeUpperBoundLabel.Name = "blobDetect_InRangeUpperBoundLabel";
             blobDetect_InRangeUpperBoundLabel.Size = new Size(28, 15);
@@ -825,10 +838,10 @@
             // blobDetect_InRangeLowerBoundScrollBar
             // 
             blobDetect_InRangeLowerBoundScrollBar.LargeChange = 1;
-            blobDetect_InRangeLowerBoundScrollBar.Location = new Point(11, 78);
+            blobDetect_InRangeLowerBoundScrollBar.Location = new Point(11, 70);
             blobDetect_InRangeLowerBoundScrollBar.Maximum = 255;
             blobDetect_InRangeLowerBoundScrollBar.Name = "blobDetect_InRangeLowerBoundScrollBar";
-            blobDetect_InRangeLowerBoundScrollBar.Size = new Size(298, 31);
+            blobDetect_InRangeLowerBoundScrollBar.Size = new Size(284, 31);
             blobDetect_InRangeLowerBoundScrollBar.TabIndex = 2;
             blobDetect_InRangeLowerBoundScrollBar.Scroll += lowerBoundScrollBar_Scroll;
             // 
@@ -838,7 +851,7 @@
             blobDetect_InRangeUpperBoundScrollBar.Location = new Point(11, 20);
             blobDetect_InRangeUpperBoundScrollBar.Maximum = 255;
             blobDetect_InRangeUpperBoundScrollBar.Name = "blobDetect_InRangeUpperBoundScrollBar";
-            blobDetect_InRangeUpperBoundScrollBar.Size = new Size(298, 30);
+            blobDetect_InRangeUpperBoundScrollBar.Size = new Size(284, 30);
             blobDetect_InRangeUpperBoundScrollBar.TabIndex = 1;
             blobDetect_InRangeUpperBoundScrollBar.Scroll += upperBoundScrollBar_Scroll;
             // 
@@ -848,7 +861,7 @@
             tabPage3.Margin = new Padding(2);
             tabPage3.Name = "tabPage3";
             tabPage3.Padding = new Padding(2);
-            tabPage3.Size = new Size(369, 116);
+            tabPage3.Size = new Size(331, 105);
             tabPage3.TabIndex = 0;
             tabPage3.Text = "Otsu";
             tabPage3.UseVisualStyleBackColor = true;
@@ -1193,5 +1206,6 @@
         private Label label19;
         private Label label21;
         private ComboBox Dilate_Erode_Direction_ComboBox;
+        private CheckBox blobDetect_invertBinaryFlagCheckBox;
     }
 }
