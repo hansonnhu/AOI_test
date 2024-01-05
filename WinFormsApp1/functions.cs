@@ -16,15 +16,151 @@ using System.Security.Cryptography;
 
 public class GlobalVariables
 {
-    //public static List<int> removeCntIndex = new List<int>(); // 紀錄要刪除的輪廓
+    // 所有 blob 的輪廓點
     public static OpenCvSharp.Point[][] targetContours;
 }
 
+public class ImgToBinary
+{
+    public string binaryWay { get; set; }
+    public int inRangeUpperBound { get; set; }
+    public int inRangeLowerBound { get; set; }
+    public bool invertBinaryFlag { get; set; }
+    public bool dilateFlag { get; set; }
+    public bool erodeFlag { get; set; }
+    public int dilateErodeMaskSize { get; set; }
+    public string dilateErodeDirection { get; set; }
+
+
+    public Mat ConvertToBinary(Mat img)
+    {
+        Mat imgGray = new Mat();
+        Mat imgBinary = new Mat();
+        try
+        {
+            Cv2.CvtColor(img, imgGray, ColorConversionCodes.BGR2GRAY);
+        }
+        catch
+        {
+            imgGray = img;
+        }
+
+        if (binaryWay == "Otsu")
+        {
+            Cv2.Threshold(imgGray, imgBinary, 0, 255, ThresholdTypes.Otsu);
+        }
+        else if (binaryWay == "InRange")
+        {
+            Cv2.InRange(imgGray, inRangeLowerBound, inRangeUpperBound, imgBinary);
+        }
+
+        if (dilateFlag || erodeFlag)
+        {
+            Mat element = GetStructuringElement(dilateErodeMaskSize, dilateErodeDirection);
+            if (dilateFlag)
+                Cv2.Dilate(imgBinary, imgBinary, element);
+            if (erodeFlag)
+                Cv2.Erode(imgBinary, imgBinary, element);
+        }
+
+        if (invertBinaryFlag)
+            Cv2.BitwiseNot(imgBinary, imgBinary);
+
+        return imgBinary;
+    }
+
+    private static Mat GetStructuringElement(int dilateErodeMaskSize, string dilateErodeDirection)
+    {
+        Mat element;
+        if (dilateErodeDirection == "X")
+            element = Cv2.GetStructuringElement(MorphShapes.Rect, new OpenCvSharp.Size(dilateErodeMaskSize, 1));
+        else if (dilateErodeDirection == "Y")
+            element = Cv2.GetStructuringElement(MorphShapes.Rect, new OpenCvSharp.Size(1, dilateErodeMaskSize));
+        else
+            element = Cv2.GetStructuringElement(MorphShapes.Rect, new OpenCvSharp.Size(dilateErodeMaskSize, dilateErodeMaskSize));
+
+        return element;
+    }
+}
+
+public class BlobSelector
+{
+    public int blobMaxArea { get; set; }
+    public int blobMinRadius { get; set; }
+    public int blobMaxRadius { get; set; }
+    public double blobAreaRatioThreshold { get; set; }
+    public string findContoursWay { get; set; }
+
+
+    public Bitmap SelectBlobWithAreaRatio(Mat binaryImg, Mat oriImg)
+    {
+        //Mat img_binary = new Mat();
+        // 找到輪廓
+        OpenCvSharp.Point[][] contours;
+        HierarchyIndex[] hierarchy;
+        GlobalVariables.targetContours = new OpenCvSharp.Point[][] { };
+
+        OpenCvSharp.Point[][] Contours = { };
+        if (findContoursWay == "External")
+        {
+            Cv2.FindContours(binaryImg, out contours, out hierarchy, RetrievalModes.External, ContourApproximationModes.ApproxSimple);
+            Contours = contours;
+        }
+
+        else if (findContoursWay == "List")
+        {
+            Cv2.FindContours(binaryImg, out contours, out hierarchy, RetrievalModes.List, ContourApproximationModes.ApproxSimple);
+            Contours = contours;
+        }
+
+        foreach (var cnt in Contours)
+        {
+            Cv2.MinEnclosingCircle(cnt, out Point2f center, out float radius);
+            if (radius < blobMinRadius || radius > blobMaxRadius)
+            {
+                continue;
+            }
+
+            double blobArea = Cv2.ContourArea(cnt);
+            double area_ratio = blobArea / (Math.Pow(radius, 2) * 3.14159);
+
+            // blob 面積占比大於 blobAreaRatioThreshold 才檢出
+            if (area_ratio < blobAreaRatioThreshold)
+            {
+                continue;
+            }
+
+            // 將篩選出來的 Blob 參數儲存
+            GlobalVariables.targetContours = GlobalVariables.targetContours.Concat(new[] { cnt }).ToArray();
+
+            // 繪製輪廓
+            
+            try
+            {
+                // 將灰階轉為彩色
+                Cv2.CvtColor(oriImg, oriImg, ColorConversionCodes.GRAY2RGBA);
+            }
+            catch
+            {
+                // 本來就是彩色
+            }
+
+            var oneContour = cnt;
+            Cv2.DrawContours(oriImg, new[] { oneContour }, -1, new Scalar(76, 153, 0, 255), 2);
+
+            int radiusInt = (int)radius;
+            if (blobArea > blobMaxRadius)
+                Cv2.Circle(oriImg, Convert.ToInt32(center.X), Convert.ToInt32(center.Y), radiusInt, new Scalar(0, 0, 255, 255), 2);
+            else
+                Cv2.Circle(oriImg, Convert.ToInt32(center.X), Convert.ToInt32(center.Y), radiusInt, new Scalar(0, 255, 0, 255), 2);
+        }
+        return BitmapConverter.ToBitmap(oriImg);
+    }
+}
 
 public class Functions
 {
     public static String rootPath = System.Environment.CurrentDirectory.ToString().Split("\\WinFormsApp1\\bin\\")[0];// 跟目錄 path 設定;
-
 
 
     public static Bitmap CropBitmap(Bitmap source, Rectangle cropArea)
@@ -58,80 +194,79 @@ public class Functions
         return result;
     }
 
-    static int CountPixelsInContour(Mat image, OpenCvSharp.Point[] contour)
-    {
-        Mat mask = new Mat(image.Size(), MatType.CV_8UC1, Scalar.Black);
-        Cv2.DrawContours(mask, new List<OpenCvSharp.Point[]> { contour }, -1, Scalar.White, -1);
-        int count = Cv2.CountNonZero(mask);
-        mask.Dispose();
-        return count;
-    }
+    //static int CountPixelsInContour(Mat image, OpenCvSharp.Point[] contour)
+    //{
+    //    Mat mask = new Mat(image.Size(), MatType.CV_8UC1, Scalar.Black);
+    //    Cv2.DrawContours(mask, new List<OpenCvSharp.Point[]> { contour }, -1, Scalar.White, -1);
+    //    int count = Cv2.CountNonZero(mask);
+    //    mask.Dispose();
+    //    return count;
+    //}
 
     // 找尋第一個 blob 輪廓中，X值最小的點，與Y值最大的點
-    public static (OpenCvSharp.Point topLeft, OpenCvSharp.Point bottomLeft, OpenCvSharp.Point topRight, OpenCvSharp.Point bottomRight) FindFourTopPoints(OpenCvSharp.Point[] contour)
-    {
-        if (contour == null || contour.Length == 0)
-            throw new ArgumentException("Invalid contour");
+    //public static (OpenCvSharp.Point topLeft, OpenCvSharp.Point bottomLeft, OpenCvSharp.Point topRight, OpenCvSharp.Point bottomRight) FindFourTopPoints(OpenCvSharp.Point[] contour)
+    //{
+    //    if (contour == null || contour.Length == 0)
+    //        throw new ArgumentException("Invalid contour");
 
-        // 初始化點
-        OpenCvSharp.Point topLeft = contour[0];
-        OpenCvSharp.Point topRight = contour[0];
-        OpenCvSharp.Point bottomLeft = contour[0];
-        OpenCvSharp.Point bottomRight = contour[0];
+    //    // 初始化點
+    //    OpenCvSharp.Point topLeft = contour[0];
+    //    OpenCvSharp.Point topRight = contour[0];
+    //    OpenCvSharp.Point bottomLeft = contour[0];
+    //    OpenCvSharp.Point bottomRight = contour[0];
 
-        foreach (var point in contour)
-        {
-            // 找最左上的點
-            if ((point.X + point.Y) < (topLeft.X + topLeft.Y))
-                topLeft = point;
+    //    foreach (var point in contour)
+    //    {
+    //        // 找最左上的點
+    //        if ((point.X + point.Y) < (topLeft.X + topLeft.Y))
+    //            topLeft = point;
 
-            // 找最右上的點
-            if ((point.X - point.Y) > (topRight.X - topRight.Y))
-                topRight = point;
+    //        // 找最右上的點
+    //        if ((point.X - point.Y) > (topRight.X - topRight.Y))
+    //            topRight = point;
 
-            // 找最左下的點
-            if ((point.X - point.Y) < (bottomLeft.X - bottomLeft.Y))
-                bottomLeft = point;
+    //        // 找最左下的點
+    //        if ((point.X - point.Y) < (bottomLeft.X - bottomLeft.Y))
+    //            bottomLeft = point;
 
-            // 找最右下的點
-            if ((point.X + point.Y) > (bottomRight.X + bottomRight.Y))
-                bottomRight = point;
-        }
-        Debug.WriteLine(topLeft);
-        Debug.WriteLine(bottomLeft);
+    //        // 找最右下的點
+    //        if ((point.X + point.Y) > (bottomRight.X + bottomRight.Y))
+    //            bottomRight = point;
+    //    }
+    //    Debug.WriteLine(topLeft);
+    //    Debug.WriteLine(bottomLeft);
 
-        return (topLeft, bottomLeft, topRight, bottomRight);
-    }
+    //    return (topLeft, bottomLeft, topRight, bottomRight);
+    //}
 
     // 找尋所有 blobs 的外接圓圓心的最左上角以及最右下角圓心點
-    public static (OpenCvSharp.Point topLeft, OpenCvSharp.Point bottomLeft) FindTwoCircleCenter(OpenCvSharp.Point[][] contours)
-    {
-        if (contours == null || contours.Length == 0)
-            throw new ArgumentException("Invalid contour");
+    //public static (OpenCvSharp.Point topLeft, OpenCvSharp.Point bottomLeft) FindTwoCircleCenter(OpenCvSharp.Point[][] contours)
+    //{
+    //    if (contours == null || contours.Length == 0)
+    //        throw new ArgumentException("Invalid contour");
 
-        // 初始化點
-        OpenCvSharp.Point topLeftCircleCenter = contours[0][0];
-        OpenCvSharp.Point bottomLeftCircleCenter = contours[0][0];
+    //    // 初始化點
+    //    OpenCvSharp.Point topLeftCircleCenter = contours[0][0];
+    //    OpenCvSharp.Point bottomLeftCircleCenter = contours[0][0];
 
-        foreach (OpenCvSharp.Point[] contour in contours)
-        {
-            Cv2.MinEnclosingCircle(contour, out Point2f center, out float radius);
-            // 找最左上的點
-            if ((center.X + center.Y) < (topLeftCircleCenter.X + topLeftCircleCenter.Y))
-            {
-                topLeftCircleCenter.X = Convert.ToInt32(center.X);
-                topLeftCircleCenter.Y = Convert.ToInt32(center.Y);
-            }
-            // 找最左下的點
-            if ((center.X - center.Y) < (bottomLeftCircleCenter.X - bottomLeftCircleCenter.Y))
-            {
-                bottomLeftCircleCenter.X = Convert.ToInt32(center.X);
-                bottomLeftCircleCenter.Y = Convert.ToInt32(center.Y);
-            }
-        }
-        return (topLeftCircleCenter, bottomLeftCircleCenter);
-
-    }
+    //    foreach (OpenCvSharp.Point[] contour in contours)
+    //    {
+    //        Cv2.MinEnclosingCircle(contour, out Point2f center, out float radius);
+    //        // 找最左上的點
+    //        if ((center.X + center.Y) < (topLeftCircleCenter.X + topLeftCircleCenter.Y))
+    //        {
+    //            topLeftCircleCenter.X = Convert.ToInt32(center.X);
+    //            topLeftCircleCenter.Y = Convert.ToInt32(center.Y);
+    //        }
+    //        // 找最左下的點
+    //        if ((center.X - center.Y) < (bottomLeftCircleCenter.X - bottomLeftCircleCenter.Y))
+    //        {
+    //            bottomLeftCircleCenter.X = Convert.ToInt32(center.X);
+    //            bottomLeftCircleCenter.Y = Convert.ToInt32(center.Y);
+    //        }
+    //    }
+    //    return (topLeftCircleCenter, bottomLeftCircleCenter);
+    //}
 
     public static Bitmap imgRotateWithSelectedBlob(Mat img)
     {
@@ -190,107 +325,10 @@ public class Functions
         return BitmapConverter.ToBitmap(new Mat(dst, rect));
     }
 
-
-    public static Bitmap selectBlobWithAreaRatio(
-        Mat img,
-        String binaryWay,
-        int InRangeUpperBound,
-        int InRangeLowerBound,
-        bool invertBinaryFlag,
-        bool DilateFlag,
-        bool ErodeFlag,
-        int Dilate_Erode_Mask_Size,
-        int solderBalls_maxArea,
-        int solderBalls_minRadius,
-        int solderBalls_maxRadius,
-        double blobAreaRatioThreshold,
-        String findContoursWay,
-        String Dilate_Erode_Direction)
-    {
-        // 分析blob
-
-        Console.WriteLine("This is selectBlobWithAreaRatio Function");
-        Mat img_binary = new Mat();
-        img_binary = BitmapConverter.ToMat(imgToBinary(img,
-            binaryWay,
-            InRangeUpperBound,
-            InRangeLowerBound,
-            invertBinaryFlag,
-            DilateFlag,
-            ErodeFlag,
-            Dilate_Erode_Mask_Size,
-            Dilate_Erode_Direction));
-
-        // 找到輪廓
-        OpenCvSharp.Point[][] contours;
-        HierarchyIndex[] hierarchy;
-        GlobalVariables.targetContours = new OpenCvSharp.Point[][] { };
-
-        OpenCvSharp.Point[][] Contours = { };
-        if (findContoursWay == "External")
-        {
-            Cv2.FindContours(img_binary, out contours, out hierarchy, RetrievalModes.External, ContourApproximationModes.ApproxSimple);
-            Contours = contours;
-        }
-
-        else if (findContoursWay == "List")
-        {
-            Cv2.FindContours(img_binary, out contours, out hierarchy, RetrievalModes.List, ContourApproximationModes.ApproxSimple);
-            Contours = contours;
-        }
-
-        foreach (var cnt in Contours)
-        {
-            Cv2.MinEnclosingCircle(cnt, out Point2f center, out float radius);
-            if (radius < solderBalls_minRadius || radius > solderBalls_maxRadius)
-            {
-                continue;
-            }
-
-            //int blobArea = CountPixelsInContour(img_binary, cnt);
-            double blobArea = Cv2.ContourArea(cnt);
-            double area_ratio = blobArea / (Math.Pow(radius, 2) * 3.14159);
-
-            // blob 面積占比大於 blobAreaRatioThreshold 才檢出
-            if (area_ratio < blobAreaRatioThreshold)
-            {
-                continue;
-            }
-
-            // 將篩選出來的 Blob 參數儲存
-            GlobalVariables.targetContours = GlobalVariables.targetContours.Concat(new[] { cnt }).ToArray();
-
-            // 繪製輪廓
-            // 創建一個空的四通道影像
-            Mat colorImg = new Mat(img.Rows, img.Cols, MatType.CV_8UC4);
-            // 將灰度影像轉換為四通道影像
-            try
-            {
-                // 將灰階轉為彩色
-                Cv2.CvtColor(img, img, ColorConversionCodes.GRAY2RGBA);
-            }
-            catch
-            {
-                // 本來就是彩色
-            }
-
-            var oneContour = cnt;
-            Cv2.DrawContours(img, new[] { oneContour }, -1, new Scalar(76, 153, 0, 255), 2);
-
-            int radiusInt = (int)radius;
-            if (blobArea > solderBalls_maxArea)
-                Cv2.Circle(img, Convert.ToInt32(center.X), Convert.ToInt32(center.Y), radiusInt, new Scalar(0, 0, 255, 255), 2);
-            else
-                Cv2.Circle(img, Convert.ToInt32(center.X), Convert.ToInt32(center.Y), radiusInt, new Scalar(0, 255, 0, 255), 2);
-        }
-        return BitmapConverter.ToBitmap(img);
-    }
-
     // 儲存 Contours 物件為 Json
     public static void saveContoursToJson()
     {
         // 保留需要的輪廓，並以json儲存於電腦
-
         string contoursJson = JsonConvert.SerializeObject(GlobalVariables.targetContours);
         File.WriteAllText(rootPath + "\\parameter\\contours.json", contoursJson);
     }
@@ -319,7 +357,6 @@ public class Functions
 
         OpenCvSharp.Point minLocation, maxLocation;
         Cv2.MinMaxLoc(result, out minValue, out maxValue, out minLocation, out maxLocation);
-
 
 
         Bitmap tempBmp;
@@ -362,61 +399,6 @@ public class Functions
         return img.ToBitmap();
     }
 
-    // 二值化影像
-    public static Bitmap imgToBinary(Mat img,
-        String binaryWay,
-        int InRangeUpperBound,
-        int InRangeLowerBound,
-        bool invertBinaryFlag,
-        bool DilateFlag,
-        bool ErodeFlag,
-        int Dilate_Erode_Mask_Size,
-        String Dilate_Erode_Direction)
-    {
-        Mat img_gray = new Mat();
-        Mat img_binary = new Mat();
-        try
-        {
-            Cv2.CvtColor(img, img_gray, ColorConversionCodes.BGR2GRAY);
-        }
-        catch
-        {
-            img_gray = img;
-        }
-
-        if (binaryWay == "Otsu")
-        {
-            double otsuThreshold = Cv2.Threshold(img_gray, img_binary, 0, 255, ThresholdTypes.Otsu);
-        }
-        else if (binaryWay == "InRange")
-        {
-            Cv2.InRange(img_gray, InRangeLowerBound, InRangeUpperBound, img_binary);
-        }
-
-        // Dilate 或 Erode 使用
-        if (DilateFlag || ErodeFlag)
-        {
-            Mat element = Cv2.GetStructuringElement(MorphShapes.Rect, new OpenCvSharp.Size(Dilate_Erode_Mask_Size, Dilate_Erode_Mask_Size));// XY方向
-            if (Dilate_Erode_Direction == "X")
-                element = Cv2.GetStructuringElement(MorphShapes.Rect, new OpenCvSharp.Size(Dilate_Erode_Mask_Size, 1));// X方向
-            else if(Dilate_Erode_Direction == "Y")
-                element = Cv2.GetStructuringElement(MorphShapes.Rect, new OpenCvSharp.Size(1, Dilate_Erode_Mask_Size));// Y方向
-            if (DilateFlag)
-                Cv2.Dilate(img_binary, img_binary, element);
-            if (ErodeFlag)
-                Cv2.Erode(img_binary, img_binary, element);
-        }
-
-        //Mat element = Cv2.GetStructuringElement(MorphShapes.Rect, new OpenCvSharp.Size(Dilate_Erode_Mask_Size, Dilate_Erode_Mask_Size));
-        //Cv2.MorphologyEx(img_binary, img_binary, MorphTypes.Close, element);
-
-        // 將二值化的影像中的 0 轉換為 255，並將 255 轉換為 0
-        if (invertBinaryFlag)
-            Cv2.BitwiseNot(img_binary, img_binary);
-
-        return BitmapConverter.ToBitmap(img_binary);
-    }
-
 
     // Canny 邊緣偵測二值化
     public static Bitmap imgCanny(
@@ -434,14 +416,7 @@ public class Functions
         OpenCvSharp.Size kernelSize = new OpenCvSharp.Size(5, 5);  // 设置高斯核的大小
         double sigmaX = 0;  // 标准差，如果为0，OpenCV会自动计算
         Cv2.GaussianBlur(img, img, kernelSize, sigmaX);
-        // 定义锐化卷积核
-        //InputArray kernel = InputArray.Create<float>(new float[3, 3] {
-        //    { 0, -1, 0 },
-        //    { -1, 3, -1 },
-        //    { 0, -1, 0 } });
 
-        //// 应用卷积核
-        //Cv2.Filter2D(img, img, MatType.CV_8U, kernel);
 
         Cv2.Canny(
             img,
@@ -459,7 +434,6 @@ public class Functions
             if (ErodeFlag)
                 Cv2.Erode(img_binary, img_binary, element);
         }
-
 
         return BitmapConverter.ToBitmap(img_binary);
     }
