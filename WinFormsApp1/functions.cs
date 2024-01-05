@@ -61,6 +61,7 @@ public class ImgToBinary
         return imgBinary;
     }
 
+    // 回傳 Dilate/Erode mask 的方向以及大小
     private static Mat GetStructuringElement(int dilateErodeMaskSize, string dilateErodeDirection)
     {
         Mat element;
@@ -75,6 +76,7 @@ public class ImgToBinary
     }
 }
 
+// 利用閾值篩選出特定 blob
 public class BlobSelector
 {
     public int blobMaxArea { get; set; }
@@ -391,7 +393,7 @@ public class Functions
         return img.ToBitmap();
     }
 
-
+    // 測試
     // Canny 邊緣偵測二值化
     public static Bitmap imgCanny(
         Mat img,

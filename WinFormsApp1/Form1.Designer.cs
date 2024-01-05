@@ -67,16 +67,16 @@
             rotateImg_InRangeLowerBoundLabel = new Label();
             TabGroup = new TabControl();
             tabPage2 = new TabPage();
-            blobDetect_invertBinaryFlagCheckBox = new CheckBox();
+            invertBinaryFlagCheckBox = new CheckBox();
             Dilate_Erode_Direction_ComboBox = new ComboBox();
             label21 = new Label();
             FindContoursWayComboBox = new ComboBox();
-            blobDetect_Dilate_Erode_Mask_Size_NumericUpDown = new NumericUpDown();
+            Dilate_Erode_Mask_Size_NumericUpDown = new NumericUpDown();
             label12 = new Label();
-            blobDetect_ErodeFlagCheckBox = new CheckBox();
+            ErodeFlagCheckBox = new CheckBox();
             blob_AreaRatioLabel = new Label();
             label9 = new Label();
-            blobDetect_DilateFlagCheckBox = new CheckBox();
+            DilateFlagCheckBox = new CheckBox();
             blobAreaRatioBar = new HScrollBar();
             blob_maxRadiusLabel = new Label();
             label11 = new Label();
@@ -88,15 +88,15 @@
             blob_minRadiusBar = new HScrollBar();
             blob_maxAreaLabel = new Label();
             label5 = new Label();
-            blobDetect_binaryImg = new Button();
+            binaryImgBtn = new Button();
             blobDetect_imgBinaryTabCtrl = new TabControl();
             tabPage4 = new TabPage();
             label4 = new Label();
             label2 = new Label();
-            blobDetect_InRangeLowerBoundLabel = new Label();
-            blobDetect_InRangeUpperBoundLabel = new Label();
-            blobDetect_InRangeLowerBoundScrollBar = new HScrollBar();
-            blobDetect_InRangeUpperBoundScrollBar = new HScrollBar();
+            InRangeLowerBoundLabel = new Label();
+            InRangeUpperBoundLabel = new Label();
+            InRangeLowerBoundScrollBar = new HScrollBar();
+            InRangeUpperBoundScrollBar = new HScrollBar();
             tabPage3 = new TabPage();
             blob_maxAreaBar = new HScrollBar();
             label3 = new Label();
@@ -126,7 +126,7 @@
             ConsoleGroupBox.SuspendLayout();
             TabGroup.SuspendLayout();
             tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)blobDetect_Dilate_Erode_Mask_Size_NumericUpDown).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)Dilate_Erode_Mask_Size_NumericUpDown).BeginInit();
             blobDetect_imgBinaryTabCtrl.SuspendLayout();
             tabPage4.SuspendLayout();
             tabPage1.SuspendLayout();
@@ -516,16 +516,16 @@
             // 
             // tabPage2
             // 
-            tabPage2.Controls.Add(blobDetect_invertBinaryFlagCheckBox);
+            tabPage2.Controls.Add(invertBinaryFlagCheckBox);
             tabPage2.Controls.Add(Dilate_Erode_Direction_ComboBox);
             tabPage2.Controls.Add(label21);
             tabPage2.Controls.Add(FindContoursWayComboBox);
-            tabPage2.Controls.Add(blobDetect_Dilate_Erode_Mask_Size_NumericUpDown);
+            tabPage2.Controls.Add(Dilate_Erode_Mask_Size_NumericUpDown);
             tabPage2.Controls.Add(label12);
-            tabPage2.Controls.Add(blobDetect_ErodeFlagCheckBox);
+            tabPage2.Controls.Add(ErodeFlagCheckBox);
             tabPage2.Controls.Add(blob_AreaRatioLabel);
             tabPage2.Controls.Add(label9);
-            tabPage2.Controls.Add(blobDetect_DilateFlagCheckBox);
+            tabPage2.Controls.Add(DilateFlagCheckBox);
             tabPage2.Controls.Add(blobAreaRatioBar);
             tabPage2.Controls.Add(blob_maxRadiusLabel);
             tabPage2.Controls.Add(label11);
@@ -537,7 +537,7 @@
             tabPage2.Controls.Add(blob_minRadiusBar);
             tabPage2.Controls.Add(blob_maxAreaLabel);
             tabPage2.Controls.Add(label5);
-            tabPage2.Controls.Add(blobDetect_binaryImg);
+            tabPage2.Controls.Add(binaryImgBtn);
             tabPage2.Controls.Add(blobDetect_imgBinaryTabCtrl);
             tabPage2.Controls.Add(blob_maxAreaBar);
             tabPage2.Controls.Add(label3);
@@ -551,16 +551,16 @@
             tabPage2.Text = "blob偵測";
             tabPage2.UseVisualStyleBackColor = true;
             // 
-            // blobDetect_invertBinaryFlagCheckBox
+            // invertBinaryFlagCheckBox
             // 
-            blobDetect_invertBinaryFlagCheckBox.AutoSize = true;
-            blobDetect_invertBinaryFlagCheckBox.Location = new Point(354, 138);
-            blobDetect_invertBinaryFlagCheckBox.Name = "blobDetect_invertBinaryFlagCheckBox";
-            blobDetect_invertBinaryFlagCheckBox.Size = new Size(86, 19);
-            blobDetect_invertBinaryFlagCheckBox.TabIndex = 37;
-            blobDetect_invertBinaryFlagCheckBox.Text = "二值化反轉";
-            blobDetect_invertBinaryFlagCheckBox.UseVisualStyleBackColor = true;
-            blobDetect_invertBinaryFlagCheckBox.CheckedChanged += blobDetect_invertBinaryFlagCheckBox_CheckedChanged;
+            invertBinaryFlagCheckBox.AutoSize = true;
+            invertBinaryFlagCheckBox.Location = new Point(354, 138);
+            invertBinaryFlagCheckBox.Name = "invertBinaryFlagCheckBox";
+            invertBinaryFlagCheckBox.Size = new Size(86, 19);
+            invertBinaryFlagCheckBox.TabIndex = 37;
+            invertBinaryFlagCheckBox.Text = "二值化反轉";
+            invertBinaryFlagCheckBox.UseVisualStyleBackColor = true;
+            invertBinaryFlagCheckBox.CheckedChanged += blobDetect_invertBinaryFlagCheckBox_CheckedChanged;
             // 
             // Dilate_Erode_Direction_ComboBox
             // 
@@ -592,17 +592,17 @@
             FindContoursWayComboBox.TabIndex = 33;
             FindContoursWayComboBox.SelectedIndexChanged += FindContoursWayComboBox_SelectedIndexChanged;
             // 
-            // blobDetect_Dilate_Erode_Mask_Size_NumericUpDown
+            // Dilate_Erode_Mask_Size_NumericUpDown
             // 
-            blobDetect_Dilate_Erode_Mask_Size_NumericUpDown.Increment = new decimal(new int[] { 2, 0, 0, 0 });
-            blobDetect_Dilate_Erode_Mask_Size_NumericUpDown.Location = new Point(200, 197);
-            blobDetect_Dilate_Erode_Mask_Size_NumericUpDown.Maximum = new decimal(new int[] { 17, 0, 0, 0 });
-            blobDetect_Dilate_Erode_Mask_Size_NumericUpDown.Minimum = new decimal(new int[] { 3, 0, 0, 0 });
-            blobDetect_Dilate_Erode_Mask_Size_NumericUpDown.Name = "blobDetect_Dilate_Erode_Mask_Size_NumericUpDown";
-            blobDetect_Dilate_Erode_Mask_Size_NumericUpDown.Size = new Size(44, 23);
-            blobDetect_Dilate_Erode_Mask_Size_NumericUpDown.TabIndex = 25;
-            blobDetect_Dilate_Erode_Mask_Size_NumericUpDown.Value = new decimal(new int[] { 3, 0, 0, 0 });
-            blobDetect_Dilate_Erode_Mask_Size_NumericUpDown.ValueChanged += Dilate_Erode_Mask_Size_NumericUpDown_ValueChanged;
+            Dilate_Erode_Mask_Size_NumericUpDown.Increment = new decimal(new int[] { 2, 0, 0, 0 });
+            Dilate_Erode_Mask_Size_NumericUpDown.Location = new Point(200, 197);
+            Dilate_Erode_Mask_Size_NumericUpDown.Maximum = new decimal(new int[] { 17, 0, 0, 0 });
+            Dilate_Erode_Mask_Size_NumericUpDown.Minimum = new decimal(new int[] { 3, 0, 0, 0 });
+            Dilate_Erode_Mask_Size_NumericUpDown.Name = "Dilate_Erode_Mask_Size_NumericUpDown";
+            Dilate_Erode_Mask_Size_NumericUpDown.Size = new Size(44, 23);
+            Dilate_Erode_Mask_Size_NumericUpDown.TabIndex = 25;
+            Dilate_Erode_Mask_Size_NumericUpDown.Value = new decimal(new int[] { 3, 0, 0, 0 });
+            Dilate_Erode_Mask_Size_NumericUpDown.ValueChanged += Dilate_Erode_Mask_Size_NumericUpDown_ValueChanged;
             // 
             // label12
             // 
@@ -613,16 +613,16 @@
             label12.TabIndex = 32;
             label12.Text = "找輪廓方法";
             // 
-            // blobDetect_ErodeFlagCheckBox
+            // ErodeFlagCheckBox
             // 
-            blobDetect_ErodeFlagCheckBox.AutoSize = true;
-            blobDetect_ErodeFlagCheckBox.Location = new Point(71, 201);
-            blobDetect_ErodeFlagCheckBox.Name = "blobDetect_ErodeFlagCheckBox";
-            blobDetect_ErodeFlagCheckBox.Size = new Size(50, 19);
-            blobDetect_ErodeFlagCheckBox.TabIndex = 24;
-            blobDetect_ErodeFlagCheckBox.Text = "侵蝕";
-            blobDetect_ErodeFlagCheckBox.UseVisualStyleBackColor = true;
-            blobDetect_ErodeFlagCheckBox.CheckedChanged += ErodeFlagCheckBox_CheckedChanged;
+            ErodeFlagCheckBox.AutoSize = true;
+            ErodeFlagCheckBox.Location = new Point(71, 201);
+            ErodeFlagCheckBox.Name = "ErodeFlagCheckBox";
+            ErodeFlagCheckBox.Size = new Size(50, 19);
+            ErodeFlagCheckBox.TabIndex = 24;
+            ErodeFlagCheckBox.Text = "侵蝕";
+            ErodeFlagCheckBox.UseVisualStyleBackColor = true;
+            ErodeFlagCheckBox.CheckedChanged += ErodeFlagCheckBox_CheckedChanged;
             // 
             // blob_AreaRatioLabel
             // 
@@ -643,16 +643,16 @@
             label9.TabIndex = 30;
             label9.Text = "外接圓面積與blob面積比";
             // 
-            // blobDetect_DilateFlagCheckBox
+            // DilateFlagCheckBox
             // 
-            blobDetect_DilateFlagCheckBox.AutoSize = true;
-            blobDetect_DilateFlagCheckBox.Location = new Point(18, 201);
-            blobDetect_DilateFlagCheckBox.Name = "blobDetect_DilateFlagCheckBox";
-            blobDetect_DilateFlagCheckBox.Size = new Size(50, 19);
-            blobDetect_DilateFlagCheckBox.TabIndex = 23;
-            blobDetect_DilateFlagCheckBox.Text = "膨脹";
-            blobDetect_DilateFlagCheckBox.UseVisualStyleBackColor = true;
-            blobDetect_DilateFlagCheckBox.CheckedChanged += DilateFlagCheckBox_CheckedChanged;
+            DilateFlagCheckBox.AutoSize = true;
+            DilateFlagCheckBox.Location = new Point(18, 201);
+            DilateFlagCheckBox.Name = "DilateFlagCheckBox";
+            DilateFlagCheckBox.Size = new Size(50, 19);
+            DilateFlagCheckBox.TabIndex = 23;
+            DilateFlagCheckBox.Text = "膨脹";
+            DilateFlagCheckBox.UseVisualStyleBackColor = true;
+            DilateFlagCheckBox.CheckedChanged += DilateFlagCheckBox_CheckedChanged;
             // 
             // blobAreaRatioBar
             // 
@@ -758,15 +758,15 @@
             label5.TabIndex = 21;
             label5.Text = "blob最大面積 pixel 平方(體積異常為紅圈)";
             // 
-            // blobDetect_binaryImg
+            // binaryImgBtn
             // 
-            blobDetect_binaryImg.Location = new Point(352, 230);
-            blobDetect_binaryImg.Name = "blobDetect_binaryImg";
-            blobDetect_binaryImg.Size = new Size(88, 28);
-            blobDetect_binaryImg.TabIndex = 10;
-            blobDetect_binaryImg.Text = "二值化測試";
-            blobDetect_binaryImg.UseVisualStyleBackColor = true;
-            blobDetect_binaryImg.Click += blobDetect_binaryImg_Click;
+            binaryImgBtn.Location = new Point(352, 230);
+            binaryImgBtn.Name = "binaryImgBtn";
+            binaryImgBtn.Size = new Size(88, 28);
+            binaryImgBtn.TabIndex = 10;
+            binaryImgBtn.Text = "二值化測試";
+            binaryImgBtn.UseVisualStyleBackColor = true;
+            binaryImgBtn.Click += blobDetect_binaryImg_Click;
             // 
             // blobDetect_imgBinaryTabCtrl
             // 
@@ -784,10 +784,10 @@
             // 
             tabPage4.Controls.Add(label4);
             tabPage4.Controls.Add(label2);
-            tabPage4.Controls.Add(blobDetect_InRangeLowerBoundLabel);
-            tabPage4.Controls.Add(blobDetect_InRangeUpperBoundLabel);
-            tabPage4.Controls.Add(blobDetect_InRangeLowerBoundScrollBar);
-            tabPage4.Controls.Add(blobDetect_InRangeUpperBoundScrollBar);
+            tabPage4.Controls.Add(InRangeLowerBoundLabel);
+            tabPage4.Controls.Add(InRangeUpperBoundLabel);
+            tabPage4.Controls.Add(InRangeLowerBoundScrollBar);
+            tabPage4.Controls.Add(InRangeUpperBoundScrollBar);
             tabPage4.Location = new Point(4, 24);
             tabPage4.Margin = new Padding(2);
             tabPage4.Name = "tabPage4";
@@ -815,45 +815,46 @@
             label2.TabIndex = 19;
             label2.Text = "upper bound";
             // 
-            // blobDetect_InRangeLowerBoundLabel
+            // InRangeLowerBoundLabel
             // 
-            blobDetect_InRangeLowerBoundLabel.AutoSize = true;
-            blobDetect_InRangeLowerBoundLabel.Location = new Point(298, 77);
-            blobDetect_InRangeLowerBoundLabel.Margin = new Padding(2, 0, 2, 0);
-            blobDetect_InRangeLowerBoundLabel.Name = "blobDetect_InRangeLowerBoundLabel";
-            blobDetect_InRangeLowerBoundLabel.Size = new Size(21, 15);
-            blobDetect_InRangeLowerBoundLabel.TabIndex = 4;
-            blobDetect_InRangeLowerBoundLabel.Text = "50";
+            InRangeLowerBoundLabel.AutoSize = true;
+            InRangeLowerBoundLabel.Location = new Point(298, 77);
+            InRangeLowerBoundLabel.Margin = new Padding(2, 0, 2, 0);
+            InRangeLowerBoundLabel.Name = "InRangeLowerBoundLabel";
+            InRangeLowerBoundLabel.Size = new Size(21, 15);
+            InRangeLowerBoundLabel.TabIndex = 4;
+            InRangeLowerBoundLabel.Text = "50";
             // 
-            // blobDetect_InRangeUpperBoundLabel
+            // InRangeUpperBoundLabel
             // 
-            blobDetect_InRangeUpperBoundLabel.AutoSize = true;
-            blobDetect_InRangeUpperBoundLabel.Location = new Point(295, 27);
-            blobDetect_InRangeUpperBoundLabel.Margin = new Padding(2, 0, 2, 0);
-            blobDetect_InRangeUpperBoundLabel.Name = "blobDetect_InRangeUpperBoundLabel";
-            blobDetect_InRangeUpperBoundLabel.Size = new Size(28, 15);
-            blobDetect_InRangeUpperBoundLabel.TabIndex = 3;
-            blobDetect_InRangeUpperBoundLabel.Text = "200";
+            InRangeUpperBoundLabel.AutoSize = true;
+            InRangeUpperBoundLabel.Location = new Point(295, 27);
+            InRangeUpperBoundLabel.Margin = new Padding(2, 0, 2, 0);
+            InRangeUpperBoundLabel.Name = "InRangeUpperBoundLabel";
+            InRangeUpperBoundLabel.Size = new Size(28, 15);
+            InRangeUpperBoundLabel.TabIndex = 3;
+            InRangeUpperBoundLabel.Text = "200";
+            InRangeUpperBoundLabel.Click += InRangeUpperBoundLabel_Click;
             // 
-            // blobDetect_InRangeLowerBoundScrollBar
+            // InRangeLowerBoundScrollBar
             // 
-            blobDetect_InRangeLowerBoundScrollBar.LargeChange = 1;
-            blobDetect_InRangeLowerBoundScrollBar.Location = new Point(11, 70);
-            blobDetect_InRangeLowerBoundScrollBar.Maximum = 255;
-            blobDetect_InRangeLowerBoundScrollBar.Name = "blobDetect_InRangeLowerBoundScrollBar";
-            blobDetect_InRangeLowerBoundScrollBar.Size = new Size(284, 31);
-            blobDetect_InRangeLowerBoundScrollBar.TabIndex = 2;
-            blobDetect_InRangeLowerBoundScrollBar.Scroll += lowerBoundScrollBar_Scroll;
+            InRangeLowerBoundScrollBar.LargeChange = 1;
+            InRangeLowerBoundScrollBar.Location = new Point(11, 70);
+            InRangeLowerBoundScrollBar.Maximum = 255;
+            InRangeLowerBoundScrollBar.Name = "InRangeLowerBoundScrollBar";
+            InRangeLowerBoundScrollBar.Size = new Size(284, 31);
+            InRangeLowerBoundScrollBar.TabIndex = 2;
+            InRangeLowerBoundScrollBar.Scroll += lowerBoundScrollBar_Scroll;
             // 
-            // blobDetect_InRangeUpperBoundScrollBar
+            // InRangeUpperBoundScrollBar
             // 
-            blobDetect_InRangeUpperBoundScrollBar.LargeChange = 1;
-            blobDetect_InRangeUpperBoundScrollBar.Location = new Point(11, 20);
-            blobDetect_InRangeUpperBoundScrollBar.Maximum = 255;
-            blobDetect_InRangeUpperBoundScrollBar.Name = "blobDetect_InRangeUpperBoundScrollBar";
-            blobDetect_InRangeUpperBoundScrollBar.Size = new Size(284, 30);
-            blobDetect_InRangeUpperBoundScrollBar.TabIndex = 1;
-            blobDetect_InRangeUpperBoundScrollBar.Scroll += upperBoundScrollBar_Scroll;
+            InRangeUpperBoundScrollBar.LargeChange = 1;
+            InRangeUpperBoundScrollBar.Location = new Point(11, 20);
+            InRangeUpperBoundScrollBar.Maximum = 255;
+            InRangeUpperBoundScrollBar.Name = "InRangeUpperBoundScrollBar";
+            InRangeUpperBoundScrollBar.Size = new Size(284, 30);
+            InRangeUpperBoundScrollBar.TabIndex = 1;
+            InRangeUpperBoundScrollBar.Scroll += upperBoundScrollBar_Scroll;
             // 
             // tabPage3
             // 
@@ -1104,7 +1105,7 @@
             TabGroup.ResumeLayout(false);
             tabPage2.ResumeLayout(false);
             tabPage2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)blobDetect_Dilate_Erode_Mask_Size_NumericUpDown).EndInit();
+            ((System.ComponentModel.ISupportInitialize)Dilate_Erode_Mask_Size_NumericUpDown).EndInit();
             blobDetect_imgBinaryTabCtrl.ResumeLayout(false);
             tabPage4.ResumeLayout(false);
             tabPage4.PerformLayout();
@@ -1135,7 +1136,7 @@
         private Button rectangleBtn;
         private ContextMenuStrip contextMenuStrip1;
         private Button blobDetectButton;
-        private Button blobDetect_binaryImg;
+        private Button binaryImgBtn;
         private Button findTargetBtn;
         private Button cropImgBtn;
         private Button targetImgBtn;
@@ -1147,10 +1148,10 @@
         private TabControl blobDetect_imgBinaryTabCtrl;
         private TabPage tabPage3;
         private TabPage tabPage4;
-        private HScrollBar blobDetect_InRangeUpperBoundScrollBar;
-        private Label blobDetect_InRangeLowerBoundLabel;
-        private Label blobDetect_InRangeUpperBoundLabel;
-        private HScrollBar blobDetect_InRangeLowerBoundScrollBar;
+        private HScrollBar InRangeUpperBoundScrollBar;
+        private Label InRangeLowerBoundLabel;
+        private Label InRangeUpperBoundLabel;
+        private HScrollBar InRangeLowerBoundScrollBar;
         private Label label2;
         private Label label4;
         private Label blob_maxAreaLabel;
@@ -1173,11 +1174,11 @@
         private HScrollBar blobAreaRatioBar;
         private GroupBox ConsoleGroupBox;
         private Label consoleLabel;
-        private CheckBox blobDetect_DilateFlagCheckBox;
+        private CheckBox DilateFlagCheckBox;
         private Label label11;
         private Label label7;
-        private CheckBox blobDetect_ErodeFlagCheckBox;
-        private NumericUpDown blobDetect_Dilate_Erode_Mask_Size_NumericUpDown;
+        private CheckBox ErodeFlagCheckBox;
+        private NumericUpDown Dilate_Erode_Mask_Size_NumericUpDown;
         private ComboBox FindContoursWayComboBox;
         private Label label12;
         private Button saveParameterBtn;
@@ -1206,6 +1207,6 @@
         private Label label19;
         private Label label21;
         private ComboBox Dilate_Erode_Direction_ComboBox;
-        private CheckBox blobDetect_invertBinaryFlagCheckBox;
+        private CheckBox invertBinaryFlagCheckBox;
     }
 }
