@@ -3,8 +3,7 @@ using OpenCvSharp;
 using OpenCvSharp.Extensions;
 using IniParser;
 using IniParser.Model;
-using Newtonsoft.Json;
-using System.IO;
+
 
 namespace WinFormsApp1
 {

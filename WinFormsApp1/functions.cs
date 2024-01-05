@@ -2,16 +2,8 @@
 using OpenCvSharp;
 using OpenCvSharp.Extensions;
 using System.Diagnostics;
-using System;
-using System.Net.NetworkInformation;
-using System.Numerics;
-using System.Windows.Forms.VisualStyles;
-using System.Xml.Linq;
 using Newtonsoft.Json;
-using System.Diagnostics.Eventing.Reader;
-using System.Drawing;
-using static System.Net.Mime.MediaTypeNames;
-using System.Security.Cryptography;
+
 
 
 public class GlobalVariables
