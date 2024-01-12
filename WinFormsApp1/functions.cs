@@ -140,10 +140,12 @@ public class BlobSelector
             }
 
             var oneContour = cnt;
+
+            // 畫每個blob的輪廓
             Cv2.DrawContours(oriImg, new[] { oneContour }, -1, new Scalar(76, 153, 0, 255), 2);
 
             int radiusInt = (int)radius;
-            if (blobArea > blobMaxRadius)
+            if (blobArea > blobMaxArea)
                 Cv2.Circle(oriImg, Convert.ToInt32(center.X), Convert.ToInt32(center.Y), radiusInt, new Scalar(0, 0, 255, 255), 2);
             else
                 Cv2.Circle(oriImg, Convert.ToInt32(center.X), Convert.ToInt32(center.Y), radiusInt, new Scalar(0, 255, 0, 255), 2);
