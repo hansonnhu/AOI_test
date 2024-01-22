@@ -45,21 +45,31 @@ namespace WinFormsApp1
             int marginSize = 50;
 
             // 讓視窗全螢幕
-            this.FormBorderStyle = FormBorderStyle.None;
+            //this.FormBorderStyle = FormBorderStyle.None;
             this.WindowState = FormWindowState.Maximized;
             this.TopMost = false;
 
             // pixel數值Group的起始位置
-            pixelInfoGroup.Location = new System.Drawing.Point(marginSize, Screen.PrimaryScreen.Bounds.Height - pixelInfoGroup.Height - marginSize);
-            saveGroup.Location = new System.Drawing.Point(30, Screen.PrimaryScreen.Bounds.Height - saveGroup.Height - 3 * marginSize);
-            parameterFileGroup.Location = new System.Drawing.Point(parameterFileGroup.Location.X, Screen.PrimaryScreen.Bounds.Height - saveGroup.Height - 3 * marginSize);
+            int FormWidth = Screen.PrimaryScreen.Bounds.Width;
+            int FormHeight = Convert.ToInt32(Convert.ToDouble(Screen.PrimaryScreen.Bounds.Width) * 9 / 16 - 60);
+
+            pixelInfoGroup.Location = new System.Drawing.Point(marginSize, FormHeight - pixelInfoGroup.Height - marginSize);
+            saveGroup.Location = new System.Drawing.Point(30, FormHeight - saveGroup.Height - 3 * marginSize);
+            parameterFileGroup.Location = new System.Drawing.Point(parameterFileGroup.Location.X, FormHeight - saveGroup.Height - 3 * marginSize);
             // 影像畫布的位置與大小
             panel1.Location = new System.Drawing.Point(marginSize, marginSize);
-            panel1.Size = new System.Drawing.Size(Screen.PrimaryScreen.Bounds.Width / 2 - 2 * marginSize, Screen.PrimaryScreen.Bounds.Width / 2 - 2 * marginSize);
+            panel1.Size = new System.Drawing.Size(FormWidth / 2 - 2 * marginSize, FormWidth / 2 - 2 * marginSize);
 
             // 右方操作鈕Group的大小與起始位置
-            functionBtnGroup.Location = new System.Drawing.Point(Screen.PrimaryScreen.Bounds.Width / 2 + 2 * marginSize, marginSize);
-            functionBtnGroup.Size = new System.Drawing.Size(Screen.PrimaryScreen.Bounds.Width / 2 - 3 * marginSize, Screen.PrimaryScreen.Bounds.Height - 2 * marginSize);
+            functionGroup.Location = new System.Drawing.Point(FormWidth / 2 , marginSize);
+            functionGroup.Size = new System.Drawing.Size(FormWidth / 2 - 3 * marginSize, FormHeight - 2 * marginSize);
+
+            //foreach (Control control in functionGroup.Controls)
+            //{
+            //    Type controlType = control.GetType();
+
+            //    if (controlType == typeof())
+            //}
         }
 
         public void setConsoleInfo()

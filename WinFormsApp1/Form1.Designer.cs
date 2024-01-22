@@ -42,7 +42,7 @@
             XValueTextBox = new TextBox();
             pixelValueTextBox = new TextBox();
             pixelInfoGroup = new GroupBox();
-            functionBtnGroup = new GroupBox();
+            functionGroup = new GroupBox();
             rotateImg_Dilate_Erode_Mask_Size_NumericUpDown = new NumericUpDown();
             parameterFileGroup = new GroupBox();
             openParameterFilePathLabel = new TextBox();
@@ -119,8 +119,9 @@
             findTargetBtn = new Button();
             rectangleBtn = new Button();
             contextMenuStrip1 = new ContextMenuStrip(components);
+            backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             pixelInfoGroup.SuspendLayout();
-            functionBtnGroup.SuspendLayout();
+            functionGroup.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)rotateImg_Dilate_Erode_Mask_Size_NumericUpDown).BeginInit();
             parameterFileGroup.SuspendLayout();
             ConsoleGroupBox.SuspendLayout();
@@ -249,48 +250,48 @@
             pixelInfoGroup.TabStop = false;
             pixelInfoGroup.Text = "pixel info";
             // 
-            // functionBtnGroup
+            // functionGroup
             // 
-            functionBtnGroup.Controls.Add(rotateImg_Dilate_Erode_Mask_Size_NumericUpDown);
-            functionBtnGroup.Controls.Add(parameterFileGroup);
-            functionBtnGroup.Controls.Add(rotateImg_ErodeFlagCheckBox);
-            functionBtnGroup.Controls.Add(ConsoleGroupBox);
-            functionBtnGroup.Controls.Add(rotateImg_DilateFlagCheckBox);
-            functionBtnGroup.Controls.Add(rotateBtn_test);
-            functionBtnGroup.Controls.Add(label14);
-            functionBtnGroup.Controls.Add(label6);
-            functionBtnGroup.Controls.Add(label15);
-            functionBtnGroup.Controls.Add(rotateAngleTextBox);
-            functionBtnGroup.Controls.Add(label16);
-            functionBtnGroup.Controls.Add(elementImgBtn);
-            functionBtnGroup.Controls.Add(findElementBtn);
-            functionBtnGroup.Controls.Add(label17);
-            functionBtnGroup.Controls.Add(elementImgPanel);
-            functionBtnGroup.Controls.Add(rotateImg_InRangeLowerBoundLabel);
-            functionBtnGroup.Controls.Add(TabGroup);
-            functionBtnGroup.Controls.Add(rotateImg_InRangeUpperBoundLabel);
-            functionBtnGroup.Controls.Add(saveGroup);
-            functionBtnGroup.Controls.Add(rotateImg_InRangeLowerBoundScrollBar);
-            functionBtnGroup.Controls.Add(targetImgPanel);
-            functionBtnGroup.Controls.Add(rotateImg_InRangeUpperBoundScrollBar);
-            functionBtnGroup.Controls.Add(targetImgBtn);
-            functionBtnGroup.Controls.Add(CannyBtn);
-            functionBtnGroup.Controls.Add(cropImgBtn);
-            functionBtnGroup.Controls.Add(label20);
-            functionBtnGroup.Controls.Add(findTargetBtn);
-            functionBtnGroup.Controls.Add(rectangleBtn);
-            functionBtnGroup.Controls.Add(openImgBtn);
-            functionBtnGroup.Location = new Point(612, 20);
-            functionBtnGroup.Name = "functionBtnGroup";
-            functionBtnGroup.Size = new Size(852, 928);
-            functionBtnGroup.TabIndex = 12;
-            functionBtnGroup.TabStop = false;
-            functionBtnGroup.Text = "functionBtnGroup";
+            functionGroup.Controls.Add(rotateImg_Dilate_Erode_Mask_Size_NumericUpDown);
+            functionGroup.Controls.Add(parameterFileGroup);
+            functionGroup.Controls.Add(rotateImg_ErodeFlagCheckBox);
+            functionGroup.Controls.Add(ConsoleGroupBox);
+            functionGroup.Controls.Add(rotateImg_DilateFlagCheckBox);
+            functionGroup.Controls.Add(rotateBtn_test);
+            functionGroup.Controls.Add(label14);
+            functionGroup.Controls.Add(label6);
+            functionGroup.Controls.Add(label15);
+            functionGroup.Controls.Add(rotateAngleTextBox);
+            functionGroup.Controls.Add(label16);
+            functionGroup.Controls.Add(elementImgBtn);
+            functionGroup.Controls.Add(findElementBtn);
+            functionGroup.Controls.Add(label17);
+            functionGroup.Controls.Add(elementImgPanel);
+            functionGroup.Controls.Add(rotateImg_InRangeLowerBoundLabel);
+            functionGroup.Controls.Add(TabGroup);
+            functionGroup.Controls.Add(rotateImg_InRangeUpperBoundLabel);
+            functionGroup.Controls.Add(saveGroup);
+            functionGroup.Controls.Add(rotateImg_InRangeLowerBoundScrollBar);
+            functionGroup.Controls.Add(targetImgPanel);
+            functionGroup.Controls.Add(rotateImg_InRangeUpperBoundScrollBar);
+            functionGroup.Controls.Add(targetImgBtn);
+            functionGroup.Controls.Add(CannyBtn);
+            functionGroup.Controls.Add(cropImgBtn);
+            functionGroup.Controls.Add(label20);
+            functionGroup.Controls.Add(findTargetBtn);
+            functionGroup.Controls.Add(rectangleBtn);
+            functionGroup.Controls.Add(openImgBtn);
+            functionGroup.Location = new Point(612, 20);
+            functionGroup.Name = "functionGroup";
+            functionGroup.Size = new Size(842, 876);
+            functionGroup.TabIndex = 12;
+            functionGroup.TabStop = false;
+            functionGroup.Text = "functionGroup";
             // 
             // rotateImg_Dilate_Erode_Mask_Size_NumericUpDown
             // 
             rotateImg_Dilate_Erode_Mask_Size_NumericUpDown.Increment = new decimal(new int[] { 2, 0, 0, 0 });
-            rotateImg_Dilate_Erode_Mask_Size_NumericUpDown.Location = new Point(658, 391);
+            rotateImg_Dilate_Erode_Mask_Size_NumericUpDown.Location = new Point(644, 391);
             rotateImg_Dilate_Erode_Mask_Size_NumericUpDown.Maximum = new decimal(new int[] { 17, 0, 0, 0 });
             rotateImg_Dilate_Erode_Mask_Size_NumericUpDown.Minimum = new decimal(new int[] { 3, 0, 0, 0 });
             rotateImg_Dilate_Erode_Mask_Size_NumericUpDown.Name = "rotateImg_Dilate_Erode_Mask_Size_NumericUpDown";
@@ -306,7 +307,7 @@
             parameterFileGroup.Controls.Add(saveParameterLabel);
             parameterFileGroup.Controls.Add(saveParameterBtn);
             parameterFileGroup.Controls.Add(label13);
-            parameterFileGroup.Location = new Point(513, 783);
+            parameterFileGroup.Location = new Point(482, 783);
             parameterFileGroup.Name = "parameterFileGroup";
             parameterFileGroup.Size = new Size(288, 77);
             parameterFileGroup.TabIndex = 27;
@@ -363,7 +364,7 @@
             // rotateImg_ErodeFlagCheckBox
             // 
             rotateImg_ErodeFlagCheckBox.AutoSize = true;
-            rotateImg_ErodeFlagCheckBox.Location = new Point(528, 395);
+            rotateImg_ErodeFlagCheckBox.Location = new Point(522, 395);
             rotateImg_ErodeFlagCheckBox.Name = "rotateImg_ErodeFlagCheckBox";
             rotateImg_ErodeFlagCheckBox.Size = new Size(50, 19);
             rotateImg_ErodeFlagCheckBox.TabIndex = 38;
@@ -414,7 +415,7 @@
             // label14
             // 
             label14.AutoSize = true;
-            label14.Location = new Point(589, 396);
+            label14.Location = new Point(575, 396);
             label14.Name = "label14";
             label14.Size = new Size(63, 15);
             label14.TabIndex = 36;
@@ -458,7 +459,7 @@
             // 
             // elementImgBtn
             // 
-            elementImgBtn.Location = new Point(523, 22);
+            elementImgBtn.Location = new Point(488, 22);
             elementImgBtn.Name = "elementImgBtn";
             elementImgBtn.Size = new Size(88, 28);
             elementImgBtn.TabIndex = 20;
@@ -468,7 +469,7 @@
             // 
             // findElementBtn
             // 
-            findElementBtn.Location = new Point(523, 62);
+            findElementBtn.Location = new Point(488, 62);
             findElementBtn.Name = "findElementBtn";
             findElementBtn.Size = new Size(89, 28);
             findElementBtn.TabIndex = 19;
@@ -488,7 +489,7 @@
             // elementImgPanel
             // 
             elementImgPanel.BackColor = SystemColors.ControlDark;
-            elementImgPanel.Location = new Point(617, 22);
+            elementImgPanel.Location = new Point(582, 22);
             elementImgPanel.Name = "elementImgPanel";
             elementImgPanel.Size = new Size(206, 185);
             elementImgPanel.TabIndex = 15;
@@ -496,7 +497,7 @@
             // rotateImg_InRangeLowerBoundLabel
             // 
             rotateImg_InRangeLowerBoundLabel.AutoSize = true;
-            rotateImg_InRangeLowerBoundLabel.Location = new Point(778, 348);
+            rotateImg_InRangeLowerBoundLabel.Location = new Point(760, 339);
             rotateImg_InRangeLowerBoundLabel.Margin = new Padding(2, 0, 2, 0);
             rotateImg_InRangeLowerBoundLabel.Name = "rotateImg_InRangeLowerBoundLabel";
             rotateImg_InRangeLowerBoundLabel.Size = new Size(21, 15);
@@ -955,7 +956,7 @@
             // rotateImg_InRangeUpperBoundLabel
             // 
             rotateImg_InRangeUpperBoundLabel.AutoSize = true;
-            rotateImg_InRangeUpperBoundLabel.Location = new Point(778, 290);
+            rotateImg_InRangeUpperBoundLabel.Location = new Point(760, 281);
             rotateImg_InRangeUpperBoundLabel.Margin = new Padding(2, 0, 2, 0);
             rotateImg_InRangeUpperBoundLabel.Name = "rotateImg_InRangeUpperBoundLabel";
             rotateImg_InRangeUpperBoundLabel.Size = new Size(28, 15);
@@ -992,7 +993,7 @@
             rotateImg_InRangeLowerBoundScrollBar.Location = new Point(470, 339);
             rotateImg_InRangeLowerBoundScrollBar.Maximum = 200;
             rotateImg_InRangeLowerBoundScrollBar.Name = "rotateImg_InRangeLowerBoundScrollBar";
-            rotateImg_InRangeLowerBoundScrollBar.Size = new Size(298, 31);
+            rotateImg_InRangeLowerBoundScrollBar.Size = new Size(274, 31);
             rotateImg_InRangeLowerBoundScrollBar.TabIndex = 2;
             rotateImg_InRangeLowerBoundScrollBar.Scroll += rotateImg_InRangeLowerBoundScrollBar_Scroll;
             // 
@@ -1011,7 +1012,7 @@
             rotateImg_InRangeUpperBoundScrollBar.Maximum = 400;
             rotateImg_InRangeUpperBoundScrollBar.Minimum = 100;
             rotateImg_InRangeUpperBoundScrollBar.Name = "rotateImg_InRangeUpperBoundScrollBar";
-            rotateImg_InRangeUpperBoundScrollBar.Size = new Size(298, 30);
+            rotateImg_InRangeUpperBoundScrollBar.Size = new Size(274, 30);
             rotateImg_InRangeUpperBoundScrollBar.TabIndex = 1;
             rotateImg_InRangeUpperBoundScrollBar.Value = 100;
             rotateImg_InRangeUpperBoundScrollBar.Scroll += rotateImg_InRangeUpperBoundScrollBar_Scroll;
@@ -1028,11 +1029,11 @@
             // 
             // CannyBtn
             // 
-            CannyBtn.Location = new Point(719, 386);
+            CannyBtn.Location = new Point(696, 388);
             CannyBtn.Name = "CannyBtn";
-            CannyBtn.Size = new Size(104, 28);
+            CannyBtn.Size = new Size(92, 28);
             CannyBtn.TabIndex = 26;
-            CannyBtn.Text = "邊緣二值化測試";
+            CannyBtn.Text = "邊緣二值化";
             CannyBtn.UseVisualStyleBackColor = true;
             CannyBtn.Click += CannyBtn_Click;
             // 
@@ -1087,7 +1088,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1476, 928);
-            Controls.Add(functionBtnGroup);
+            Controls.Add(functionGroup);
             Controls.Add(pixelInfoGroup);
             Controls.Add(panel1);
             Name = "Form1";
@@ -1095,8 +1096,8 @@
             Load += Form1_Load;
             pixelInfoGroup.ResumeLayout(false);
             pixelInfoGroup.PerformLayout();
-            functionBtnGroup.ResumeLayout(false);
-            functionBtnGroup.PerformLayout();
+            functionGroup.ResumeLayout(false);
+            functionGroup.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)rotateImg_Dilate_Erode_Mask_Size_NumericUpDown).EndInit();
             parameterFileGroup.ResumeLayout(false);
             parameterFileGroup.PerformLayout();
@@ -1131,7 +1132,7 @@
         private TextBox XValueTextBox;
         private TextBox pixelValueTextBox;
         private GroupBox pixelInfoGroup;
-        private GroupBox functionBtnGroup;
+        private GroupBox functionGroup;
         private Label label1;
         private Button rectangleBtn;
         private ContextMenuStrip contextMenuStrip1;
@@ -1208,5 +1209,6 @@
         private Label label21;
         private ComboBox Dilate_Erode_Direction_ComboBox;
         private CheckBox invertBinaryFlagCheckBox;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
     }
 }
