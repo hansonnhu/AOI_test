@@ -45,13 +45,15 @@ namespace WinFormsApp1
             int marginSize = 50;
 
             // 讓視窗全螢幕
+            this.AutoScaleMode = AutoScaleMode.None;
             //this.FormBorderStyle = FormBorderStyle.None;
             this.WindowState = FormWindowState.Maximized;
             this.TopMost = false;
 
             // pixel數值Group的起始位置
             int FormWidth = Screen.PrimaryScreen.Bounds.Width;
-            int FormHeight = Convert.ToInt32(Convert.ToDouble(Screen.PrimaryScreen.Bounds.Width) * 9 / 16 - 60);
+            int FormHeight = Convert.ToInt32(Convert.ToDouble(FormWidth) * 9 / 16 - 60);
+
 
             pixelInfoGroup.Location = new System.Drawing.Point(marginSize, FormHeight - pixelInfoGroup.Height - marginSize);
             saveGroup.Location = new System.Drawing.Point(30, FormHeight - saveGroup.Height - 3 * marginSize);
@@ -64,12 +66,7 @@ namespace WinFormsApp1
             functionGroup.Location = new System.Drawing.Point(FormWidth / 2 , marginSize);
             functionGroup.Size = new System.Drawing.Size(FormWidth / 2 - 3 * marginSize, FormHeight - 2 * marginSize);
 
-            //foreach (Control control in functionGroup.Controls)
-            //{
-            //    Type controlType = control.GetType();
 
-            //    if (controlType == typeof())
-            //}
         }
 
         public void setConsoleInfo()
